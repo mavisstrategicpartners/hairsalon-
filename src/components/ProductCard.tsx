@@ -18,18 +18,18 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
 
   return (
     <Card 
-      className="group overflow-hidden border-rose-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group overflow-hidden border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square bg-gradient-to-br from-rose-50 to-pink-50 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-100/50 to-pink-100/50" />
+      <div className="relative aspect-square bg-gradient-to-br from-[#d4653f]/10 to-white overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#d4653f]/20 to-white/50" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <div className={`h-28 w-28 mx-auto mb-3 rounded-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
+            <div className={`h-28 w-28 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#d4653f] to-[#b85535] flex items-center justify-center transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
               <ShoppingCart className="h-14 w-14 text-white" />
             </div>
-            <p className="text-xs text-rose-700 font-medium">{product.name.substring(0, 20)}...</p>
+            <p className="text-xs text-[#d4653f] font-medium">{product.name.substring(0, 20)}...</p>
           </div>
         </div>
         
@@ -39,7 +39,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
           className="absolute top-3 right-3 h-8 w-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-sm"
         >
           <Heart 
-            className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} 
+            className={`h-4 w-4 ${isLiked ? 'fill-[#d4653f] text-[#d4653f]' : 'text-gray-400'}`} 
           />
         </button>
 
@@ -52,19 +52,19 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
       
       <CardContent className="p-4">
         <div className="space-y-2">
-          <h3 className="font-semibold text-sm line-clamp-2 min-h-[2.5rem] text-gray-900 group-hover:text-red-600 transition-colors">
+          <h3 className="font-semibold text-sm line-clamp-2 min-h-[2.5rem] text-gray-900 group-hover:text-[#d4653f] transition-colors">
             {product.name}
           </h3>
           {product.length && (
-            <p className="text-xs text-rose-600 font-medium">Length: {product.length}</p>
+            <p className="text-xs text-[#d4653f] font-medium">Length: {product.length}</p>
           )}
           {product.type && (
-            <Badge variant="outline" className="text-xs border-rose-300 text-rose-700 bg-rose-50">
+            <Badge variant="outline" className="text-xs border-gray-300 text-[#d4653f] bg-[#d4653f]/10">
               {product.type}
             </Badge>
           )}
           <div className="flex items-center justify-between pt-2">
-            <p className="text-lg font-bold text-red-600">
+            <p className="text-lg font-bold text-[#d4653f]">
               R{product.price.toLocaleString()}
             </p>
             {product.category === 'wigs' && (
@@ -77,7 +77,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
       <CardFooter className="p-4 pt-0">
         <Button
           onClick={() => onAddToCart(product)}
-          className="w-full bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white transition-all duration-300 hover:shadow-lg"
+          className="w-full bg-gradient-to-r from-[#d4653f] to-[#b85535] hover:from-[#b85535] hover:to-black text-white transition-all duration-300 hover:shadow-lg"
           variant="default"
         >
           <ShoppingCart className="h-4 w-4 mr-2" />

@@ -2,11 +2,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --red-primary: #dc2626;
-  --red-hover: #b91c1c;
+  --foreground: #000000;
+  --orange-brown: #d4653f;
+  --orange-brown-dark: #b85535;
   --black-primary: #000000;
   --black-hover: #1a1a1a;
+  --white: #ffffff;
 }
 
 @theme inline {
@@ -14,6 +15,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-script: var(--font-great-vibes);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,4 +29,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-script {
+  font-family: var(--font-great-vibes), cursive;
 }

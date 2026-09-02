@@ -21,7 +21,7 @@ export default function ShopPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Shop Our Collection</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 font-script">Shop Our Collection</h1>
         <p className="text-gray-600 max-w-2xl">
           Browse our premium selection of wigs, hair bundles, and professional services.
         </p>
@@ -34,7 +34,7 @@ export default function ShopPage() {
           placeholder="Search products..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
         />
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => (

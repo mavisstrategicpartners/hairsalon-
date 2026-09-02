@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-rose-500 via-red-600 to-pink-700 text-white py-24 md:py-40 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#d4653f] via-[#b85535] to-black text-white py-24 md:py-40 overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
@@ -24,8 +24,8 @@ export default function Home() {
           <div className="max-w-4xl text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
               <Crown className="h-8 w-8 text-yellow-300" />
-              <span className="text-sm md:text-base font-medium tracking-widest uppercase text-rose-100">
-                Premium Hair Collection
+              <span className="text-sm md:text-base font-medium tracking-widest uppercase text-white/90">
+                Premium Hair Services
               </span>
               <Crown className="h-8 w-8 text-yellow-300" />
             </div>
@@ -35,13 +35,12 @@ export default function Home() {
                 Perfect Look
               </span>
             </h1>
-            <p className="text-xl md:text-2xl mb-10 text-rose-100 leading-relaxed max-w-2xl mx-auto">
-              Elevate your style with our luxurious collection of premium wigs and hair extensions. 
-              Because every woman deserves to feel beautiful.
+            <p className="text-xl md:text-2xl mb-10 text-white/90 leading-relaxed max-w-2xl mx-auto">
+              Professional hair services at Biana Hair Salon. Your destination for beautiful hair in Johannesburg.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/shop">
-                <Button size="lg" className="bg-white text-red-600 hover:bg-rose-50 hover:scale-105 transition-all shadow-xl text-lg px-8 py-6 rounded-full">
+                <Button size="lg" className="bg-white text-[#d4653f] hover:bg-[#d4653f]/10 hover:scale-105 transition-all shadow-xl text-lg px-8 py-6 rounded-full">
                   <Sparkles className="h-5 w-5 mr-2" />
                   Shop Collection
                 </Button>
@@ -57,23 +56,23 @@ export default function Home() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-8 bg-white border-b border-rose-100">
+      <section className="py-8 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 text-gray-600">
             <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-red-600" />
+              <Shield className="h-5 w-5 text-[#d4653f]" />
               <span className="text-sm font-medium">100% Human Hair</span>
             </div>
             <div className="flex items-center gap-2">
-              <Truck className="h-5 w-5 text-red-600" />
+              <Truck className="h-5 w-5 text-[#d4653f]" />
               <span className="text-sm font-medium">Nationwide Delivery</span>
             </div>
             <div className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-red-600" />
+              <Heart className="h-5 w-5 text-[#d4653f]" />
               <span className="text-sm font-medium">500+ Happy Clients</span>
             </div>
             <div className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-red-600" />
+              <Star className="h-5 w-5 text-[#d4653f]" />
               <span className="text-sm font-medium">5-Star Quality</span>
             </div>
           </div>
@@ -81,7 +80,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-rose-50 to-white">
+      <section className="py-20 bg-gradient-to-b from-[#d4653f]/10 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
@@ -92,36 +91,36 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center border-rose-200 hover:shadow-xl transition-shadow group">
+            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
               <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Truck className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-semibold mb-2 text-lg text-gray-900">Free Shipping</h3>
                 <p className="text-sm text-gray-600">Complimentary delivery on orders over R1000</p>
               </CardContent>
             </Card>
-            <Card className="text-center border-rose-200 hover:shadow-xl transition-shadow group">
+            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
               <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Shield className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-semibold mb-2 text-lg text-gray-900">Quality Guaranteed</h3>
                 <p className="text-sm text-gray-600">100% premium human hair, ethically sourced</p>
               </CardContent>
             </Card>
-            <Card className="text-center border-rose-200 hover:shadow-xl transition-shadow group">
+            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
               <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Heart className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-semibold mb-2 text-lg text-gray-900">Expert Support</h3>
                 <p className="text-sm text-gray-600">Personalized guidance from hair specialists</p>
               </CardContent>
             </Card>
-            <Card className="text-center border-rose-200 hover:shadow-xl transition-shadow group">
+            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
               <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Sparkles className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-semibold mb-2 text-lg text-gray-900">Premium Quality</h3>
@@ -154,7 +153,7 @@ export default function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/shop">
-              <Button size="lg" variant="outline" className="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all text-lg px-8 py-6 rounded-full">
+              <Button size="lg" variant="outline" className="border-2 border-[#d4653f] text-[#d4653f] hover:bg-[#d4653f] hover:text-white transition-all text-lg px-8 py-6 rounded-full">
                 Explore Full Collection
               </Button>
             </Link>
@@ -163,18 +162,18 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-b from-rose-50 to-pink-50">
+      <section className="py-20 bg-gradient-to-b from-[#d4653f]/10 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
               What Our Clients Say
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Join thousands of satisfied women who have transformed their look with Bianca's Hair.
+              Join thousands of satisfied women who have transformed their look with Biana Hair Salon.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-white border-rose-200">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-8">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -182,11 +181,11 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "Absolutely love my new wig! The quality is amazing and it looks so natural. 
-                  Bianca's Hair has become my go-to for all my hair needs."
+                  "Absolutely love my new hair! The quality is amazing and it looks so natural. 
+                  Biana Hair Salon has become my go-to for all my hair needs."
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-red-400 to-pink-400"></div>
+                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#d4653f] to-[#b85535]"></div>
                   <div>
                     <p className="font-semibold text-gray-900">Thandi M.</p>
                     <p className="text-sm text-gray-500">Verified Buyer</p>
@@ -194,7 +193,7 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-white border-rose-200">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-8">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -214,7 +213,7 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-white border-rose-200">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-8">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -239,7 +238,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-red-600 via-rose-600 to-pink-600 text-white relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-r from-[#d4653f] via-[#b85535] to-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
@@ -250,12 +249,12 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Ready to Feel Beautiful?
             </h2>
-            <p className="text-xl mb-10 text-rose-100 leading-relaxed">
+            <p className="text-xl mb-10 text-white/90 leading-relaxed">
               Join our community of confident women who have discovered their perfect look. 
               Free shipping on orders over R1000, plus exclusive member benefits.
             </p>
             <Link href="/shop">
-              <Button size="lg" className="bg-white text-red-600 hover:bg-rose-50 hover:scale-105 transition-all shadow-2xl text-xl px-12 py-7 rounded-full">
+              <Button size="lg" className="bg-white text-[#d4653f] hover:bg-[#d4653f]/10 hover:scale-105 transition-all shadow-2xl text-xl px-12 py-7 rounded-full">
                 <Sparkles className="h-6 w-6 mr-3" />
                 Start Your Transformation
               </Button>

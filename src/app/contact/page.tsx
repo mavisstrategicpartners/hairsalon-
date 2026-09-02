@@ -34,7 +34,7 @@ export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 font-script">Contact Us</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
         </p>
@@ -49,7 +49,7 @@ export default function ContactPage() {
           <CardContent>
             {isSubmitted ? (
               <div className="text-center py-8">
-                <MessageSquare className="h-16 w-16 mx-auto mb-4 text-red-600" />
+                <MessageSquare className="h-16 w-16 mx-auto mb-4 text-orange-600" />
                 <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
                 <p className="text-gray-600">Thank you for contacting us. We'll get back to you soon.</p>
               </div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
                   />
                 </div>
                 <div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
                   />
                 </div>
                 <div>
@@ -85,7 +85,7 @@ export default function ContactPage() {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
                   />
                 </div>
                 <div>
@@ -96,7 +96,7 @@ export default function ContactPage() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
                   />
                 </div>
                 <Button type="submit" className="w-full" size="lg">
@@ -115,26 +115,26 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-start gap-4">
-                <Mail className="h-6 w-6 text-red-600 mt-1" />
+                <Mail className="h-6 w-6 text-[#d4653f] mt-1" />
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-600">info@biancashair.co.za</p>
+                  <p className="text-gray-600">info@bianahairsalon.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <Phone className="h-6 w-6 text-red-600 mt-1" />
+                <Phone className="h-6 w-6 text-[#d4653f] mt-1" />
                 <div>
                   <h3 className="font-semibold">Phone</h3>
-                  <p className="text-gray-600">+27 11 123 4567</p>
+                  <p className="text-gray-600">083 670 2112</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <MapPin className="h-6 w-6 text-red-600 mt-1" />
+                <MapPin className="h-6 w-6 text-[#d4653f] mt-1" />
                 <div>
                   <h3 className="font-semibold">Location</h3>
                   <p className="text-gray-600">
-                    Johannesburg, South Africa<br />
-                    Nationwide shipping available
+                    46 Plein Street, Johannesburg<br />
+                    Opposite Universal Church
                   </p>
                 </div>
               </div>
@@ -173,10 +173,18 @@ export default function ContactPage() {
               </p>
               <div className="flex gap-4">
                 <a
-                  href="https://www.tiktok.com/@bianamavuie"
+                  href="https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-red-600 hover:text-red-700 font-medium"
+                  className="text-[#d4653f] hover:text-[#b85535] font-medium"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.tiktok.com/@bianamavuie?_r=1&_t=ZS-99ODccenNA7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#d4653f] hover:text-[#b85535] font-medium"
                 >
                   TikTok
                 </a>
