@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import BrandLogo from './BrandLogo'
 
 export default function Footer() {
   return (
@@ -8,13 +8,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <Image 
-                src="/biana-logo.png" 
-                alt="Biana Hair Salon Logo" 
-                width={120} 
-                height={50}
-                className="h-10 w-auto object-contain"
+            <Link
+              href="/"
+              className="inline-flex rounded-full border border-white/10 bg-white/5 p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
+            >
+              <BrandLogo
+                width={220}
+                height={120}
+                className="h-14 w-auto object-contain md:h-16"
               />
             </Link>
             <p className="text-gray-400 text-sm">

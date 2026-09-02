@@ -28,7 +28,7 @@ export interface OrderItem {
 }
 
 // Simulated order storage (in production, this would be a database)
-let orders: Order[] = []
+const orders: Order[] = []
 
 export function generateOrderNumber(): string {
   const timestamp = Date.now().toString().slice(-6)

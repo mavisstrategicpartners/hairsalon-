@@ -1,27 +1,36 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { getOrderById, updatePaymentStatus, sendPaymentConfirmationEmail } from '@/lib/orders'
+import { getOrderById, updatePaymentStatus, sendPaymentConfirmationEmail, type Order } from '@/lib/orders'
 import { CheckCircle, Clock, Truck, Package } from 'lucide-react'
 import Link from 'next/link'
 
 export default function OrderConfirmationPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <OrderConfirmationContent />
+    </Suspense>
+  )
+}
+
+function LoadingState() {
+  return (
+    <div className="container mx-auto px-4 py-16">
+      <div className="text-center">
+        <p>Loading order details...</p>
+      </div>
+    </div>
+  )
+}
+
+function OrderConfirmationContent() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('orderId')
-  const [order, setOrder] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
+  const [order, setOrder] = useState<Order | undefined>(() => (orderId ? getOrderById(orderId) : undefined))
   const [confirmingPayment, setConfirmingPayment] = useState(false)
-
-  useEffect(() => {
-    if (orderId) {
-      const fetchedOrder = getOrderById(orderId)
-      setOrder(fetchedOrder)
-      setLoading(false)
-    }
-  }, [orderId])
 
   const handleConfirmPayment = () => {
     if (order) {
@@ -31,23 +40,15 @@ export default function OrderConfirmationPage() {
         updatePaymentStatus(order.id, 'completed')
         sendPaymentConfirmationEmail(order)
         const updatedOrder = getOrderById(order.id)
-        setOrder(updatedOrder)
+        if (updatedOrder) {
+          setOrder(updatedOrder)
+        }
         setConfirmingPayment(false)
       }, 1500)
     }
   }
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center">
-          <p>Loading order details...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!order) {
+  if (!orderId || !order) {
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto text-center">
@@ -170,7 +171,7 @@ export default function OrderConfirmationPage() {
               <div>
                 <p className="text-sm text-gray-600 mb-2">Items</p>
                 <div className="space-y-2">
-                  {order.items.map((item: any, index: number) => (
+                  {order.items.map((item: Order['items'][number], index: number) => (
                     <div key={index} className="flex justify-between text-sm">
                       <span>
                         {item.name} x {item.quantity}
