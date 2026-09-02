@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import BrandLogo from '@/components/BrandLogo'
 import { products } from '@/data/products'
 import ProductCard from '@/components/ProductCard'
 import { useCartStore } from '@/lib/store'
@@ -15,23 +16,31 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#d4653f] via-[#b85535] to-black text-white py-24 md:py-40 overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.14),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(0,0,0,0.28),_transparent_32%),linear-gradient(135deg,_#d96d4a_0%,_#c55f3d_32%,_#9a3d2d_100%)] text-white py-24 md:py-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_25%,_rgba(255,255,255,0.18),_transparent_18%),radial-gradient(circle_at_85%_15%,_rgba(0,0,0,0.20),_transparent_22%)]"></div>
+        <div className="absolute inset-0 opacity-80 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:54px_54px]"></div>
+        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-10 grayscale-[0.2]">
+          <BrandLogo
+            width={1100}
+            height={700}
+            className="h-[70vh] w-auto max-w-[90%] object-contain drop-shadow-[0_0_40px_rgba(0,0,0,0.22)]"
+          />
+        </div>
+        <div className="absolute -right-16 top-10 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-black/10 blur-3xl"></div>
+
+        <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-4xl text-center">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Crown className="h-8 w-8 text-yellow-300" />
-              <span className="text-sm md:text-base font-medium tracking-widest uppercase text-white/90">
+            <div className="mb-6 flex items-center justify-center gap-3">
+              <Crown className="h-7 w-7 text-[#f9d778] drop-shadow-[0_0_12px_rgba(255,223,127,0.8)]" />
+              <span className="text-sm font-medium tracking-[0.28em] text-[#f6efe7]/95 uppercase md:text-base">
                 Premium Hair Services
               </span>
-              <Crown className="h-8 w-8 text-yellow-300" />
+              <Crown className="h-7 w-7 text-[#f9d778] drop-shadow-[0_0_12px_rgba(255,223,127,0.8)]" />
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="mb-6 text-5xl font-bold leading-[0.9] tracking-[-0.05em] text-[#f8f0ea] md:text-7xl">
               Discover Your
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-pink-200">
+              <span className="mt-2 block bg-gradient-to-r from-[#fce5ca] via-[#f7e9d8] to-[#f3d9b2] bg-clip-text text-transparent drop-shadow-[0_6px_24px_rgba(0,0,0,0.18)]">
                 Perfect Look
               </span>
             </h1>
