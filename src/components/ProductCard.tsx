@@ -1,11 +1,9 @@
 'use client'
 
 import { Product } from '@/lib/store'
-import { Card, CardContent, CardFooter } from './ui/card'
-import { Button } from './ui/button'
-import { Badge } from './ui/badge'
 import { ShoppingCart, Heart } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface ProductCardProps {
   product: Product
@@ -13,77 +11,70 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+  const isService = product.category === 'services'
 
   return (
-    <Card 
-      className="group overflow-hidden border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative aspect-square bg-gradient-to-br from-[#d4653f]/10 to-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#d4653f]/20 to-white/50" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className={`h-28 w-28 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#d4653f] to-[#b85535] flex items-center justify-center transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
-              <ShoppingCart className="h-14 w-14 text-white" />
-            </div>
-            <p className="text-xs text-[#d4653f] font-medium">{product.name.substring(0, 20)}...</p>
-          </div>
-        </div>
-        
-        {/* Like Button */}
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200/80 transition hover:shadow-md">
+      <div className="relative bg-gradient-to-b from-[#fde8d8] to-white px-6 pb-4 pt-6">
         <button
+          type="button"
           onClick={() => setIsLiked(!isLiked)}
-          className="absolute top-3 right-3 h-8 w-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-sm"
+          className="absolute right-4 top-4 z-10 rounded-full p-1.5 text-gray-400 transition hover:text-[#d4653f]"
+          aria-label={isLiked ? 'Remove from wishlist' : 'Add to wishlist'}
         >
-          <Heart 
-            className={`h-4 w-4 ${isLiked ? 'fill-[#d4653f] text-[#d4653f]' : 'text-gray-400'}`} 
-          />
+          <Heart className={`h-5 w-5 ${isLiked ? 'fill-[#d4653f] text-[#d4653f]' : ''}`} />
         </button>
 
-        {product.category === 'services' && (
-          <Badge className="absolute top-3 left-3 bg-black/80 text-white" variant="secondary">
+        {isService && (
+          <span className="absolute left-4 top-4 z-10 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-white">
             Service
-          </Badge>
+          </span>
         )}
-      </div>
-      
-      <CardContent className="p-4">
-        <div className="space-y-2">
-          <h3 className="font-semibold text-sm line-clamp-2 min-h-[2.5rem] text-gray-900 group-hover:text-[#d4653f] transition-colors">
-            {product.name}
-          </h3>
-          {product.length && (
-            <p className="text-xs text-[#d4653f] font-medium">Length: {product.length}</p>
-          )}
-          {product.type && (
-            <Badge variant="outline" className="text-xs border-gray-300 text-[#d4653f] bg-[#d4653f]/10">
-              {product.type}
-            </Badge>
-          )}
-          <div className="flex items-center justify-between pt-2">
-            <p className="text-lg font-bold text-[#d4653f]">
-              R{product.price.toLocaleString()}
-            </p>
-            {product.category === 'wigs' && (
-              <span className="text-xs text-gray-500">Premium Quality</span>
-            )}
-          </div>
+
+        <div className="relative mx-auto h-40 w-40 overflow-hidden rounded-full bg-white ring-1 ring-gray-200/60">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover"
+            sizes="160px"
+          />
         </div>
-      </CardContent>
-      
-      <CardFooter className="p-4 pt-0">
-        <Button
+      </div>
+
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <h3 className="line-clamp-2 text-[15px] font-bold leading-snug text-gray-900">
+          {product.name}
+        </h3>
+        {product.length && (
+          <p className="text-sm text-gray-400">Length: {product.length}</p>
+        )}
+        {product.type && (
+          <span className="inline-flex w-fit items-center rounded-full border border-[#d4653f]/40 px-2.5 py-0.5 text-xs font-medium text-[#d4653f]">
+            {product.type}
+          </span>
+        )}
+        <div className="mt-auto flex items-end justify-between pt-3">
+          <span className="text-lg font-bold text-[#d4653f]">
+            R{product.price.toLocaleString()}
+          </span>
+          {!isService && (
+            <span className="text-xs text-gray-400">Premium Quality</span>
+          )}
+        </div>
+      </div>
+
+      <div className="px-5 pb-5">
+        <button
+          type="button"
           onClick={() => onAddToCart(product)}
-          className="w-full bg-gradient-to-r from-[#d4653f] to-[#b85535] hover:from-[#b85535] hover:to-black text-white transition-all duration-300 hover:shadow-lg"
-          variant="default"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#d4653f] py-2.5 text-sm font-semibold text-white transition hover:bg-[#d4653f]/90"
         >
-          <ShoppingCart className="h-4 w-4 mr-2" />
+          <ShoppingCart className="h-4 w-4" />
           Add to Cart
-        </Button>
-      </CardFooter>
-    </Card>
+        </button>
+      </div>
+    </div>
   )
 }

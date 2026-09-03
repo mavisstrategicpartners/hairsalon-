@@ -38,10 +38,14 @@ export default function CartPage() {
             <Card key={item.id}>
               <CardContent className="p-4">
                 <div className="flex gap-4">
-                  <div className="w-24 h-24 bg-gray-100 rounded-md flex items-center justify-center flex-shrink-0">
-                    <div className="h-16 w-16 rounded-full bg-red-600/20 flex items-center justify-center">
-                      icon
-                    </div>
+                  <div className="relative w-24 h-24 bg-[#fde8d8] rounded-md overflow-hidden flex-shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
                   </div>
                   
                   <div className="flex-1">
