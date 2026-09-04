@@ -85,18 +85,11 @@ export default function GalleryShowcase({ preview = false }: { preview?: boolean
         </div>
       )}
 
-      <div
-        className={
-          preview
-            ? 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'
-            : 'columns-1 gap-5 sm:columns-2 lg:columns-3'
-        }
-      >
+      <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item, index) => (
           <GalleryCard
             key={item.id}
             item={item}
-            preview={preview}
             onOpen={() => setActiveIndex(index)}
           />
         ))}
@@ -189,36 +182,32 @@ export default function GalleryShowcase({ preview = false }: { preview?: boolean
 function GalleryCard({
   item,
   onOpen,
-  preview = false,
 }: {
   item: GalleryItem
   onOpen: () => void
-  preview?: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onOpen}
-      className={`block w-full overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-gray-200/80 transition hover:-translate-y-0.5 hover:shadow-md ${
-        preview ? '' : 'mb-5 break-inside-avoid'
-      }`}
+      className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-gray-200/80 transition hover:-translate-y-0.5 hover:shadow-md"
     >
-      <div className="relative">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#fde8d8]">
         {item.type === 'video' ? (
           <video
             src={item.src}
             muted
             playsInline
             preload="metadata"
-            className="h-auto w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-center"
           />
         ) : (
           <Image
             src={item.src}
             alt={item.alt}
-            width={720}
-            height={960}
-            className="h-auto w-full object-cover"
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover object-center"
           />
         )}
         {item.type === 'video' && (
@@ -232,9 +221,9 @@ function GalleryCard({
           {item.type === 'video' ? 'Video' : item.category}
         </span>
       </div>
-      <div className="p-4">
-        <h2 className="text-[15px] font-bold text-gray-900">{item.title}</h2>
-        <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+      <div className="flex flex-1 flex-col p-4">
+        <h2 className="line-clamp-1 text-[15px] font-bold text-gray-900">{item.title}</h2>
+        <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm text-gray-500">{item.description}</p>
       </div>
     </button>
   )
