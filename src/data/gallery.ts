@@ -107,16 +107,6 @@ export const galleryItems: GalleryItem[] = [
     type: 'photo',
   },
   {
-    id: '11',
-    src: '/images/gallery/sleek-straight-client.jpg',
-    alt: 'Client wearing sleek jet-black straight hair',
-    title: 'Sleek Straight Look',
-    description: 'Natural-looking lace install with a clean middle part.',
-    category: 'clients',
-    type: 'photo',
-    featured: true,
-  },
-  {
     id: '12',
     src: '/images/gallery/salon-studio-display.jpg',
     alt: 'Biana in the salon with mannequin units on display',
@@ -143,15 +133,6 @@ export const galleryItems: GalleryItem[] = [
     title: 'Ombre Bundles & Closures',
     description: 'Straight ombre sets in honey, brown, and auburn tones.',
     category: 'products',
-    type: 'photo',
-  },
-  {
-    id: '15',
-    src: '/images/gallery/sleek-ponytail-client.jpg',
-    alt: 'Client wearing a sleek long black ponytail',
-    title: 'Sleek Ponytail',
-    description: 'High-shine low ponytail finish.',
-    category: 'clients',
     type: 'photo',
   },
 ]
