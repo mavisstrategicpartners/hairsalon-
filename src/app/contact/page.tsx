@@ -1,198 +1,99 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react'
+import { PageHeader } from '@/components/site/PageHeader'
+import { ActionButton } from '@/components/site/Button'
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitted(true)
-    // In a real app, you would send this data to your backend
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 3000)
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  const [submitted, setSubmitted] = useState(false)
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 font-script">Contact Us</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-        </p>
-      </div>
+    <div className="bg-white">
+      <PageHeader
+        eyebrow="03 — Contact"
+        title="Come by, or write to us."
+        intro="Orders and visits — we reply as soon as we can."
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        {/* Contact Form */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Send us a Message</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <MessageSquare className="h-16 w-16 mx-auto mb-4 text-orange-600" />
-                <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
-                <p className="text-gray-600">Thank you for contacting us. We'll get back to you soon.</p>
-              </div>
+      <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <div className="border-b border-border py-8 first:pt-0">
+            <h2 className="font-display text-3xl italic tracking-tight">Johannesburg</h2>
+            <p className="mt-1 text-[15px] text-muted-foreground">46 Plein Street</p>
+            <p className="mt-1 text-[15px] text-muted-foreground">Opposite Universal Church</p>
+            <p className="label-mono mt-4 text-faint">Mon – Fri · 09:00 – 18:00</p>
+            <p className="label-mono mt-1 text-faint">Sat · 09:00 – 14:00</p>
+          </div>
+          <div className="py-8">
+            <p className="label-mono text-faint">Direct</p>
+            <p className="mt-3 text-[15px] text-muted-foreground">083 670 2112</p>
+            <p className="text-[15px] text-muted-foreground">info@bianahairsalon.com</p>
+            <a
+              href="https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+            >
+              Instagram
+            </a>
+          </div>
+        </div>
+
+        <div className="lg:col-span-7">
+          <div className="border border-border bg-white p-8">
+            {submitted ? (
+              <p className="text-[15px] text-muted-foreground">Message sent. We will reply shortly.</p>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
-                  />
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  setSubmitted(true)
+                }}
+              >
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label className="label-mono text-faint">Name</label>
+                    <input
+                      required
+                      placeholder="Your name"
+                      className="mt-2 w-full border border-border bg-background px-4 py-3 text-sm placeholder:text-faint"
+                    />
+                  </div>
+                  <div>
+                    <label className="label-mono text-faint">Email</label>
+                    <input
+                      required
+                      type="email"
+                      placeholder="you@email.co.za"
+                      className="mt-2 w-full border border-border bg-background px-4 py-3 text-sm placeholder:text-faint"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
-                  />
+                <div className="mt-6">
+                  <label className="label-mono text-faint">Subject</label>
+                  <select className="mt-2 w-full border border-border bg-background px-4 py-3 text-sm">
+                    <option>An order</option>
+                    <option>A service</option>
+                    <option>Something else</option>
+                  </select>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Subject</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    required
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Message</label>
+                <div className="mt-6">
+                  <label className="label-mono text-faint">Message</label>
                   <textarea
-                    name="message"
                     required
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4653f]"
+                    rows={6}
+                    placeholder="Tell us what you're after"
+                    className="mt-2 w-full border border-border bg-background px-4 py-3 text-sm placeholder:text-faint"
                   />
                 </div>
-                <Button type="submit" className="w-full" size="lg">
-                  Send Message
-                </Button>
+                <ActionButton type="submit" className="mt-8">
+                  Send message
+                </ActionButton>
               </form>
             )}
-          </CardContent>
-        </Card>
-
-        {/* Contact Information */}
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Contact Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start gap-4">
-                <Mail className="h-6 w-6 text-[#d4653f] mt-1" />
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-600">info@bianahairsalon.com</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Phone className="h-6 w-6 text-[#d4653f] mt-1" />
-                <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p className="text-gray-600">083 670 2112</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <MapPin className="h-6 w-6 text-[#d4653f] mt-1" />
-                <div>
-                  <h3 className="font-semibold">Location</h3>
-                  <p className="text-gray-600">
-                    46 Plein Street, Johannesburg<br />
-                    Opposite Universal Church
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Business Hours</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Monday - Friday</span>
-                  <span className="font-medium">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Saturday</span>
-                  <span className="font-medium">9:00 AM - 2:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Sunday</span>
-                  <span className="font-medium">Closed</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Follow Us</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 mb-4">
-                Stay connected with us on social media for the latest updates, promotions, and hair tips.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  href="https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#d4653f] hover:text-[#b85535] font-medium"
-                >
-                  Instagram
-                </a>
-                <a
-                  href="https://www.tiktok.com/@bianamavuie?_r=1&_t=ZS-99ODccenNA7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#d4653f] hover:text-[#b85535] font-medium"
-                >
-                  TikTok
-                </a>
-              </div>
-            </CardContent>
-          </Card>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

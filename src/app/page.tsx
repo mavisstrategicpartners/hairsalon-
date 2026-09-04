@@ -1,295 +1,183 @@
-'use client'
-
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import BrandLogo from '@/components/BrandLogo'
-import { products } from '@/data/products'
-import ProductCard from '@/components/ProductCard'
-import { useCartStore } from '@/lib/store'
+import Image from 'next/image'
 import Link from 'next/link'
-import GalleryShowcase from '@/components/GalleryShowcase'
-import { Sparkles, Truck, Shield, Heart, Star, Crown } from 'lucide-react'
+import { products, testimonials } from '@/data/catalog'
+import { buttonClass } from '@/components/site/Button'
+import { ProductCard } from '@/components/site/ProductCard'
+import { SectionHeading } from '@/components/site/SectionHeading'
+import { HomeContactForm } from '@/components/site/HomeContactForm'
 
 export default function Home() {
-  const addItem = useCartStore((state) => state.addItem)
-  const featuredProducts = products.slice(0, 4)
-
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.14),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(0,0,0,0.28),_transparent_32%),linear-gradient(135deg,_#d96d4a_0%,_#c55f3d_32%,_#9a3d2d_100%)] text-white py-24 md:py-40">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_25%,_rgba(255,255,255,0.18),_transparent_18%),radial-gradient(circle_at_85%_15%,_rgba(0,0,0,0.20),_transparent_22%)]"></div>
-        <div className="absolute inset-0 opacity-80 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:54px_54px]"></div>
-        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-10 grayscale-[0.2]">
-          <BrandLogo
-            width={1100}
-            height={700}
-            className="h-[70vh] w-auto max-w-[90%] object-contain drop-shadow-[0_0_40px_rgba(0,0,0,0.22)]"
-          />
-        </div>
-        <div className="absolute -right-16 top-10 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-black/10 blur-3xl"></div>
+    <>
+      <section className="relative min-h-[calc(100svh-4.75rem)] bg-[#faf7f2]">
+        <div className="grid min-h-[calc(100svh-4.75rem)] lg:grid-cols-12">
+          <div className="relative z-10 flex flex-col justify-between px-6 py-14 sm:px-10 lg:col-span-5 lg:px-14 lg:py-16 xl:px-20">
+            <div>
+              <p className="eyebrow">Plein Street · Johannesburg</p>
+              <h1 className="mt-8 max-w-[11ch] text-balance font-display text-[clamp(3.4rem,6.4vw,6.2rem)] italic leading-[0.88] tracking-tight text-[#1a1208]">
+                Hair that feels like yours.
+              </h1>
+              <p className="mt-7 max-w-[38ch] text-pretty text-[16px] leading-relaxed text-muted-foreground">
+                A private house for single-donor wigs, bundles and closures — finished in studio, then worn
+                as if they grew from you.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-5">
+                <Link href="#shop" className={buttonClass('solid')}>
+                  Shop the collection
+                </Link>
+                <Link href="#about" className={buttonClass('outline')}>
+                  Our story
+                </Link>
+              </div>
+            </div>
 
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="max-w-4xl text-center">
-            <div className="mb-6 flex items-center justify-center gap-3">
-              <Crown className="h-7 w-7 text-[#f9d778] drop-shadow-[0_0_12px_rgba(255,223,127,0.8)]" />
-              <span className="text-sm font-medium tracking-[0.28em] text-[#f6efe7]/95 uppercase md:text-base">
-                Premium Hair Services
-              </span>
-              <Crown className="h-7 w-7 text-[#f9d778] drop-shadow-[0_0_12px_rgba(255,223,127,0.8)]" />
-            </div>
-            <h1 className="mb-6 text-5xl font-bold leading-[0.9] tracking-[-0.05em] text-[#f8f0ea] md:text-7xl">
-              Discover Your
-              <span className="mt-2 block bg-gradient-to-r from-[#fce5ca] via-[#f7e9d8] to-[#f3d9b2] bg-clip-text text-transparent drop-shadow-[0_6px_24px_rgba(0,0,0,0.18)]">
-                Perfect Look
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-10 text-white/90 leading-relaxed max-w-2xl mx-auto">
-              Professional hair services at Biana Hair Salon. Your destination for beautiful hair in Johannesburg.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/shop">
-                <Button size="lg" className="bg-white text-[#d4653f] hover:bg-[#d4653f]/10 hover:scale-105 transition-all shadow-xl text-lg px-8 py-6 rounded-full">
-                  <Sparkles className="h-5 w-5 mr-2" />
-                  Shop Collection
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/20 hover:scale-105 transition-all text-lg px-8 py-6 rounded-full">
-                  Our Story
-                </Button>
-              </Link>
-            </div>
+            <dl className="mt-16 grid grid-cols-3 gap-4 border-t border-[#c9a84c]/35 pt-8">
+              <div>
+                <dt className="font-display text-3xl italic text-[#8a6820]">2019</dt>
+                <dd className="label-mono mt-1 text-faint">Founded</dd>
+              </div>
+              <div>
+                <dt className="font-display text-3xl italic text-[#8a6820]">2</dt>
+                <dd className="label-mono mt-1 text-faint">Studios</dd>
+              </div>
+              <div>
+                <dt className="font-display text-3xl italic text-[#8a6820]">100%</dt>
+                <dd className="label-mono mt-1 text-faint">Single donor</dd>
+              </div>
+            </dl>
           </div>
-        </div>
-      </section>
 
-      {/* Our Work */}
-      <section id="gallery" className="scroll-mt-24 bg-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.28em] text-[#d4653f]">
-              Portfolio
-            </p>
-            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">
-              Our Work
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
-              A few looks from recent installs, units, and bundles. See the full gallery for more.
-            </p>
-          </div>
-          <GalleryShowcase preview />
-        </div>
-      </section>
+          <div className="relative min-h-[58vh] lg:col-span-7 lg:min-h-full">
+            <Image
+              src="/images/hero-salon.png"
+              alt="Biana HAIR studio interior"
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#faf7f2]/40 lg:to-[#faf7f2]/25" />
 
-      {/* Trust Badges */}
-      <section className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 text-gray-600">
-            <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-[#d4653f]" />
-              <span className="text-sm font-medium">100% Human Hair</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Truck className="h-5 w-5 text-[#d4653f]" />
-              <span className="text-sm font-medium">Nationwide Delivery</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-[#d4653f]" />
-              <span className="text-sm font-medium">500+ Happy Clients</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-[#d4653f]" />
-              <span className="text-sm font-medium">5-Star Quality</span>
+            <div className="absolute bottom-8 right-6 hidden lg:block">
+              <div className="flex h-36 w-36 items-center justify-center rounded-full border-[3px] border-[#c9a84c] bg-white/95 shadow-[0_12px_40px_rgba(26,18,8,0.18)]">
+                <span className="font-script text-6xl leading-none text-[#8a6820]">B</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-[#d4653f]/10 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              Why Women Choose Us
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              We're committed to helping you look and feel your absolute best with premium quality products.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
-              <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Truck className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-semibold mb-2 text-lg text-gray-900">Free Shipping</h3>
-                <p className="text-sm text-gray-600">Complimentary delivery on orders over R1000</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
-              <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-semibold mb-2 text-lg text-gray-900">Quality Guaranteed</h3>
-                <p className="text-sm text-gray-600">100% premium human hair, ethically sourced</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
-              <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Heart className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-semibold mb-2 text-lg text-gray-900">Expert Support</h3>
-                <p className="text-sm text-gray-600">Personalized guidance from hair specialists</p>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-gray-200 hover:shadow-xl transition-shadow group">
-              <CardContent className="pt-8 pb-6">
-                <div className="h-16 w-16 mx-auto mb-4 bg-gradient-to-br from-[#d4653f] to-[#b85535] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Sparkles className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-semibold mb-2 text-lg text-gray-900">Premium Quality</h3>
-                <p className="text-sm text-gray-600">Hand-selected products for excellence</p>
-              </CardContent>
-            </Card>
-          </div>
+      <div className="border-y border-[#c9a84c]/25 bg-white">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.28em] text-[#8a6820]">
+          <span>46 Plein Street</span>
+          <span className="hidden sm:inline">Opposite Universal Church</span>
+          <span>083 670 2112</span>
+          <span className="hidden md:inline">By appointment</span>
+        </div>
+      </div>
+
+      <section id="shop" className="scroll-mt-24 border-y border-[#c9a84c]/25 bg-white">
+        <div className="mx-auto max-w-[1400px] px-6 py-24">
+        <SectionHeading index="01" eyebrow="Shop" title="The collection" />
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
+          {products.map((p) => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              Trending Now
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Our most loved wigs and hair extensions, handpicked for their exceptional quality and style.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={addItem}
+      <section id="about" className="scroll-mt-24 border-y border-[#c9a84c]/25 bg-white">
+        <div className="mx-auto grid max-w-[1400px] items-stretch gap-10 px-6 py-24 lg:grid-cols-12 lg:gap-14">
+          <div className="relative w-full lg:col-span-5">
+            <div className="pointer-events-none absolute -left-3 -top-3 z-10 h-14 w-14 border-l border-t border-[#c9a84c]" />
+            <div className="relative min-h-[420px] h-full overflow-hidden rounded-md">
+              <Image
+                src="/biana/hero.jpg"
+                alt="Portrait with long, voluminous waves"
+                fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className="object-cover object-[center_18%]"
               />
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="eyebrow">02 — About</p>
+            <h2 className="mt-4 text-balance font-display text-5xl italic leading-[0.95] tracking-tight sm:text-6xl">
+              Fewer pieces, made properly.
+            </h2>
+            <p className="mt-8 max-w-[46ch] text-pretty text-[16px] leading-relaxed text-muted-foreground">
+              Biana HAIR began in 2019 with a refusal to sell hair we had not touched ourselves. Every
+              bundle is single-donor. Every unit is plucked, tinted and cut in Johannesburg — never
+              drop-shipped.
+            </p>
+            <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-8">
+              <div>
+                <dt className="font-display text-4xl italic">2019</dt>
+                <dd className="label-mono mt-1 text-faint">Founded</dd>
+              </div>
+              <div>
+                <dt className="font-display text-4xl italic">2</dt>
+                <dd className="label-mono mt-1 text-faint">Studios</dd>
+              </div>
+              <div>
+                <dt className="font-display text-4xl italic">4.9</dt>
+                <dd className="label-mono mt-1 text-faint">Client rating</dd>
+              </div>
+            </dl>
+            <Link href="/about" className={`${buttonClass('outline')} mt-10`}>
+              Our standard
+            </Link>
+          </div>
+        </div>
+
+        <div className="border-t border-border">
+          <div className="mx-auto grid max-w-[1400px] gap-px bg-border px-0 sm:grid-cols-3">
+            {testimonials.map((t) => (
+              <blockquote key={t.author} className="bg-white px-8 py-12">
+                <p className="font-display text-2xl italic leading-snug tracking-tight">“{t.quote}”</p>
+                <footer className="label-mono mt-8 text-faint">
+                  {t.author} · {t.city}
+                </footer>
+              </blockquote>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Link href="/shop">
-              <Button size="lg" variant="outline" className="border-2 border-[#d4653f] text-[#d4653f] hover:bg-[#d4653f] hover:text-white transition-all text-lg px-8 py-6 rounded-full">
-                Explore Full Collection
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-b from-[#d4653f]/10 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              What Our Clients Say
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Join thousands of satisfied women who have transformed their look with Biana Hair Salon.
-            </p>
+      <section id="contact" className="scroll-mt-24 bg-white">
+        <div className="mx-auto grid max-w-[1400px] gap-16 px-6 py-24 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <p className="eyebrow">03 — Contact</p>
+          <h2 className="mt-4 text-balance font-display text-5xl italic tracking-tight">
+            Come by, or write.
+          </h2>
+          <div className="mt-10 border-t border-border pt-8">
+            <h3 className="font-display text-3xl italic tracking-tight">Johannesburg</h3>
+            <p className="mt-2 text-[15px] text-muted-foreground">46 Plein Street</p>
+            <p className="text-[15px] text-muted-foreground">Opposite Universal Church</p>
+            <p className="label-mono mt-5 text-faint">Mon – Fri · 09:00 – 18:00</p>
+            <p className="label-mono mt-1 text-faint">Sat · 09:00 – 14:00</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-white border-gray-200">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 italic">
-                  "Absolutely love my new hair! The quality is amazing and it looks so natural. 
-                  Biana Hair Salon has become my go-to for all my hair needs."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#d4653f] to-[#b85535]"></div>
-                  <div>
-                    <p className="font-semibold text-gray-900">Thandi M.</p>
-                    <p className="text-sm text-gray-500">Verified Buyer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white border-gray-200">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 italic">
-                  "The customer service is exceptional! They helped me find the perfect match 
-                  for my style. Shipping was fast and the packaging was beautiful."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400"></div>
-                  <div>
-                    <p className="font-semibold text-gray-900">Sarah K.</p>
-                    <p className="text-sm text-gray-500">Verified Buyer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white border-gray-200">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 italic">
-                  "I've tried many hair vendors, but Bianca's Hair stands out. 
-                  The quality is consistent, prices are fair, and the results speak for themselves."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-rose-400 to-red-400"></div>
-                  <div>
-                    <p className="font-semibold text-gray-900">Lerato D.</p>
-                    <p className="text-sm text-gray-500">Verified Buyer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="mt-8">
+            <p className="label-mono text-faint">Direct</p>
+            <p className="mt-3 text-[15px] text-muted-foreground">083 670 2112</p>
+            <p className="text-[15px] text-muted-foreground">info@bianahairsalon.com</p>
+            <a
+              href="https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+            >
+              Instagram
+            </a>
           </div>
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-[#d4653f] via-[#b85535] to-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <Crown className="h-16 w-16 mx-auto mb-6 text-yellow-300" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Feel Beautiful?
-            </h2>
-            <p className="text-xl mb-10 text-white/90 leading-relaxed">
-              Join our community of confident women who have discovered their perfect look. 
-              Free shipping on orders over R1000, plus exclusive member benefits.
-            </p>
-            <Link href="/shop">
-              <Button size="lg" className="bg-white text-[#d4653f] hover:bg-[#d4653f]/10 hover:scale-105 transition-all shadow-2xl text-xl px-12 py-7 rounded-full">
-                <Sparkles className="h-6 w-6 mr-3" />
-                Start Your Transformation
-              </Button>
-            </Link>
-          </div>
+        <div className="border border-border bg-white p-8 lg:col-span-7">
+          <HomeContactForm />
+        </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }

@@ -1,123 +1,107 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { Heart, Award, Users, Target } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { PageHeader } from '@/components/site/PageHeader'
+import { buttonClass } from '@/components/site/Button'
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      {/* Hero Section */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 font-script">About Biana Hair Salon</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Professional hair services at 46 Plein Street, Johannesburg. Your destination for beautiful hair.
-        </p>
-      </div>
+    <div className="bg-white">
+      <PageHeader
+        eyebrow="02 — About"
+        title="Fewer pieces, made properly."
+        intro="Biana HAIR began in 2019 with a refusal to sell hair we had not touched ourselves."
+      />
 
-      {/* Our Story */}
-      <div className="max-w-4xl mx-auto mb-16">
-        <Card>
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-4">Our Story</h2>
-            <p className="text-gray-600 mb-4">
-              Biana Hair Salon was founded with a simple mission: to provide professional hair services 
-              to Johannesburg residents. We understand that your hair is your crown, and we're committed 
-              to helping you look and feel your absolute best.
-            </p>
-            <p className="text-gray-600 mb-4">
-              Located at 46 Plein Street, opposite Universal Church, our salon offers a range of professional 
-              hair services. From styling to treatments, our experienced team is dedicated to making you 
-              look and feel beautiful.
-            </p>
-            <p className="text-gray-600">
-              We believe that beautiful hair should be accessible to everyone. That's why we offer competitive 
-              pricing and expert customer support to help you achieve your perfect look.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Our Values */}
-      <div className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8">Our Values</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Heart className="h-12 w-12 mx-auto mb-4 text-[#d4653f]" />
-              <h3 className="font-semibold mb-2">Quality First</h3>
-              <p className="text-sm text-gray-600">
-                We only source 100% human hair and premium synthetic fibers.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Award className="h-12 w-12 mx-auto mb-4 text-[#d4653f]" />
-              <h3 className="font-semibold mb-2">Expert Curation</h3>
-              <p className="text-sm text-gray-600">
-                Every product is hand-selected for quality and style.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Users className="h-12 w-12 mx-auto mb-4 text-[#d4653f]" />
-              <h3 className="font-semibold mb-2">Customer Focus</h3>
-              <p className="text-sm text-gray-600">
-                Your satisfaction is our top priority.
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Target className="h-12 w-12 mx-auto mb-4 text-[#d4653f]" />
-              <h3 className="font-semibold mb-2">Affordable Luxury</h3>
-              <p className="text-sm text-gray-600">
-                Premium quality at competitive prices.
-              </p>
-            </CardContent>
-          </Card>
+      <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 lg:grid-cols-12">
+        <div className="relative mx-auto h-[220px] w-[170px] overflow-hidden sm:h-[250px] sm:w-[190px] lg:col-span-3 lg:mx-0">
+          <Image
+            src="/images/about-portrait.png"
+            alt="Portrait of a woman wearing a sleek straight unit"
+            fill
+            sizes="190px"
+            className="object-cover object-[center_15%]"
+          />
         </div>
-      </div>
+        <div className="lg:col-span-9 lg:pt-2">
+          <p className="eyebrow">Our standard</p>
+          <h2 className="mt-3 text-balance font-display text-4xl italic tracking-tight">
+            Single donor, or not at all
+          </h2>
+          <p className="mt-6 text-pretty text-[15px] leading-relaxed text-muted-foreground">
+            Mixed-donor hair looks identical in a photograph and falls apart in month three. Every bundle we
+            sell comes from one head of hair, with cuticles aligned in one direction, so it behaves the same
+            way from the weft to the tip.
+          </p>
+          <p className="mt-4 text-pretty text-[15px] leading-relaxed text-muted-foreground">
+            Units are plucked, tinted and cut in our Johannesburg studio, not drop-shipped. That is why the
+            collection stays small and why a piece sells out rather than being restocked overnight.
+          </p>
 
-      {/* Why Choose Us */}
-      <div className="max-w-4xl mx-auto">
-        <Card>
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-6">Why Choose Biana Hair Salon?</h2>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <span className="text-[#d4653f] mr-3">✓</span>
-                <span className="text-gray-600">
-                  <strong>100% Human Hair:</strong> Our wigs and bundles are made with premium human hair for a natural look and feel.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#d4653f] mr-3">✓</span>
-                <span className="text-gray-600">
-                  <strong>Nationwide Delivery:</strong> We ship to all major cities and towns across South Africa.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#d4653f] mr-3">✓</span>
-                <span className="text-gray-600">
-                  <strong>Expert Support:</strong> Our team is here to help you choose the perfect product and provide styling tips.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#d4653f] mr-3">✓</span>
-                <span className="text-gray-600">
-                  <strong>Competitive Pricing:</strong> Premium quality doesn't have to break the bank.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#d4653f] mr-3">✓</span>
-                <span className="text-gray-600">
-                  <strong>Wide Selection:</strong> From bobs to long units, straight to curly, we have it all.
-                </span>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
+          <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
+            <div>
+              <dt className="font-display text-4xl italic">2019</dt>
+              <dd className="label-mono mt-1 text-faint">Founded</dd>
+            </div>
+            <div>
+              <dt className="font-display text-4xl italic">2</dt>
+              <dd className="label-mono mt-1 text-faint">Studios</dd>
+            </div>
+            <div>
+              <dt className="font-display text-4xl italic">4.9</dt>
+              <dd className="label-mono mt-1 text-faint">Client rating</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section className="border-y border-[#c9a84c]/25 bg-white">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-20 lg:grid-cols-12">
+          <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
+            <Image
+              src="/images/about-work.png"
+              alt="Stylist with finished units in the Johannesburg studio"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-[center_20%]"
+            />
+          </div>
+          <div className="lg:col-span-7">
+            <p className="eyebrow">How we work</p>
+            <ol className="mt-6">
+              {[
+                {
+                  n: '01',
+                  t: 'Sourced',
+                  d: 'Direct from a small group of donors, tested for shedding before it enters the studio.',
+                },
+                {
+                  n: '02',
+                  t: 'Finished',
+                  d: 'Plucked, tinted, ventilated and cut by hand — never machine-finished in bulk.',
+                },
+                {
+                  n: '03',
+                  t: 'Fitted',
+                  d: 'Installed in studio, or shipped sealed with aftercare written for your texture.',
+                },
+              ].map((s) => (
+                <li key={s.n} className="flex gap-8 border-b border-border py-6 last:border-0">
+                  <span className="font-mono text-[11px] text-primary">{s.n}</span>
+                  <div>
+                    <h3 className="font-display text-2xl italic tracking-tight">{s.t}</h3>
+                    <p className="mt-2 max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
+                      {s.d}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <Link href="/shop" className={buttonClass('outline', 'mt-8')}>
+              Shop the collection <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

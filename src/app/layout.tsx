@@ -1,41 +1,46 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Great_Vibes } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import type { Metadata } from 'next'
+import { Cormorant_Garamond, Dancing_Script, Outfit } from 'next/font/google'
+import './globals.css'
+import { Header } from '@/components/site/Header'
+import { Footer } from '@/components/site/Footer'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const outfit = Outfit({
+  variable: '--font-outfit',
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700'],
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const cormorant = Cormorant_Garamond({
+  variable: '--font-cormorant',
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700'],
+  style: ['normal', 'italic'],
+})
 
-const greatVibes = Great_Vibes({
-  variable: "--font-great-vibes",
-  subsets: ["latin"],
-  weight: "400",
-});
+const dancing = Dancing_Script({
+  variable: '--font-dancing',
+  subsets: ['latin'],
+  weight: ['600', '700'],
+})
 
 export const metadata: Metadata = {
-  title: "Biana Hair Salon - Premium Hair Services",
-  description: "Biana Hair Salon - Professional hair services at 46 Plein Street, Johannesburg. Contact us for appointments.",
-};
+  title: 'Biana HAIR — Premium Hair & Studio, South Africa',
+  description:
+    'Raw single-donor wigs, bundles and closures, plus in-studio styling in Johannesburg.',
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${outfit.variable} ${cormorant.variable} ${dancing.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
-  );
+  )
 }

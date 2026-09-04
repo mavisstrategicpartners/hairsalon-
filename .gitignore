@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local inspiration extracts
+.inspiration/
+.inspiration-kadz/
+.inspiration-biana/
+.inspiration-small/
