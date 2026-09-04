@@ -69,7 +69,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="bg-white">
+      <div className="bg-[#070707]">
         <PageHeader eyebrow="Checkout" title="Your bag is empty" />
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <Link href="/shop" className={buttonClass('solid')}>
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#070707]">
       <PageHeader eyebrow="Checkout" title="Complete your order" />
 
       <form
@@ -89,7 +89,7 @@ export default function CheckoutPage() {
         className="mx-auto grid max-w-[1400px] gap-12 px-6 py-14 lg:grid-cols-12"
       >
         <div className="lg:col-span-7">
-          <div className="border border-border bg-white p-8">
+          <div className="border border-border bg-[#111111] p-8">
             <p className="eyebrow">Shipping</p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {(
@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                     name={name}
                     value={formData[name]}
                     onChange={handleChange}
-                    className="mt-2 w-full border border-border bg-white px-4 py-3 text-sm"
+                    className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
                   />
                 </div>
               ))}
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="mt-2 w-full border border-border bg-white px-4 py-3 text-sm"
+                className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
               />
             </div>
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  className="mt-2 w-full border border-border bg-white px-4 py-3 text-sm"
+                  className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
                 />
               </div>
               <div>
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
                   name="postalCode"
                   value={formData.postalCode}
                   onChange={handleChange}
-                  className="mt-2 w-full border border-border bg-white px-4 py-3 text-sm"
+                  className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
                 />
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function CheckoutPage() {
                 name="country"
                 value={formData.country}
                 disabled
-                className="mt-2 w-full border border-border bg-white px-4 py-3 text-sm opacity-60"
+                className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm opacity-60"
               />
             </div>
 
@@ -172,7 +172,7 @@ export default function CheckoutPage() {
         </div>
 
         <aside className="lg:col-span-5">
-          <div className="border border-border bg-white p-8">
+          <div className="border border-border bg-[#111111] p-8">
             <p className="eyebrow">Summary</p>
             <div className="mt-6 space-y-3 font-mono text-sm">
               {items.map((item) => (

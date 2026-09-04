@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#070707]">
       <div className="mx-auto max-w-[1400px] px-6 pt-8">
         <nav className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">
           <Link href="/shop" className="hover:text-foreground">
@@ -44,7 +44,7 @@ export default function ProductDetailPage() {
 
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <div className="relative aspect-[4/5] overflow-hidden bg-white outline-1 -outline-offset-1 outline-[#c9a84c]/25">
+          <div className="relative aspect-[4/5] overflow-hidden bg-[#111111] outline-1 -outline-offset-1 outline-[#c9a84c]/35">
             <Image
               src={product.image}
               alt={product.name}
@@ -76,7 +76,7 @@ export default function ProductDetailPage() {
                     onClick={() => setLengthIndex(i)}
                     className={`border px-4 py-2 font-mono text-[11px] transition-colors ${
                       i === lengthIndex
-                        ? 'border-foreground/60 text-foreground'
+                        ? 'border-[#c9a84c] text-[#c9a84c]'
                         : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground'
                     }`}
                   >

@@ -8,7 +8,7 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#070707]">
       <PageHeader
         eyebrow="03 — Contact"
         title="Come by, or write to us."
@@ -40,7 +40,7 @@ export default function ContactPage() {
         </div>
 
         <div className="lg:col-span-7">
-          <div className="border border-border bg-white p-8">
+          <div className="border border-[#c9a84c]/30 bg-[#111111] p-8">
             {submitted ? (
               <p className="text-[15px] text-muted-foreground">Message sent. We will reply shortly.</p>
             ) : (

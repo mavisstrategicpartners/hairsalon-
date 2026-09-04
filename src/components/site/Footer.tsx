@@ -2,12 +2,12 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-[#c9a84c]/35 bg-[#070707]">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-6 py-12 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="font-display text-3xl italic tracking-tight">
             <span className="text-foreground">Biana</span>
-            <span className="ml-2 font-script text-base not-italic normal-case tracking-normal text-[#8a6820]">
+            <span className="ml-2 font-script text-base not-italic normal-case tracking-normal text-[#c9a84c]">
               Hair
             </span>
           </div>

@@ -32,11 +32,11 @@
   --color-destructive-foreground: var(--foreground);
   --color-border: var(--border);
   --color-input: var(--border);
-  --color-ring: #8a6820;
+  --color-ring: #c9a84c;
   --color-gold: #c9a84c;
-  --color-gold-d: #8a6820;
+  --color-gold-d: #c9a84c;
   --color-gold-l: #e8c97a;
-  --color-cream: #faf7f2;
+  --color-cream: #070707;
   --color-teal: #1a9e9e;
 
   --ease-liquid: cubic-bezier(0.32, 0.72, 0, 1);
@@ -49,33 +49,33 @@
   --font-script-family: var(--font-dancing), cursive;
 
   --gold: #c9a84c;
-  --gold-d: #8a6820;
+  --gold-d: #c9a84c;
   --gold-l: #e8c97a;
   --gold-ll: #f5e4b0;
-  --cream: #faf7f2;
-  --cream2: #f4ede0;
-  --cream3: #ede3d0;
-  --dark: #1a1208;
-  --dark2: #2c2010;
-  --offwhite: #fdfaf5;
-  --white: #ffffff;
+  --cream: #070707;
+  --cream2: #111111;
+  --cream3: #1a1a1a;
+  --dark: #f4ead8;
+  --dark2: #e8c97a;
+  --offwhite: #111111;
+  --white: #f4ead8;
   --teal: #1a9e9e;
 
-  --background: #faf7f2;
-  --foreground: #1a1208;
-  --muted: rgba(26, 18, 8, 0.45);
-  --muted-foreground: rgba(26, 18, 8, 0.45);
-  --faint: rgba(26, 18, 8, 0.38);
+  --background: #070707;
+  --foreground: #f4ead8;
+  --muted: rgba(244, 234, 216, 0.5);
+  --muted-foreground: rgba(244, 234, 216, 0.55);
+  --faint: rgba(201, 168, 76, 0.72);
   --primary: #c9a84c;
-  --primary-foreground: #ffffff;
-  --secondary: #f4ede0;
-  --secondary-foreground: #1a1208;
-  --accent: #fdfaf5;
-  --accent-foreground: #1a1208;
-  --panel: #fdfaf5;
-  --panel2: #f4ede0;
+  --primary-foreground: #070707;
+  --secondary: #111111;
+  --secondary-foreground: #f4ead8;
+  --accent: #111111;
+  --accent-foreground: #f4ead8;
+  --panel: #111111;
+  --panel2: #161616;
   --destructive: #b42318;
-  --border: rgba(201, 168, 76, 0.28);
+  --border: rgba(201, 168, 76, 0.32);
 }
 
 @theme {
@@ -112,7 +112,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.38em;
-  color: var(--gold-d);
+  color: var(--gold);
 }
 
 @utility label-mono {
@@ -131,11 +131,12 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    color-scheme: dark;
   }
 
   body {
-    background-color: var(--cream);
-    color: var(--dark);
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: var(--font-body-family);
     -webkit-font-smoothing: antialiased;
   }
@@ -146,7 +147,7 @@
 
   ::selection {
     background: var(--gold);
-    color: var(--white);
+    color: #070707;
   }
 
   ::-webkit-scrollbar {

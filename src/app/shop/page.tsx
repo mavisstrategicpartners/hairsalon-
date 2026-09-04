@@ -19,8 +19,8 @@ export default function ShopPage() {
   )
 
   return (
-    <div className="bg-white">
-      <section className="border-b border-[#c9a84c]/25 bg-white">
+    <div className="bg-[#070707]">
+      <section className="border-b border-[#c9a84c]/30 bg-[#070707]">
         <div className="mx-auto max-w-[1400px] px-6 pb-10 pt-16">
           <p className="eyebrow">01 — Shop</p>
           <div className="mt-4 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
@@ -39,8 +39,8 @@ export default function ShopPage() {
                 onClick={() => setFilter(f.id)}
                 className={`border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] ${
                   filter === f.id
-                    ? 'border-[#8a6820] bg-[#8a6820] text-white'
-                    : 'border-[#c9a84c]/40 bg-white text-[#2c2010] hover:border-[#8a6820]'
+                    ? 'border-[#c9a84c] bg-[#c9a84c] text-[#070707]'
+                    : 'border-[#c9a84c]/40 bg-transparent text-[#f4ead8] hover:border-[#c9a84c]'
                 }`}
               >
                 {f.label}
@@ -50,7 +50,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-[#070707]">
         <div className="mx-auto max-w-[1400px] px-6 py-14">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
             {list.map((p) => (

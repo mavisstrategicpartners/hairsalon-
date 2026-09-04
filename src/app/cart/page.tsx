@@ -13,7 +13,7 @@ export default function CartPage() {
   const shipping = subtotal === 0 || subtotal > 2500 ? 0 : 120
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#070707]">
       <PageHeader eyebrow="Bag" title="Your bag" />
 
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-14 lg:grid-cols-12">
@@ -23,7 +23,7 @@ export default function CartPage() {
           ) : (
             items.map((l) => (
               <div key={l.id} className="flex gap-6 border-b border-border py-8 first:pt-0">
-                <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-white outline-1 -outline-offset-1 outline-[#c9a84c]/25">
+                <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-[#111111] outline-1 -outline-offset-1 outline-[#c9a84c]/35">
                   <Image src={l.image} alt={l.name} fill sizes="96px" className="object-cover object-center" />
                 </div>
                 <div className="flex-1">

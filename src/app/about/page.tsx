@@ -5,7 +5,7 @@ import { buttonClass } from '@/components/site/Button'
 
 export default function AboutPage() {
   return (
-    <div className="bg-white">
+    <div className="bg-[#070707]">
       <PageHeader
         eyebrow="02 — About"
         title="Fewer pieces, made properly."
@@ -54,7 +54,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-y border-[#c9a84c]/25 bg-white">
+      <section className="border-y border-[#c9a84c]/30 bg-[#070707]">
         <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-20 lg:grid-cols-12">
           <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
             <Image

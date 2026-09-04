@@ -7,9 +7,11 @@ const base =
   'inline-flex items-center justify-center gap-3 px-[22px] py-[9px] font-sans text-[0.72rem] font-bold uppercase tracking-[0.18em] transition-all duration-300 disabled:opacity-50'
 
 const variants: Record<Variant, string> = {
-  solid: 'border-2 border-[#8a6820] bg-[#8a6820] text-white hover:bg-[#c9a84c] hover:border-[#c9a84c]',
-  outline: 'border-2 border-[#8a6820] bg-transparent text-[#2c2010] hover:bg-[#8a6820] hover:text-white',
-  ghost: 'px-0 py-0 text-[#8a6820] underline-offset-4 hover:text-[#1a1208] hover:underline',
+  solid:
+    'border-2 border-[#c9a84c] bg-[#c9a84c] text-[#070707] hover:bg-[#e8c97a] hover:border-[#e8c97a]',
+  outline:
+    'border-2 border-[#c9a84c] bg-transparent text-[#c9a84c] hover:bg-[#c9a84c] hover:text-[#070707]',
+  ghost: 'px-0 py-0 text-[#c9a84c] underline-offset-4 hover:text-[#e8c97a] hover:underline',
 }
 
 export function ActionButton({

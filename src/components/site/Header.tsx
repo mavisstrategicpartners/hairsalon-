@@ -21,22 +21,22 @@ export function Header() {
   const bagCount = hasHydrated ? totalItems : 0
 
   return (
-    <header className="sticky top-0 z-30 h-[4.75rem] border-b border-[#c9a84c]/20 bg-white">
+    <header className="sticky top-0 z-30 h-[4.75rem] border-b border-[#c9a84c]/35 bg-[#070707]">
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#c9a84c] bg-[#faf7f2] font-script text-lg leading-none text-[#8a6820]">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#c9a84c] bg-[#111111] font-script text-lg leading-none text-[#c9a84c]">
             B
           </span>
-          <span className="font-display text-2xl italic tracking-tight text-[#1a1208]">
+          <span className="font-display text-2xl italic tracking-tight text-[#f4ead8]">
             Biana
-            <span className="ml-2 font-script text-[0.85rem] not-italic normal-case tracking-normal text-[#8a6820]">
+            <span className="ml-2 font-script text-[0.85rem] not-italic normal-case tracking-normal text-[#c9a84c]">
               Hair
             </span>
           </span>
         </Link>
 
         <div className="flex items-center gap-8">
-          <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[#2c2010] md:flex">
+          <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[#f4ead8] md:flex">
             {links.map((l) => {
               const href = l.href === '/' ? '/' : isHome ? l.hash : l.href
               const active = pathname === l.href
@@ -44,7 +44,7 @@ export function Header() {
                 <Link
                   key={l.href}
                   href={href}
-                  className={`transition-colors hover:text-[#8a6820] ${active ? 'text-[#8a6820]' : ''}`}
+                  className={`transition-colors hover:text-[#c9a84c] ${active ? 'text-[#c9a84c]' : ''}`}
                 >
                   {l.label}
                 </Link>
@@ -53,7 +53,7 @@ export function Header() {
           </nav>
           <Link
             href="/cart"
-            className="border-l border-[#c9a84c]/35 pl-8 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[#2c2010] hover:text-[#8a6820]"
+            className="border-l border-[#c9a84c]/40 pl-8 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[#f4ead8] hover:text-[#c9a84c]"
           >
             Bag ({bagCount})
           </Link>
@@ -61,7 +61,7 @@ export function Header() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
-            className="text-[0.72rem] font-bold uppercase tracking-[0.22em] md:hidden"
+            className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-[#f4ead8] md:hidden"
           >
             {open ? 'Close' : 'Menu'}
           </button>
@@ -69,13 +69,13 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="border-t border-border bg-white md:hidden">
+        <nav className="border-t border-[#c9a84c]/35 bg-[#070707] md:hidden">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href === '/' ? '/' : isHome ? l.hash : l.href}
               onClick={() => setOpen(false)}
-              className="block border-b border-border px-6 py-4 font-display text-2xl italic tracking-tight"
+              className="block border-b border-[#c9a84c]/25 px-6 py-4 font-display text-2xl italic tracking-tight text-[#f4ead8]"
             >
               {l.label}
             </Link>

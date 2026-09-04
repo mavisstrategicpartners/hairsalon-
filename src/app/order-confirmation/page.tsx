@@ -15,7 +15,7 @@ import { ActionButton, buttonClass } from '@/components/site/Button'
 
 export default function OrderConfirmationPage() {
   return (
-    <Suspense fallback={<p className="px-6 py-16 text-muted-foreground">Loading order details...</p>}>
+    <Suspense fallback={<p className="bg-[#070707] px-6 py-16 text-muted-foreground">Loading order details...</p>}>
       <OrderConfirmationContent />
     </Suspense>
   )
@@ -40,19 +40,19 @@ function OrderConfirmationContent() {
 
   if (!orderId || !order) {
     return (
-      <>
+      <div className="bg-[#070707]">
         <PageHeader eyebrow="Order" title="Order not found" />
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <Link href="/shop" className={buttonClass('solid')}>
             Continue shopping
           </Link>
         </div>
-      </>
+      </div>
     )
   }
 
   return (
-    <>
+    <div className="bg-[#070707]">
       <PageHeader
         eyebrow="Confirmed"
         title="Order placed"
@@ -125,6 +125,6 @@ function OrderConfirmationContent() {
           Continue shopping
         </Link>
       </section>
-    </>
+    </div>
   )
 }

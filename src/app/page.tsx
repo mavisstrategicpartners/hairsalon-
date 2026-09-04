@@ -9,12 +9,12 @@ import { HomeContactForm } from '@/components/site/HomeContactForm'
 export default function Home() {
   return (
     <>
-      <section className="relative min-h-[calc(100svh-4.75rem)] bg-[#faf7f2]">
+      <section className="relative min-h-[calc(100svh-4.75rem)] bg-[#070707]">
         <div className="grid min-h-[calc(100svh-4.75rem)] lg:grid-cols-12">
           <div className="relative z-10 flex flex-col justify-between px-6 py-14 sm:px-10 lg:col-span-5 lg:px-14 lg:py-16 xl:px-20">
             <div>
               <p className="eyebrow">Plein Street · Johannesburg</p>
-              <h1 className="mt-8 max-w-[11ch] text-balance font-display text-[clamp(3.4rem,6.4vw,6.2rem)] italic leading-[0.88] tracking-tight text-[#1a1208]">
+              <h1 className="mt-8 max-w-[11ch] text-balance font-display text-[clamp(3.4rem,6.4vw,6.2rem)] italic leading-[0.88] tracking-tight text-[#f4ead8]">
                 Hair that feels like yours.
               </h1>
               <p className="mt-7 max-w-[38ch] text-pretty text-[16px] leading-relaxed text-muted-foreground">
@@ -33,15 +33,15 @@ export default function Home() {
 
             <dl className="mt-16 grid grid-cols-3 gap-4 border-t border-[#c9a84c]/35 pt-8">
               <div>
-                <dt className="font-display text-3xl italic text-[#8a6820]">2019</dt>
+                <dt className="font-display text-3xl italic text-[#c9a84c]">2019</dt>
                 <dd className="label-mono mt-1 text-faint">Founded</dd>
               </div>
               <div>
-                <dt className="font-display text-3xl italic text-[#8a6820]">2</dt>
+                <dt className="font-display text-3xl italic text-[#c9a84c]">2</dt>
                 <dd className="label-mono mt-1 text-faint">Studios</dd>
               </div>
               <div>
-                <dt className="font-display text-3xl italic text-[#8a6820]">100%</dt>
+                <dt className="font-display text-3xl italic text-[#c9a84c]">100%</dt>
                 <dd className="label-mono mt-1 text-faint">Single donor</dd>
               </div>
             </dl>
@@ -56,19 +56,19 @@ export default function Home() {
               sizes="(min-width: 1024px) 58vw, 100vw"
               className="object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#faf7f2]/40 lg:to-[#faf7f2]/25" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#070707]/70 lg:to-[#070707]/55" />
 
             <div className="absolute bottom-8 right-6 hidden lg:block">
-              <div className="flex h-36 w-36 items-center justify-center rounded-full border-[3px] border-[#c9a84c] bg-white/95 shadow-[0_12px_40px_rgba(26,18,8,0.18)]">
-                <span className="font-script text-6xl leading-none text-[#8a6820]">B</span>
+              <div className="flex h-36 w-36 items-center justify-center rounded-full border-[3px] border-[#c9a84c] bg-[#070707]/90 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+                <span className="font-script text-6xl leading-none text-[#c9a84c]">B</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="border-y border-[#c9a84c]/25 bg-white">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.28em] text-[#8a6820]">
+      <div className="border-y border-[#c9a84c]/30 bg-[#070707]">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.28em] text-[#c9a84c]">
           <span>46 Plein Street</span>
           <span className="hidden sm:inline">Opposite Universal Church</span>
           <span>083 670 2112</span>
@@ -76,7 +76,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="shop" className="scroll-mt-24 border-y border-[#c9a84c]/25 bg-white">
+      <section id="shop" className="scroll-mt-24 border-y border-[#c9a84c]/30 bg-[#070707]">
         <div className="mx-auto max-w-[1400px] px-6 py-24">
         <SectionHeading index="01" eyebrow="Shop" title="The collection" />
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
@@ -87,7 +87,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="scroll-mt-24 border-y border-[#c9a84c]/25 bg-white">
+      <section id="about" className="scroll-mt-24 border-y border-[#c9a84c]/30 bg-[#070707]">
         <div className="mx-auto grid max-w-[1400px] items-stretch gap-10 px-6 py-24 lg:grid-cols-12 lg:gap-14">
           <div className="relative w-full lg:col-span-5">
             <div className="pointer-events-none absolute -left-3 -top-3 z-10 h-14 w-14 border-l border-t border-[#c9a84c]" />
@@ -134,7 +134,7 @@ export default function Home() {
         <div className="border-t border-border">
           <div className="mx-auto grid max-w-[1400px] gap-px bg-border px-0 sm:grid-cols-3">
             {testimonials.map((t) => (
-              <blockquote key={t.author} className="bg-white px-8 py-12">
+              <blockquote key={t.author} className="bg-[#070707] px-8 py-12">
                 <p className="font-display text-2xl italic leading-snug tracking-tight">“{t.quote}”</p>
                 <footer className="label-mono mt-8 text-faint">
                   {t.author} · {t.city}
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="scroll-mt-24 bg-white">
+      <section id="contact" className="scroll-mt-24 bg-[#070707]">
         <div className="mx-auto grid max-w-[1400px] gap-16 px-6 py-24 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="eyebrow">03 — Contact</p>
@@ -173,7 +173,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <div className="border border-border bg-white p-8 lg:col-span-7">
+        <div className="border border-[#c9a84c]/30 bg-[#111111] p-8 lg:col-span-7">
           <HomeContactForm />
         </div>
         </div>
