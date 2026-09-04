@@ -7,6 +7,7 @@ import { products } from '@/data/products'
 import ProductCard from '@/components/ProductCard'
 import { useCartStore } from '@/lib/store'
 import Link from 'next/link'
+import GalleryShowcase from '@/components/GalleryShowcase'
 import { Sparkles, Truck, Shield, Heart, Star, Crown } from 'lucide-react'
 
 export default function Home() {
@@ -61,6 +62,24 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Our Work */}
+      <section id="gallery" className="scroll-mt-24 bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.28em] text-[#d4653f]">
+              Portfolio
+            </p>
+            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">
+              Our Work
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+              A few looks from recent installs, units, and bundles. See the full gallery for more.
+            </p>
+          </div>
+          <GalleryShowcase preview />
         </div>
       </section>
 

@@ -39,6 +39,12 @@ export default function Header() {
               Home
             </Link>
             <Link
+              href="/#gallery"
+              className="text-sm font-medium text-[#2b1d1a] transition-colors hover:text-[#d4653f]"
+            >
+              Gallery
+            </Link>
+            <Link
               href="/shop"
               className="text-sm font-medium text-[#2b1d1a] transition-colors hover:text-[#d4653f]"
             >
@@ -100,6 +106,13 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
+              </Link>
+              <Link
+                href="/#gallery"
+                className="text-sm font-medium text-gray-700 hover:text-[#d4653f] transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Gallery
               </Link>
               <Link
                 href="/shop"
