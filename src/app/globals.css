@@ -36,6 +36,7 @@
   --color-gold: #c9a84c;
   --color-gold-d: #8a6820;
   --color-gold-l: #e8c97a;
+  --color-salon: var(--salon);
   --color-cream: #faf7f2;
   --color-teal: #1a9e9e;
 
@@ -52,6 +53,7 @@
   --gold-d: #8a6820;
   --gold-l: #e8c97a;
   --gold-ll: #f5e4b0;
+  --salon: #8b1a2d;
   --cream: #faf7f2;
   --cream2: #f4ede0;
   --cream3: #ede3d0;

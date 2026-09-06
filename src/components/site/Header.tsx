@@ -43,7 +43,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-black">
+    <header className="sticky top-0 z-30 border-b border-white/15 bg-salon">
       <div className="mx-auto flex h-[4.75rem] max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Biana Hair home">
           <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white font-script text-lg leading-none text-white">
@@ -70,7 +70,7 @@ export function Header() {
                   Collections
                 </Link>
                 {collectionsOpen ? (
-                  <div className="absolute left-0 top-full z-20 min-w-[220px] border border-white/10 bg-black py-3">
+                  <div className="absolute left-0 top-full z-20 min-w-[220px] border border-white/15 bg-salon py-3">
                     {hairCollections.map((c) => (
                       <Link
                         key={c.slug}
@@ -123,7 +123,7 @@ export function Header() {
       </div>
 
       {open ? (
-        <nav className="border-t border-white/10 bg-black xl:hidden">
+        <nav className="border-t border-white/15 bg-salon xl:hidden">
           {navLinks.map((l) => (
             <Link
               key={l.href}
