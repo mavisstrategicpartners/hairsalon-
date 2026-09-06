@@ -13,7 +13,7 @@ export default function CartPage() {
   const shipping = subtotal === 0 || subtotal > 2500 ? 0 : 120
 
   return (
-    <div className="bg-[#070707]">
+    <div className="bg-white">
       <PageHeader eyebrow="Bag" title="Your bag" />
 
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-14 lg:grid-cols-12">
@@ -23,7 +23,7 @@ export default function CartPage() {
           ) : (
             items.map((l) => (
               <div key={l.id} className="flex gap-6 border-b border-border py-8 first:pt-0">
-                <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-[#111111] outline-1 -outline-offset-1 outline-[#c9a84c]/35">
+                <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-white outline-1 -outline-offset-1 outline-[#c9a84c]/40">
                   <Image src={l.image} alt={l.name} fill sizes="96px" className="object-cover object-center" />
                 </div>
                 <div className="flex-1">
@@ -76,15 +76,15 @@ export default function CartPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="border border-border bg-panel p-8 lg:sticky lg:top-24">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707] lg:sticky lg:top-24">
             <p className="eyebrow">Summary</p>
             <dl className="mt-6 space-y-4 font-mono text-sm">
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Subtotal</dt>
+                <dt className="text-black/55">Subtotal</dt>
                 <dd>{formatZar(subtotal)}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Courier</dt>
+                <dt className="text-black/55">Courier</dt>
                 <dd>{shipping === 0 ? 'Free' : formatZar(shipping)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-4 text-base">

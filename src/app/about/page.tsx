@@ -5,7 +5,7 @@ import { buttonClass } from '@/components/site/Button'
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#070707]">
+    <div className="bg-white">
       <PageHeader
         eyebrow="02 — About"
         title="Fewer pieces, made properly."
@@ -54,7 +54,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-y border-[#c9a84c]/30 bg-[#070707]">
+      <section className="border-y border-[#c9a84c]/30 bg-white">
         <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-20 lg:grid-cols-12">
           <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
             <Image
@@ -99,6 +99,34 @@ export default function AboutPage() {
             <Link href="/shop" className={buttonClass('outline', 'mt-8')}>
               Shop the collection <span aria-hidden="true">→</span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto max-w-[1400px] px-6 py-20">
+          <p className="eyebrow">Values</p>
+          <h2 className="mt-3 font-display text-4xl italic tracking-tight">How we hold the work</h2>
+          <div className="mt-12 grid gap-10 sm:grid-cols-3">
+            {[
+              {
+                t: 'Hair first',
+                d: 'The shop is the centre of the business. Units and bundles are chosen, finished and priced as pieces you can live in — not filler for a salon menu.',
+              },
+              {
+                t: 'One donor',
+                d: 'We will not mix hair to hit a price. If it is not single-donor, it does not leave the studio.',
+              },
+              {
+                t: 'The chair supports the hair',
+                d: 'Installs, cuts and revamps exist so the pieces you buy wear well. Book a service when you need the studio — shop when you need hair.',
+              },
+            ].map((v) => (
+              <div key={v.t} className="border-t border-[#c9a84c]/40 pt-6">
+                <h3 className="font-display text-2xl italic tracking-tight">{v.t}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{v.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

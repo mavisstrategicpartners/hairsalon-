@@ -69,7 +69,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="bg-[#070707]">
+      <div className="bg-white">
         <PageHeader eyebrow="Checkout" title="Your bag is empty" />
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <Link href="/shop" className={buttonClass('solid')}>
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-[#070707]">
+    <div className="bg-white">
       <PageHeader eyebrow="Checkout" title="Complete your order" />
 
       <form
@@ -89,7 +89,7 @@ export default function CheckoutPage() {
         className="mx-auto grid max-w-[1400px] gap-12 px-6 py-14 lg:grid-cols-12"
       >
         <div className="lg:col-span-7">
-          <div className="border border-border bg-[#111111] p-8">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
             <p className="eyebrow">Shipping</p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {(
@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                     name={name}
                     value={formData[name]}
                     onChange={handleChange}
-                    className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
+                    className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
                   />
                 </div>
               ))}
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
+                className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
               />
             </div>
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
+                  className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
                 />
               </div>
               <div>
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
                   name="postalCode"
                   value={formData.postalCode}
                   onChange={handleChange}
-                  className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm"
+                  className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
                 />
               </div>
             </div>
@@ -151,13 +151,13 @@ export default function CheckoutPage() {
                 name="country"
                 value={formData.country}
                 disabled
-                className="mt-2 w-full border border-border bg-[#0a0a0a] px-4 py-3 text-sm opacity-60"
+                className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707] opacity-60"
               />
             </div>
 
             <div className="mt-8 border border-border p-4">
               <p className="label-mono text-primary">EFT / bank transfer</p>
-              <p className="mt-3 text-sm text-muted-foreground">
+              <p className="mt-3 text-sm text-black/60">
                 After placing your order you will receive payment details by email.
               </p>
               <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
@@ -172,12 +172,12 @@ export default function CheckoutPage() {
         </div>
 
         <aside className="lg:col-span-5">
-          <div className="border border-border bg-[#111111] p-8">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
             <p className="eyebrow">Summary</p>
             <div className="mt-6 space-y-3 font-mono text-sm">
               {items.map((item) => (
                 <div key={item.id} className="flex justify-between gap-4">
-                  <span className="text-muted-foreground">
+                  <span className="text-black/55">
                     {item.name} × {item.quantity}
                   </span>
                   <span>{formatZar(item.price * item.quantity)}</span>
@@ -186,11 +186,11 @@ export default function CheckoutPage() {
             </div>
             <dl className="mt-6 space-y-3 border-t border-border pt-4 font-mono text-sm">
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Subtotal</dt>
+                <dt className="text-black/55">Subtotal</dt>
                 <dd>{formatZar(getTotalPrice())}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Courier</dt>
+                <dt className="text-black/55">Courier</dt>
                 <dd>{shippingCost === 0 ? 'Free' : formatZar(shippingCost)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-3 text-base">

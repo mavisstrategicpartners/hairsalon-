@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Dancing_Script, Outfit } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/site/Header'
 import { Footer } from '@/components/site/Footer'
+import { ScrollExperience } from '@/components/site/ScrollExperience'
+import { LuxuryCursor } from '@/components/site/LuxuryCursor'
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -38,6 +40,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />
+        <ScrollExperience />
+        <LuxuryCursor />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

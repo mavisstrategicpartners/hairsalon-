@@ -15,7 +15,7 @@ import { ActionButton, buttonClass } from '@/components/site/Button'
 
 export default function OrderConfirmationPage() {
   return (
-    <Suspense fallback={<p className="bg-[#070707] px-6 py-16 text-muted-foreground">Loading order details...</p>}>
+    <Suspense fallback={<p className="bg-white px-6 py-16 text-muted-foreground">Loading order details...</p>}>
       <OrderConfirmationContent />
     </Suspense>
   )
@@ -40,7 +40,7 @@ function OrderConfirmationContent() {
 
   if (!orderId || !order) {
     return (
-      <div className="bg-[#070707]">
+      <div className="bg-white">
         <PageHeader eyebrow="Order" title="Order not found" />
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <Link href="/shop" className={buttonClass('solid')}>
@@ -52,7 +52,7 @@ function OrderConfirmationContent() {
   }
 
   return (
-    <div className="bg-[#070707]">
+    <div className="bg-white">
       <PageHeader
         eyebrow="Confirmed"
         title="Order placed"
@@ -60,7 +60,7 @@ function OrderConfirmationContent() {
       />
 
       <section className="mx-auto max-w-[900px] space-y-8 px-6 py-14">
-        <div className="border border-border bg-panel p-8">
+        <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
           <p className="eyebrow">Details</p>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 font-mono text-sm">
             <div>
@@ -74,7 +74,7 @@ function OrderConfirmationContent() {
               </p>
             </div>
           </div>
-          <p className="mt-6 text-sm text-muted-foreground">
+          <p className="mt-6 text-sm text-black/60">
             {order.customerName}
             <br />
             {order.customerAddress}
@@ -84,7 +84,7 @@ function OrderConfirmationContent() {
           <div className="mt-6 space-y-2 font-mono text-sm">
             {order.items.map((item, index) => (
               <div key={index} className="flex justify-between">
-                <span className="text-muted-foreground">
+                <span className="text-black/55">
                   {item.name} × {item.quantity}
                   {item.length ? ` (${item.length})` : ''}
                 </span>
@@ -99,9 +99,9 @@ function OrderConfirmationContent() {
         </div>
 
         {order.paymentStatus !== 'completed' && (
-          <div className="border border-border bg-panel p-8">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
             <p className="eyebrow">Payment required</p>
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 text-sm text-black/60">
               First National Bank · Bianca&apos;s Hair · 1234567890 · 250655
               <br />
               Reference {order.orderNumber} · {formatZar(order.total)}

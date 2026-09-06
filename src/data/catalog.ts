@@ -26,6 +26,7 @@ export const products: Product[] = [
     description:
       'Professional wig installation in studio. Includes consultation and install. Redeem at 46 Plein Street.',
     specs: [
+      { label: 'Duration', value: '90 min' },
       { label: 'Redeem', value: 'Johannesburg studio' },
       { label: 'Includes', value: 'Consultation + install' },
       { label: 'Valid', value: '12 months' },
@@ -289,6 +290,132 @@ export const testimonials = [
     author: 'Amara O.',
     city: 'Durban',
   },
+]
+
+export const hairProducts = products.filter((p) => p.kind === 'product')
+export const serviceProducts = products.filter((p) => p.kind === 'service')
+
+export type HairCollection = {
+  slug: string
+  name: string
+  description: string
+  image: string
+}
+
+export const hairCollections: HairCollection[] = [
+  {
+    slug: 'wigs',
+    name: 'Wigs',
+    description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
+    image: '/images/products/ombre-glueless.webp',
+  },
+  {
+    slug: 'bobs',
+    name: 'Bobs',
+    description: 'Short, sculpted bobs with dense ends — from wine red to a clean Vietnamese 5x5.',
+    image: '/images/products/wine-red-bob.webp',
+  },
+  {
+    slug: 'straight-hair',
+    name: 'Straight Hair',
+    description: 'Sleek single-donor straight — full-frontal units and wefts for a pulled-back finish.',
+    image: '/images/products/straight-full-frontal.webp',
+  },
+  {
+    slug: 'curly-hair',
+    name: 'Curly Hair',
+    description: 'Waterwave and body wave with a glass finish. Long length, natural bounce.',
+    image: '/images/products/waterwave-unit.webp',
+  },
+  {
+    slug: 'bundles',
+    name: 'Bundles',
+    description: 'Wefts sold as singles. Three make a full install; mix lengths for a layered set.',
+    image: '/images/products/body-wave-bundle.webp',
+  },
+  {
+    slug: 'closures-frontals',
+    name: 'Closures & Frontals',
+    description: 'Closures, frontals and pondo sets — melt-ready hairlines to finish an install.',
+    image: '/images/products/weave-closure-set.png',
+  },
+]
+
+export function getHairCollection(slug: string) {
+  return hairCollections.find((c) => c.slug === slug)
+}
+
+export function productMatchesCollection(product: Product, slug: string) {
+  if (product.kind !== 'product') return false
+  const hay = `${product.name} ${product.tag} ${product.description} ${product.category}`.toLowerCase()
+  switch (slug) {
+    case 'wigs':
+      return product.category === 'Wigs'
+    case 'bobs':
+      return hay.includes('bob')
+    case 'straight-hair':
+      return hay.includes('straight')
+    case 'curly-hair':
+      return /wave|curl|kinky/.test(hay)
+    case 'bundles':
+      return product.category === 'Bundles'
+    case 'closures-frontals':
+      return /closure|frontal|pondo/.test(hay)
+    default:
+      return false
+  }
+}
+
+export function getCollectionProducts(slug: string) {
+  return hairProducts.filter((p) => productMatchesCollection(p, slug))
+}
+
+export function relatedHairProducts(product: Product, limit = 4) {
+  const pool = (product.kind === 'service' ? serviceProducts : hairProducts).filter(
+    (p) => p.slug !== product.slug
+  )
+  return [...pool]
+    .sort((a, b) => {
+      const score = (p: Product) =>
+        (p.category === product.category ? 2 : 0) + (p.tag === product.tag ? 3 : 0)
+      return score(b) - score(a)
+    })
+    .slice(0, limit)
+}
+
+export function primaryCollectionSlug(product: Product) {
+  const order = ['bobs', 'closures-frontals', 'straight-hair', 'curly-hair', 'bundles', 'wigs']
+  return order.find((slug) => productMatchesCollection(product, slug))
+}
+
+export const hairCareCopy =
+  'Wash in cool water with a sulphate-free shampoo. Detangle from the ends up. Air-dry on a stand. Heat-style on a medium setting only, and store in a silk bag when not in use.'
+
+export const hairShippingCopy =
+  'Pay by EFT at checkout. We dispatch from Johannesburg in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
+
+export const serviceRedeemCopy =
+  'Vouchers are valid for 12 months. Redeem at 46 Plein Street, Johannesburg. Bring your order confirmation. Book ahead so we can hold your chair.'
+
+export const instagramUrl = 'https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu'
+
+export function serviceDuration(product: Product) {
+  return product.specs.find((s) => s.label === 'Duration')?.value ?? 'By appointment'
+}
+
+export const workGallery = [
+  { src: '/images/gallery/curly-install-client.jpg', alt: 'Curly install' },
+  { src: '/images/gallery/blonde-balayage-unit.jpg', alt: 'Blonde balayage unit' },
+  { src: '/images/gallery/straight-lace-front-unit.jpg', alt: 'Straight lace front' },
+  { src: '/images/gallery/kinky-curly-branded.jpg', alt: 'Kinky curly hair' },
+  { src: '/images/gallery/body-wave-display.jpg', alt: 'Body wave display' },
+  { src: '/images/gallery/deep-wave-frontal-set.jpg', alt: 'Deep wave frontal set' },
+  { src: '/images/gallery/straight-bundles-closure.jpg', alt: 'Straight bundles and closure' },
+  { src: '/biana/gallery-2.jpg', alt: 'Studio work' },
+  { src: '/biana/gallery-3.jpg', alt: 'Finished unit' },
+  { src: '/biana/gallery-4.jpg', alt: 'Client hair' },
+  { src: '/images/gallery/ombre-bundles-closures.jpg', alt: 'Ombre bundles' },
+  { src: '/images/about-work.png', alt: 'Units in studio' },
 ]
 
 export function toCartProduct(

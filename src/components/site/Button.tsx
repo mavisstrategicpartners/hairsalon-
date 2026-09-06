@@ -8,10 +8,10 @@ const base =
 
 const variants: Record<Variant, string> = {
   solid:
-    'border-2 border-[#c9a84c] bg-[#c9a84c] text-[#070707] hover:bg-[#e8c97a] hover:border-[#e8c97a]',
+    'border-2 border-[#c9a84c] bg-[#c9a84c] text-[#1a1208] hover:bg-[#8a6820] hover:border-[#8a6820] hover:text-white',
   outline:
-    'border-2 border-[#c9a84c] bg-transparent text-[#c9a84c] hover:bg-[#c9a84c] hover:text-[#070707]',
-  ghost: 'px-0 py-0 text-[#c9a84c] underline-offset-4 hover:text-[#e8c97a] hover:underline',
+    'border-2 border-[#8a6820] bg-transparent text-[#1a1208] hover:bg-[#8a6820] hover:text-white',
+  ghost: 'px-0 py-0 text-[#8a6820] underline-offset-4 hover:text-[#1a1208] hover:underline',
 }
 
 export function ActionButton({
