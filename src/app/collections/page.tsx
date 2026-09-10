@@ -27,7 +27,9 @@ export default function CollectionsPage() {
               </span>
               <h2 className="mt-3 font-display text-2xl italic tracking-tight">{c.name}</h2>
               <p className="mt-2 max-w-[36ch] text-sm leading-relaxed text-muted-foreground">{c.description}</p>
-              <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8a6820]">Shop now →</p>
+              <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#b8923a] transition-colors group-hover:text-[#9a7428]">
+                Shop now →
+              </p>
             </Link>
           ))}
         </div>

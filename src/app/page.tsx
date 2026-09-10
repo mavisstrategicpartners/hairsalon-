@@ -141,7 +141,7 @@ export default function Home() {
                   />
                 </span>
                 <h3 className="mt-4 font-display text-xl italic tracking-tight sm:text-[1.65rem]">{c.name}</h3>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1a1208]/40">
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#b8923a] transition-colors group-hover:text-[#9a7428]">
                   Shop now →
                 </p>
               </Link>

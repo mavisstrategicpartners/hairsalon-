@@ -65,7 +65,7 @@ export function ProductCard({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => addItem(toCartProduct(product, { length: product.length }), 1)}
-          className="mt-4 w-full border border-[#1a1208] bg-[#1a1208] py-2.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-[#e56e1a] hover:bg-[#e56e1a]"
+          className="mt-4 w-full border border-[#c4a15a] bg-[#c4a15a] py-2.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#1a1208] transition-colors hover:border-[#b8923a] hover:bg-[#b8923a]"
         >
           Add to bag
         </button>

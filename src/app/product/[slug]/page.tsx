@@ -135,7 +135,10 @@ export default function ProductDetailPage() {
                 +
               </button>
             </div>
-            <ActionButton onClick={addToBag}>
+            <ActionButton
+              onClick={addToBag}
+              className="border-[#c4a15a] bg-[#c4a15a] text-[#1a1208] hover:border-[#b8923a] hover:bg-[#b8923a] hover:text-[#1a1208]"
+            >
               {isService ? 'Add voucher to bag' : 'Add to bag'}
             </ActionButton>
           </div>
