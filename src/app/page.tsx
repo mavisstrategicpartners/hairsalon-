@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <div className="bg-white text-[#1a1208]">
       <section className="relative w-full overflow-hidden bg-[#b8a48c]">
-        <div className="relative aspect-[16/9] w-full">
+        <div className="relative h-[min(78svh,36rem)] w-full min-h-[28rem] sm:h-auto sm:min-h-0 sm:aspect-[16/9]">
           <Image
             src="/images/hero-home.jpg"
             alt="Woman wearing long highlighted wavy hair"
@@ -97,22 +97,23 @@ export default function Home() {
             priority
             sizes="100vw"
             data-no-parallax
-            className="object-cover object-[78%_center]"
+            className="object-cover object-[82%_12%] sm:object-[78%_center]"
           />
-          <div className="absolute inset-0 z-10 flex items-center">
-            <div className="w-full max-w-[1400px] px-6 sm:px-10 lg:px-16">
-              <h1 className="max-w-[10ch] font-display text-[clamp(2.35rem,6.4vw,4.75rem)] font-normal italic leading-[0.96] tracking-tight text-[#2a1f16]">
+          <div className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-t from-[#c4b09c]/90 via-[#c4b09c]/20 to-transparent sm:hidden" />
+          <div className="absolute inset-0 z-10 flex items-end sm:items-center">
+            <div className="w-full max-w-[1400px] px-5 pb-8 pt-6 sm:px-10 sm:py-0 lg:px-16">
+              <h1 className="max-w-[10ch] font-display text-[clamp(2.1rem,10vw,4.75rem)] font-normal italic leading-[0.96] tracking-tight text-[#2a1f16]">
                 Luxury hair,
                 <br />
                 made to be
                 <br />
                 yours.
               </h1>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/shop" className={buttonClass('solid', 'min-w-[9.5rem]')}>
+              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+                <Link href="/shop" className={buttonClass('solid', 'min-w-[8.5rem]')}>
                   Shop Hair
                 </Link>
-                <Link href="/contact" className={buttonClass('outline', 'min-w-[11.5rem]')}>
+                <Link href="/contact" className={buttonClass('outline', 'min-w-[10.5rem]')}>
                   Book a Service
                 </Link>
               </div>
