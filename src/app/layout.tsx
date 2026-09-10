@@ -28,7 +28,7 @@ const dancing = Dancing_Script({
 export const metadata: Metadata = {
   title: 'Biana HAIR — Premium Hair & Studio, South Africa',
   description:
-    'Raw single-donor wigs, bundles and closures, plus in-studio styling in Johannesburg.',
+    'Bundles, closures and premium units, plus in-studio styling in Johannesburg.',
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

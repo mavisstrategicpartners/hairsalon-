@@ -8,15 +8,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#c9a84c] text-[#1a1208] hover:bg-[#8a6820] hover:text-white",
+          "bg-[#1a1208] text-white hover:bg-[#e56e1a]",
         destructive:
-          "border border-[#c9a84c]/40 bg-transparent text-[#8a6820] hover:bg-[#c9a84c] hover:text-[#1a1208]",
+          "border border-[#1a1208]/40 bg-transparent text-[#1a1208] hover:bg-[#1a1208] hover:text-white",
         outline:
-          "border border-[#8a6820] bg-transparent text-[#1a1208] hover:bg-[#8a6820] hover:text-white",
+          "border border-[#1a1208] bg-transparent text-[#1a1208] hover:bg-[#1a1208] hover:text-white",
         secondary:
-          "bg-white text-[#1a1208] border border-[#c9a84c]/40 hover:border-[#c9a84c]",
-        ghost: "text-[#8a6820] hover:text-[#1a1208]",
-        link: "text-[#c9a84c] underline-offset-4 hover:underline tracking-normal normal-case font-medium",
+          "bg-white text-[#1a1208] border border-[#1a1208] hover:bg-[#1a1208] hover:text-white",
+        ghost: "text-[#e56e1a] hover:text-[#1a1208]",
+        link: "text-[#e56e1a] underline-offset-4 hover:underline tracking-normal normal-case font-medium",
       },
       size: {
         default: "h-10 px-5",

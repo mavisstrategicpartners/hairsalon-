@@ -52,7 +52,7 @@ export function SiteSearch({
             ref={inputRef}
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Wigs, bobs, bundles…"
+            placeholder="Bundles, closures, wigs…"
             className="mt-2 w-full border border-[#c9a84c]/40 px-4 py-3 text-sm"
           />
         </form>

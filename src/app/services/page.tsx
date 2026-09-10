@@ -24,9 +24,14 @@ export default function ServicesPage() {
             <ServiceCard key={p.slug} service={p} />
           ))}
         </div>
-        <Link href="/shop" className={`${buttonClass('ghost')} mt-12`}>
-          Shop hair instead →
-        </Link>
+        <div className="mt-12 flex flex-wrap gap-4">
+          <Link href="/contact" className={buttonClass('solid')}>
+            Book a Service
+          </Link>
+          <Link href="/shop" className={buttonClass('ghost')}>
+            Shop hair instead →
+          </Link>
+        </div>
       </section>
     </div>
   )

@@ -10,12 +10,13 @@ export function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((state) => state.addItem)
   const toggleSaved = useCartStore((state) => state.toggleSaved)
   const saved = useCartStore((state) => state.saved)
-  const loved = saved.includes(product.slug)
+  const hasHydrated = useCartStore((state) => state.hasHydrated)
+  const loved = hasHydrated && saved.includes(product.slug)
 
   return (
-    <article className="relative flex h-full flex-col border border-[#c9a84c]/40 bg-white px-5 pb-5 pt-6 text-[#070707]">
+    <article className="relative flex h-full flex-col text-[#1a1208]">
       {product.kind === 'service' ? (
-        <span className="absolute left-5 top-5 z-10 rounded-full border border-[#c9a84c] bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#c9a84c]">
+        <span className="absolute left-3 top-3 z-10 bg-white/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#1a1208]">
           Service
         </span>
       ) : null}
@@ -24,49 +25,47 @@ export function ProductCard({ product }: { product: Product }) {
         type="button"
         aria-label={loved ? 'Remove from saved' : 'Save'}
         onClick={() => toggleSaved(product.slug)}
-        className="absolute right-5 top-5 z-10 text-[#c9a84c] transition-colors hover:text-[#070707]"
+        className="absolute right-3 top-3 z-10 text-[#1a1208]/40 transition-colors hover:text-[#1a1208]"
       >
-        <Heart className={`h-5 w-5 ${loved ? 'fill-[#c9a84c] text-[#c9a84c]' : ''}`} />
+        <Heart className={`h-4 w-4 ${loved ? 'fill-[#1a1208] text-[#1a1208]' : ''}`} strokeWidth={1.5} />
       </button>
 
-      <Link href={`/product/${product.slug}`} className="mx-auto mt-4 block">
-        <span className="relative mx-auto block h-44 w-44 overflow-hidden rounded-full bg-white ring-1 ring-[#c9a84c]/50">
+      <Link href={`/product/${product.slug}`} className="group block">
+        <span className="relative block aspect-[4/5] overflow-hidden bg-[#f4efe8]">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            sizes="176px"
-            className="object-cover object-center"
+            sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
           />
         </span>
       </Link>
 
-      <div className="mt-6 flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col pt-4">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="font-display text-xl italic leading-snug tracking-tight text-[#070707]">
+          <h3 className="font-display text-[1.2rem] italic leading-snug tracking-tight">
             {product.name}
           </h3>
         </Link>
         {product.length ? (
-          <p className="mt-1 text-sm text-black/55">Length: {product.length}</p>
+          <p className="mt-1 text-[13px] text-[#1a1208]/50">Length: {product.length}</p>
         ) : (
-          <p className="mt-1 text-sm text-black/55">{product.tag}</p>
+          <p className="mt-1 text-[13px] text-[#1a1208]/50">{product.tag}</p>
         )}
-        <span className="mt-3 inline-flex w-fit rounded-full border border-[#c9a84c]/40 px-3 py-0.5 text-[11px] uppercase tracking-[0.12em] text-[#c9a84c]">
-          {product.tag}
-        </span>
+        <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#1a1208]/40">{product.tag}</p>
 
-        <div className="mt-auto flex items-end justify-between pt-6">
-          <p className="font-mono text-lg text-[#c9a84c]">{formatZar(product.price)}</p>
+        <div className="mt-auto flex items-end justify-between pt-4">
+          <p className="text-[15px] tracking-wide">{formatZar(product.price)}</p>
           {product.kind === 'product' ? (
-            <p className="text-[11px] uppercase tracking-[0.12em] text-black/45">Premium Quality</p>
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#1a1208]/35">Premium Quality</p>
           ) : null}
         </div>
 
         <button
           type="button"
           onClick={() => addItem(toCartProduct(product, { length: product.length }), 1)}
-          className="mt-4 w-full border-2 border-[#c9a84c] bg-[#c9a84c] py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-black transition-colors hover:bg-black hover:border-black hover:text-white"
+          className="mt-4 w-full border border-[#1a1208] bg-[#1a1208] py-2.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-[#e56e1a] hover:bg-[#e56e1a]"
         >
           Add to bag
         </button>

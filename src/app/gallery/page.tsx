@@ -20,9 +20,14 @@ export default function GalleryPage() {
             </div>
           ))}
         </div>
-        <Link href="/shop" className={`${buttonClass('outline')} mt-12`}>
-          Shop Hair
-        </Link>
+        <div className="mt-12 flex flex-wrap gap-4">
+          <Link href="/shop" className={buttonClass('outline')}>
+            Shop Hair
+          </Link>
+          <Link href="/contact" className={buttonClass('ghost')}>
+            Book a Service →
+          </Link>
+        </div>
       </section>
     </div>
   )

@@ -269,9 +269,9 @@ export const products: Product[] = [
 
 export const categories = [
   { name: 'All', slug: 'all' },
-  { name: 'Services', slug: 'services' },
-  { name: 'Wigs', slug: 'wigs' },
   { name: 'Bundles', slug: 'bundles' },
+  { name: 'Wigs', slug: 'wigs' },
+  { name: 'Services', slug: 'services' },
 ] as const
 
 export const testimonials = [
@@ -304,16 +304,16 @@ export type HairCollection = {
 
 export const hairCollections: HairCollection[] = [
   {
-    slug: 'wigs',
-    name: 'Wigs',
-    description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
-    image: '/images/products/ombre-glueless.webp',
+    slug: 'bundles',
+    name: 'Bundles',
+    description: 'Wefts sold as singles. Three make a full install; mix lengths for a layered set.',
+    image: '/images/products/body-wave-bundle.webp',
   },
   {
-    slug: 'bobs',
-    name: 'Bobs',
-    description: 'Short, sculpted bobs with dense ends — from wine red to a clean Vietnamese 5x5.',
-    image: '/images/products/wine-red-bob.webp',
+    slug: 'closures-frontals',
+    name: 'Closures & Frontals',
+    description: 'Closures, frontals and pondo sets — melt-ready hairlines to finish an install.',
+    image: '/images/products/weave-closure-set.png',
   },
   {
     slug: 'straight-hair',
@@ -328,16 +328,16 @@ export const hairCollections: HairCollection[] = [
     image: '/images/products/waterwave-unit.webp',
   },
   {
-    slug: 'bundles',
-    name: 'Bundles',
-    description: 'Wefts sold as singles. Three make a full install; mix lengths for a layered set.',
-    image: '/images/products/body-wave-bundle.webp',
+    slug: 'bobs',
+    name: 'Bobs',
+    description: 'Short, sculpted bobs with dense ends — from wine red to a clean Vietnamese 5x5.',
+    image: '/images/products/wine-red-bob.webp',
   },
   {
-    slug: 'closures-frontals',
-    name: 'Closures & Frontals',
-    description: 'Closures, frontals and pondo sets — melt-ready hairlines to finish an install.',
-    image: '/images/products/weave-closure-set.png',
+    slug: 'wigs',
+    name: 'Wigs',
+    description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
+    image: '/images/products/ombre-glueless.webp',
   },
 ]
 
@@ -384,7 +384,7 @@ export function relatedHairProducts(product: Product, limit = 4) {
 }
 
 export function primaryCollectionSlug(product: Product) {
-  const order = ['bobs', 'closures-frontals', 'straight-hair', 'curly-hair', 'bundles', 'wigs']
+  const order = ['bundles', 'closures-frontals', 'straight-hair', 'curly-hair', 'bobs', 'wigs']
   return order.find((slug) => productMatchesCollection(product, slug))
 }
 

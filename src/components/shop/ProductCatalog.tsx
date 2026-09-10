@@ -14,8 +14,8 @@ import { ProductCard } from '@/components/site/ProductCard'
 
 const types = [
   { id: 'all', label: 'All hair' },
-  { id: 'units', label: 'Units' },
   { id: 'bundles', label: 'Bundles' },
+  { id: 'units', label: 'Units' },
 ] as const
 
 const sorts = [
@@ -36,6 +36,14 @@ function applyType(list: Product[], type: TypeId) {
 
 function applySort(list: Product[], sort: SortId) {
   const next = [...list]
+  if (sort === 'featured') {
+    const rank = (p: Product) => {
+      if (p.category === 'Bundles') return 0
+      if (/closure|frontal|pondo/i.test(`${p.name} ${p.tag} ${p.description}`)) return 1
+      return 2
+    }
+    next.sort((a, b) => rank(a) - rank(b))
+  }
   if (sort === 'price-asc') next.sort((a, b) => a.price - b.price)
   if (sort === 'price-desc') next.sort((a, b) => b.price - a.price)
   if (sort === 'name') next.sort((a, b) => a.name.localeCompare(b.name))
@@ -45,8 +53,8 @@ function applySort(list: Product[], sort: SortId) {
 const chip = (active: boolean) =>
   `border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] ${
     active
-      ? 'border-[#c9a84c] bg-[#c9a84c] text-[#070707]'
-      : 'border-[#c9a84c]/40 bg-white text-[#1a1208] hover:border-[#8a6820]'
+      ? 'border-[#1a1208] bg-[#1a1208] text-white'
+      : 'border-[#1a1208]/25 bg-white text-[#1a1208] hover:border-[#1a1208]'
   }`
 
 export function ProductCatalog({
@@ -104,8 +112,8 @@ export function ProductCatalog({
             </h1>
             <p className="mt-5 max-w-[42ch] text-pretty text-[15px] leading-relaxed text-muted-foreground">
               {term
-                ? `Results for “${query.trim()}”. Wigs, bobs, bundles and closures — studio services are listed separately.`
-                : 'Wigs, bobs, bundles and closures. Add to bag and pay by EFT. Studio services are listed separately.'}
+                ? `Results for “${query.trim()}”. Bundles, closures and units — studio services are listed separately.`
+                : 'Bundles, closures and units. Add to bag and pay by EFT. Studio services are listed separately.'}
             </p>
           </div>
         </section>
@@ -143,7 +151,7 @@ export function ProductCatalog({
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value as SortId)}
-                  className="mt-3 border border-[#c9a84c]/40 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1a1208]"
+                  className="mt-3 border border-[#1a1208]/25 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1a1208]"
                 >
                   {sorts.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -168,6 +176,21 @@ export function ProductCatalog({
               ))}
             </div>
           )}
+
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-[#c9a84c]/30 pt-10">
+            <div>
+              <p className="eyebrow">Studio</p>
+              <p className="mt-2 max-w-[42ch] text-[15px] leading-relaxed text-muted-foreground">
+                Installs, cuts and colour live on Services — not in this catalogue.
+              </p>
+            </div>
+            <Link
+              href="/services"
+              className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1a1208]/45 hover:text-[#1a1208]"
+            >
+              View all services →
+            </Link>
+          </div>
         </div>
       </section>
     </div>

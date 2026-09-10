@@ -68,6 +68,7 @@ export function ScrollExperience() {
     const bindParallax = () => {
       main.querySelectorAll('img').forEach((img) => {
         if (!(img instanceof HTMLElement) || marked.has(img)) return
+        if (img.hasAttribute('data-no-parallax')) return
         const wrap = img.parentElement
         if (!wrap) return
         if (wrap.getBoundingClientRect().height < 220) return

@@ -10,7 +10,7 @@ export default function CollectionsPage() {
       <PageHeader
         eyebrow="Collections"
         title="Shop by collection."
-        intro="Wigs, bobs, textures and wefts — each collection is a way into the shop, not a second catalogue."
+        intro="Bundles and closures first, then textures and units."
       />
       <section className="mx-auto max-w-[1400px] px-6 py-14">
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
