@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { formatZar, hairProducts } from '@/data/catalog'
+import { formatZar } from '@/data/catalog'
+import { useStoreProducts } from '@/lib/catalog/use-store-products'
 
 export function SiteSearch({
   open,
@@ -15,6 +16,7 @@ export function SiteSearch({
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const [q, setQ] = useState('')
+  const { products } = useStoreProducts(open)
 
   useEffect(() => {
     if (open) {
@@ -27,8 +29,8 @@ export function SiteSearch({
   const results = useMemo(() => {
     const term = q.trim().toLowerCase()
     if (term.length < 2) return []
-    return hairProducts.filter((p) => `${p.name} ${p.tag} ${p.description}`.toLowerCase().includes(term)).slice(0, 8)
-  }, [q])
+    return products.filter((p) => `${p.name} ${p.tag} ${p.description}`.toLowerCase().includes(term)).slice(0, 8)
+  }, [products, q])
 
   if (!open) return null
 

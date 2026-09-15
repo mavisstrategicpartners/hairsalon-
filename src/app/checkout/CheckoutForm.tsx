@@ -1,0 +1,226 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useCartStore } from '@/lib/store'
+import { storeOrder, type BankDetails, type PlacedOrder } from '@/lib/commerce/eft'
+import { formatZar } from '@/data/catalog'
+import { PageHeader } from '@/components/site/PageHeader'
+import { ActionButton, buttonClass } from '@/components/site/Button'
+
+export function CheckoutForm({ bank }: { bank: BankDetails }) {
+  const router = useRouter()
+  const { items, getTotalPrice, clearCart } = useCartStore()
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: 'South Africa',
+  })
+
+  const shippingCost = getTotalPrice() > 2500 || getTotalPrice() === 0 ? 0 : 120
+  const total = getTotalPrice() + shippingCost
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsProcessing(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: `${formData.firstName} ${formData.lastName}`.trim(),
+          customer_email: formData.email,
+          customer_phone: formData.phone,
+          customer_address: formData.address,
+          customer_city: formData.city,
+          customer_postal_code: formData.postalCode,
+          payment_method: 'eft',
+          // Only what the customer chose. Prices, subtotal, shipping and total
+          // are recalculated from Supabase, so none are sent from here.
+          items: items.map((item) => ({
+            slug: item.slug ?? item.id,
+            length: item.length ?? null,
+            quantity: item.quantity,
+          })),
+        }),
+      })
+
+      const body = (await response.json().catch(() => null)) as
+        | { data?: PlacedOrder; error?: { message?: string } }
+        | null
+
+      if (!response.ok || !body?.data) {
+        setError(body?.error?.message ?? 'We could not place your order. Please try again.')
+        setIsProcessing(false)
+        return
+      }
+
+      storeOrder(body.data)
+      clearCart()
+      router.push(`/order-confirmation?order=${encodeURIComponent(body.data.order_number)}`)
+    } catch {
+      setError('We could not reach the order service. Please check your connection and try again.')
+      setIsProcessing(false)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  if (items.length === 0) {
+    return (
+      <div className="bg-white">
+        <PageHeader eyebrow="Checkout" title="Your bag is empty" />
+        <div className="mx-auto max-w-[1400px] px-6 py-16">
+          <Link href="/shop" className={buttonClass('solid')}>
+            Shop the edit
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white">
+      <PageHeader eyebrow="Checkout" title="Complete your order" />
+
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto grid max-w-[1400px] gap-12 px-6 py-14 lg:grid-cols-12"
+      >
+        <div className="lg:col-span-7">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
+            <p className="eyebrow">Shipping</p>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              {(
+                [
+                  ['firstName', 'First name'],
+                  ['lastName', 'Last name'],
+                  ['email', 'Email'],
+                  ['phone', 'Phone'],
+                ] as const
+              ).map(([name, label]) => (
+                <div key={name}>
+                  <label className="label-mono text-faint">{label}</label>
+                  <input
+                    required
+                    type={name === 'email' ? 'email' : name === 'phone' ? 'tel' : 'text'}
+                    name={name}
+                    value={formData[name]}
+                    onChange={handleChange}
+                    className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="mt-6">
+              <label className="label-mono text-faint">Address</label>
+              <input
+                required
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
+              />
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              <div>
+                <label className="label-mono text-faint">City</label>
+                <input
+                  required
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
+                />
+              </div>
+              <div>
+                <label className="label-mono text-faint">Postal code</label>
+                <input
+                  required
+                  name="postalCode"
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                  className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707]"
+                />
+              </div>
+            </div>
+            <div className="mt-6">
+              <label className="label-mono text-faint">Country</label>
+              <input
+                name="country"
+                value={formData.country}
+                disabled
+                className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707] opacity-60"
+              />
+            </div>
+
+            <div className="mt-8 border border-border p-4">
+              <p className="label-mono text-primary">EFT / bank transfer</p>
+              <p className="mt-3 text-sm text-black/60">
+                Place your order to receive your order number, then pay by EFT using it as your
+                reference.
+              </p>
+              {bank.configured ? (
+                <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
+                  {bank.fields.map((field) => field.value).join(' · ')}
+                </p>
+              ) : null}
+            </div>
+
+            {error ? (
+              <p className="mt-6 border border-[#a6402f]/40 bg-[#a6402f]/5 p-4 text-sm text-[#a6402f]">
+                {error}
+              </p>
+            ) : null}
+
+            <ActionButton type="submit" className="mt-8 w-full" disabled={isProcessing}>
+              {isProcessing ? 'Processing…' : `Place order — ${formatZar(total)}`}
+            </ActionButton>
+          </div>
+        </div>
+
+        <aside className="lg:col-span-5">
+          <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
+            <p className="eyebrow">Summary</p>
+            <div className="mt-6 space-y-3 font-mono text-sm">
+              {items.map((item) => (
+                <div key={item.id} className="flex justify-between gap-4">
+                  <span className="text-black/55">
+                    {item.name} × {item.quantity}
+                  </span>
+                  <span>{formatZar(item.price * item.quantity)}</span>
+                </div>
+              ))}
+            </div>
+            <dl className="mt-6 space-y-3 border-t border-border pt-4 font-mono text-sm">
+              <div className="flex justify-between">
+                <dt className="text-black/55">Subtotal</dt>
+                <dd>{formatZar(getTotalPrice())}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-black/55">Courier</dt>
+                <dd>{shippingCost === 0 ? 'Free' : formatZar(shippingCost)}</dd>
+              </div>
+              <div className="flex justify-between border-t border-border pt-3 text-base">
+                <dt>Total</dt>
+                <dd>{formatZar(total)}</dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
+      </form>
+    </div>
+  )
+}

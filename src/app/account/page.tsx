@@ -1,16 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { products } from '@/data/catalog'
 import { ProductCard } from '@/components/site/ProductCard'
 import { PageHeader } from '@/components/site/PageHeader'
 import { buttonClass } from '@/components/site/Button'
+import { useStoreProducts } from '@/lib/catalog/use-store-products'
 import { useCartStore } from '@/lib/store'
 
 export default function AccountPage() {
   const hasHydrated = useCartStore((state) => state.hasHydrated)
   const saved = useCartStore((state) => state.saved)
-  const savedProducts = products.filter((p) => saved.includes(p.slug) && p.kind === 'product')
+  const { products, loading } = useStoreProducts()
+  const savedProducts = products.filter((p) => saved.includes(p.slug))
 
   return (
     <div className="bg-white">
@@ -20,7 +21,7 @@ export default function AccountPage() {
         intro="Checkout is by EFT as a guest — no login required. Heart a product in Shop to keep it here."
       />
       <section className="mx-auto max-w-[1400px] px-6 py-14">
-        {!hasHydrated ? (
+        {!hasHydrated || loading ? (
           <p className="text-muted-foreground">Loading saved pieces…</p>
         ) : savedProducts.length === 0 ? (
           <div>

@@ -1,6 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { hairCollections, instagramUrl, products, testimonials, workGallery } from '@/data/catalog'
+import {
+  hairCollections,
+  instagramUrl,
+  serviceProducts,
+  testimonials,
+  workGallery,
+} from '@/data/catalog'
+import { listFeaturedStoreProducts } from '@/lib/catalog/products'
 import { buttonClass } from '@/components/site/Button'
 import { ProductCard } from '@/components/site/ProductCard'
 import { ServiceCard } from '@/components/site/ServiceCard'
@@ -16,9 +23,8 @@ const featuredSlugs = [
   'goldie-unit-14',
 ]
 
-const featuredProducts = featuredSlugs
-  .map((slug) => products.find((p) => p.slug === slug))
-  .filter((p): p is NonNullable<typeof p> => Boolean(p))
+/** Featured products come from Supabase; refresh them within a minute. */
+export const revalidate = 60
 
 const shopCategories = hairCollections.map((c) => ({
   name: c.name,
@@ -26,7 +32,7 @@ const shopCategories = hairCollections.map((c) => ({
   image: c.image,
 }))
 
-const previewServices = products.filter((p) => p.kind === 'service').slice(0, 4)
+const previewServices = serviceProducts.slice(0, 4)
 const galleryPreview = workGallery.slice(0, 8)
 const instagramPreview = workGallery.slice(4, 8)
 
@@ -85,11 +91,13 @@ function SectionHead({
   )
 }
 
-export default function Home() {
+export default async function Home() {
+  const featuredProducts = await listFeaturedStoreProducts(featuredSlugs)
+
   return (
     <div className="bg-white text-[#1a1208]">
       <section className="relative w-full overflow-hidden bg-[#b8a48c]">
-        <div className="relative h-[min(78svh,36rem)] w-full min-h-[28rem] sm:h-auto sm:min-h-0 sm:aspect-[16/9]">
+        <div className="relative h-[calc(100svh-5.5rem)] w-full min-h-[22rem] max-h-[38rem] sm:h-auto sm:min-h-0 sm:aspect-[16/9] sm:max-h-[calc(100svh-6.5rem)]">
           <Image
             src="/images/hero-home.jpg"
             alt="Woman wearing long highlighted wavy hair"
@@ -97,9 +105,9 @@ export default function Home() {
             priority
             sizes="100vw"
             data-no-parallax
-            className="object-cover object-[82%_12%] sm:object-[78%_center]"
+            className="object-cover object-[80%_10%] sm:object-[78%_center]"
           />
-          <div className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-t from-[#c4b09c]/90 via-[#c4b09c]/20 to-transparent sm:hidden" />
+          <div className="pointer-events-none absolute inset-0 z-[5] bg-[linear-gradient(to_top,rgba(196,176,156,0.97)_0%,rgba(196,176,156,0.92)_26%,rgba(196,176,156,0.45)_44%,rgba(196,176,156,0)_62%)] sm:hidden" />
           <div className="absolute inset-0 z-10 flex items-end sm:items-center">
             <div className="w-full max-w-[1400px] px-5 pb-8 pt-6 sm:px-10 sm:py-0 lg:px-16">
               <h1 className="max-w-[10ch] font-display text-[clamp(2.1rem,10vw,4.75rem)] font-normal italic leading-[0.96] tracking-tight text-[#2a1f16]">

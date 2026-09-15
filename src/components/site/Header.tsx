@@ -42,19 +42,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 bg-[#c45e14]">
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-6 px-5 sm:px-8">
+      <div className="mx-auto flex h-[5.5rem] max-w-[1400px] items-center justify-between gap-4 px-5 sm:h-[6.5rem] sm:px-10 lg:px-16">
         <Link href="/" className="flex shrink-0 items-center" aria-label="Biana Hair home">
           <Image
-            src="/images/logo-biana-hair-on-dark.png"
+            src="/images/logo-biana-hair.png"
             alt="Biana Hair"
-            width={280}
-            height={72}
+            width={555}
+            height={545}
             priority
-            className="h-10 w-auto max-h-10 object-contain object-left"
+            className="h-[4.5rem] w-auto bg-transparent object-contain object-left sm:h-[5.5rem]"
           />
         </Link>
 
-          <nav className="hidden items-center gap-5 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-white xl:flex xl:gap-7">
+          <nav className="hidden items-center gap-5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white xl:flex xl:gap-7">
           {navLinks.map((l) =>
             l.href === '/collections' ? (
               <div

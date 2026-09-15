@@ -29,7 +29,7 @@ type TypeId = (typeof types)[number]['id']
 type SortId = (typeof sorts)[number]['id']
 
 function applyType(list: Product[], type: TypeId) {
-  if (type === 'units') return list.filter((p) => p.category === 'Wigs')
+  if (type === 'units') return list.filter((p) => p.category === 'Wigs' || p.category === 'Bobs')
   if (type === 'bundles') return list.filter((p) => p.category === 'Bundles')
   return list
 }
@@ -39,6 +39,7 @@ function applySort(list: Product[], sort: SortId) {
   if (sort === 'featured') {
     const rank = (p: Product) => {
       if (p.category === 'Bundles') return 0
+      if (p.category === 'Closures' || p.category === 'Frontals') return 1
       if (/closure|frontal|pondo/i.test(`${p.name} ${p.tag} ${p.description}`)) return 1
       return 2
     }
@@ -60,9 +61,12 @@ const chip = (active: boolean) =>
 export function ProductCatalog({
   collectionSlug,
   query = '',
+  products,
 }: {
   collectionSlug?: string
   query?: string
+  /** Catalogue from Supabase, supplied by the server component. */
+  products?: Product[]
 }) {
   const collection = collectionSlug ? getHairCollection(collectionSlug) : undefined
   const [type, setType] = useState<TypeId>('all')
@@ -70,12 +74,13 @@ export function ProductCatalog({
   const term = query.trim().toLowerCase()
 
   const list = useMemo(() => {
-    let base = collectionSlug ? getCollectionProducts(collectionSlug) : hairProducts
+    const catalogue = products ?? hairProducts
+    let base = collectionSlug ? getCollectionProducts(collectionSlug, catalogue) : catalogue
     if (term) {
       base = base.filter((p) => `${p.name} ${p.tag} ${p.description}`.toLowerCase().includes(term))
     }
     return applySort(applyType(base, type), sort)
-  }, [collectionSlug, type, sort, term])
+  }, [products, collectionSlug, type, sort, term])
 
   return (
     <div className="bg-white">

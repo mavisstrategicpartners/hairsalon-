@@ -24,14 +24,14 @@ const accountLinks = [
 export function Footer() {
   return (
     <footer className="bg-[#c45e14] text-white">
-      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 sm:px-8 lg:grid-cols-12">
+      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 sm:px-10 lg:grid-cols-12 lg:px-16">
         <div className="lg:col-span-5">
           <Image
-            src="/images/logo-biana-hair-on-dark.png"
+            src="/images/logo-biana-hair.png"
             alt="Biana Hair"
-            width={280}
-            height={72}
-            className="h-12 w-auto max-w-[260px] object-contain"
+            width={555}
+            height={545}
+            className="h-28 w-auto bg-transparent object-contain object-left sm:h-32"
           />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-white/75">
             Johannesburg · By appointment

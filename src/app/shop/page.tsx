@@ -1,36 +1,10 @@
-'use client'
+import { listStoreProducts } from '@/lib/catalog/products'
+import { ShopClient } from './ShopClient'
 
-import { Suspense, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { ProductCatalog } from '@/components/shop/ProductCatalog'
+/** Catalogue changes in Supabase appear within a minute. */
+export const revalidate = 60
 
-const collectionQ: Record<string, string> = {
-  bob: '/shop/bobs',
-  straight: '/shop/straight-hair',
-  wave: '/shop/curly-hair',
-  frontal: '/shop/closures-frontals',
-}
-
-function ShopRedirect() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const q = searchParams.get('q') ?? ''
-
-  useEffect(() => {
-    const cat = searchParams.get('cat')
-    if (cat === 'Services') router.replace('/services')
-    else if (cat === 'Wigs') router.replace('/shop/wigs')
-    else if (cat === 'Bundles') router.replace('/shop/bundles')
-    else if (q && collectionQ[q]) router.replace(collectionQ[q])
-  }, [router, searchParams, q])
-
-  return <ProductCatalog query={collectionQ[q] ? '' : q} />
-}
-
-export default function ShopPage() {
-  return (
-    <Suspense fallback={<p className="px-6 py-16 text-muted-foreground">Loading shop…</p>}>
-      <ShopRedirect />
-    </Suspense>
-  )
+export default async function ShopPage() {
+  const products = await listStoreProducts()
+  return <ShopClient products={products} />
 }

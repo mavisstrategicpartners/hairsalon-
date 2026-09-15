@@ -1,8 +1,14 @@
+import type { ProductCategory } from '@/lib/supabase/types'
+
+/**
+ * `category` covers the Supabase product categories plus `Services`, which is
+ * frontend-only content and is never stored in the products table.
+ */
 export type Product = {
   slug: string
   name: string
   price: number
-  category: 'Wigs' | 'Bundles' | 'Services'
+  category: ProductCategory | 'Services'
   tag: string
   kind: 'product' | 'service'
   image: string
@@ -292,7 +298,9 @@ export const testimonials = [
   },
 ]
 
+/** Fallback catalogue, used only while Supabase credentials are absent. */
 export const hairProducts = products.filter((p) => p.kind === 'product')
+/** Studio services stay static frontend content — never rows in `products`. */
 export const serviceProducts = products.filter((p) => p.kind === 'service')
 
 export type HairCollection = {
@@ -345,14 +353,19 @@ export function getHairCollection(slug: string) {
   return hairCollections.find((c) => c.slug === slug)
 }
 
+/**
+ * Collections prefer the real Supabase category. Straight and curly describe a
+ * texture rather than a category, so those keep the original keyword match.
+ */
 export function productMatchesCollection(product: Product, slug: string) {
   if (product.kind !== 'product') return false
   const hay = `${product.name} ${product.tag} ${product.description} ${product.category}`.toLowerCase()
   switch (slug) {
     case 'wigs':
-      return product.category === 'Wigs'
+      // Bobs are finished units too, so they stay listed under Wigs.
+      return product.category === 'Wigs' || product.category === 'Bobs'
     case 'bobs':
-      return hay.includes('bob')
+      return product.category === 'Bobs' || hay.includes('bob')
     case 'straight-hair':
       return hay.includes('straight')
     case 'curly-hair':
@@ -360,27 +373,18 @@ export function productMatchesCollection(product: Product, slug: string) {
     case 'bundles':
       return product.category === 'Bundles'
     case 'closures-frontals':
-      return /closure|frontal|pondo/.test(hay)
+      return (
+        product.category === 'Closures' ||
+        product.category === 'Frontals' ||
+        /closure|frontal|pondo/.test(hay)
+      )
     default:
       return false
   }
 }
 
-export function getCollectionProducts(slug: string) {
-  return hairProducts.filter((p) => productMatchesCollection(p, slug))
-}
-
-export function relatedHairProducts(product: Product, limit = 4) {
-  const pool = (product.kind === 'service' ? serviceProducts : hairProducts).filter(
-    (p) => p.slug !== product.slug
-  )
-  return [...pool]
-    .sort((a, b) => {
-      const score = (p: Product) =>
-        (p.category === product.category ? 2 : 0) + (p.tag === product.tag ? 3 : 0)
-      return score(b) - score(a)
-    })
-    .slice(0, limit)
+export function getCollectionProducts(slug: string, list: Product[] = hairProducts) {
+  return list.filter((p) => productMatchesCollection(p, slug))
 }
 
 export function primaryCollectionSlug(product: Product) {
