@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { formatZar } from '@/data/catalog'
+import { formatProductPrice } from '@/data/catalog'
 import { useStoreProducts } from '@/lib/catalog/use-store-products'
 
 export function SiteSearch({
@@ -67,7 +67,7 @@ export function SiteSearch({
                 className="flex items-center justify-between gap-4 py-3 text-sm hover:text-[#8a6820]"
               >
                 <span>{p.name}</span>
-                <span className="shrink-0 font-mono text-[12px] text-[#c9a84c]">{formatZar(p.price)}</span>
+                <span className="shrink-0 font-mono text-[12px] text-[#c9a84c]">{formatProductPrice(p)}</span>
               </Link>
             </li>
           ))}

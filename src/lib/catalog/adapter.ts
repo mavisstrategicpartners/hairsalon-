@@ -21,9 +21,9 @@ export type CatalogueRow = Pick<
 >
 
 const PRODUCT_IMAGE_BUCKET = 'product-images'
-const FALLBACK_IMAGE = '/images/products/weave-closure-set.png'
+const FALLBACK_IMAGE = '/images/products/brazilian-body-wave-1.jpg'
 
-/** Spec keys whose plain title-casing would read badly. */
+const HIDDEN_SPEC_KEYS = new Set(['gallery', 'length_prices', 'images'])
 const SPEC_LABELS: Record<string, string> = {
   lace_type: 'Lace type',
   hair_type: 'Hair type',
@@ -81,6 +81,7 @@ export function toSpecList(specs: unknown): Product['specs'] {
 
   if (typeof specs === 'object' && specs !== null) {
     return Object.entries(specs as Record<string, Json>).flatMap(([key, value]) => {
+      if (HIDDEN_SPEC_KEYS.has(key)) return []
       const text = specValue(value)
       return text ? [{ label: SPEC_LABELS[key] ?? humaniseKey(key), value: text }] : []
     })
@@ -89,9 +90,34 @@ export function toSpecList(specs: unknown): Product['specs'] {
   return []
 }
 
+function parseGallery(specs: unknown, fallback: string): string[] {
+  if (typeof specs !== 'object' || specs === null || Array.isArray(specs)) return [fallback]
+  const gallery = (specs as Record<string, Json>).gallery
+  if (!Array.isArray(gallery)) return [fallback]
+  const paths = gallery
+    .filter((entry): entry is string => typeof entry === 'string' && entry.trim().length > 0)
+    .map((entry) => resolveProductImage(entry))
+  return paths.length > 0 ? paths.slice(0, 3) : [fallback]
+}
+
+function parseLengthPrices(specs: unknown): Product['lengthPrices'] {
+  if (typeof specs !== 'object' || specs === null || Array.isArray(specs)) return undefined
+  const raw = (specs as Record<string, Json>).length_prices
+  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return undefined
+  const entries = Object.entries(raw as Record<string, Json>).flatMap(([length, price]) => {
+    const value = typeof price === 'number' ? price : Number(price)
+    if (!length.trim() || !Number.isFinite(value) || value < 0) return []
+    return [{ length, price: value }]
+  })
+  return entries.length > 0 ? entries : undefined
+}
+
 /** Adapter: one Supabase product row to the frontend `Product` interface. */
 export function toStoreProduct(row: CatalogueRow): Product {
   const lengths = Array.isArray(row.lengths) && row.lengths.length > 0 ? row.lengths : undefined
+  const image = resolveProductImage(row.image)
+  const images = parseGallery(row.specs, image)
+  const lengthPrices = parseLengthPrices(row.specs)
 
   return {
     slug: row.slug,
@@ -100,10 +126,12 @@ export function toStoreProduct(row: CatalogueRow): Product {
     category: row.category,
     tag: row.tag?.trim() || row.category,
     kind: 'product',
-    image: resolveProductImage(row.image),
+    image,
+    images,
     description: row.description?.trim() ?? '',
     length: row.length?.trim() || undefined,
     lengths,
+    lengthPrices,
     specs: toSpecList(row.specs),
   }
 }

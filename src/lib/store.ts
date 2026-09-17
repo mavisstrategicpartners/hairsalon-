@@ -11,6 +11,7 @@ export interface Product {
   description: string
   length?: string
   type?: string
+  currency?: 'ZAR' | 'USD'
 }
 
 export interface CartItem extends Product {

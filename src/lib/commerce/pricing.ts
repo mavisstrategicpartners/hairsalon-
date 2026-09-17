@@ -41,6 +41,23 @@ export class PricingError extends Error {
 const toCents = (value: number) => Math.round(value * 100)
 const fromCents = (cents: number) => Math.round(cents) / 100
 
+function unitPriceFromRow(
+  base: number,
+  specs: unknown,
+  length: string | null
+): number {
+  if (typeof specs !== 'object' || specs === null || Array.isArray(specs)) return base
+  const prices = (specs as Record<string, unknown>).length_prices
+  if (typeof prices !== 'object' || prices === null || Array.isArray(prices)) return base
+  if (!length) return base
+  const value = (prices as Record<string, unknown>)[length]
+  const parsed = typeof value === 'number' ? value : Number(value)
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new PricingError(`Length "${length}" is not available.`)
+  }
+  return parsed
+}
+
 /**
  * The cart stores its line id as `slug` or `slug::length`, so accept either and
  * recover the slug. Only the slug is ever used to look up a price.
@@ -115,13 +132,16 @@ export async function priceOrder(lines: RequestedLine[]): Promise<PricedOrder> {
     ...new Set(lines.filter((line) => !SERVICE_PRICES.has(line.slug)).map((line) => line.slug)),
   ]
 
-  const sellable = new Map<string, { id: string; slug: string; name: string; price: number }>()
+  const sellable = new Map<
+    string,
+    { id: string; slug: string; name: string; price: number; specs: unknown }
+  >()
 
   if (productSlugs.length > 0) {
     const admin = createSupabaseAdminClient()
     const { data, error } = await admin
       .from('products')
-      .select('id, slug, name, price, active')
+      .select('id, slug, name, price, active, specs')
       .in('slug', productSlugs)
 
     if (error) {
@@ -144,7 +164,11 @@ export async function priceOrder(lines: RequestedLine[]): Promise<PricedOrder> {
       ? { id: null, name: service.name, price: service.price }
       : (() => {
           const product = sellable.get(line.slug)!
-          return { id: product.id, name: product.name, price: Number(product.price) }
+          return {
+            id: product.id,
+            name: product.name,
+            price: unitPriceFromRow(Number(product.price), product.specs, line.length),
+          }
         })()
 
     const unitPriceCents = toCents(source.price)

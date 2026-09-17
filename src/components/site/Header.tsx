@@ -6,38 +6,43 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Search, ShoppingBag, User } from 'lucide-react'
 import { useCartStore } from '@/lib/store'
-import { hairCollections } from '@/data/catalog'
+import { shopNavCollections } from '@/data/catalog'
 import { SiteSearch } from '@/components/site/SiteSearch'
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/shop', label: 'Shop' },
-  { href: '/collections', label: 'Collections' },
   { href: '/services', label: 'Services' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ] as const
 
 function isActive(pathname: string, href: string) {
   if (href === '/') return pathname === '/'
-  if (href === '/shop') return pathname === '/shop' || pathname.startsWith('/product/')
-  if (href === '/collections') return pathname === '/collections' || pathname.startsWith('/shop/')
-  return pathname === href
+  if (href === '/shop') {
+    return pathname === '/shop' || pathname.startsWith('/shop/') || pathname.startsWith('/product/')
+  }
+  return pathname === href || pathname.startsWith(`${href}/`)
 }
 
 export function Header() {
   const [open, setOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [collectionsOpen, setCollectionsOpen] = useState(false)
+  const [shopOpen, setShopOpen] = useState(false)
   const pathname = usePathname()
   const hasHydrated = useCartStore((state) => state.hasHydrated)
   const totalItems = useCartStore((state) => state.getTotalItems())
   const bagCount = hasHydrated ? totalItems : 0
+  const shopCategories = shopNavCollections()
 
   const linkClass = (href: string) => {
     const active = isActive(pathname, href)
     return `text-[#fff6ee]/80 hover:text-white ${active ? 'text-white' : ''}`
+  }
+
+  const closeMenu = () => {
+    setOpen(false)
+    setShopOpen(false)
   }
 
   return (
@@ -54,21 +59,27 @@ export function Header() {
           />
         </Link>
 
-          <nav className="hidden items-center gap-5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white xl:flex xl:gap-7">
+        <nav className="hidden items-center gap-6 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-white lg:flex lg:gap-8">
           {navLinks.map((l) =>
-            l.href === '/collections' ? (
+            l.href === '/shop' ? (
               <div
                 key={l.href}
                 className="relative"
-                onMouseEnter={() => setCollectionsOpen(true)}
-                onMouseLeave={() => setCollectionsOpen(false)}
+                onMouseEnter={() => setShopOpen(true)}
+                onMouseLeave={() => setShopOpen(false)}
               >
-                <Link href="/collections" className={linkClass(l.href)}>
-                  Collections
+                <Link href="/shop" className={linkClass(l.href)}>
+                  Shop
                 </Link>
-                {collectionsOpen ? (
+                {shopOpen ? (
                   <div className="absolute left-0 top-full z-20 min-w-[220px] bg-[#a84d10] py-3">
-                    {hairCollections.map((c) => (
+                    <Link
+                      href="/shop"
+                      className="block px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/80 hover:text-white"
+                    >
+                      All Hair
+                    </Link>
+                    {shopCategories.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/shop/${c.slug}`}
@@ -112,7 +123,7 @@ export function Header() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
-            className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white xl:hidden"
+            className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-white lg:hidden"
           >
             {open ? 'Close' : 'Menu'}
           </button>
@@ -120,27 +131,39 @@ export function Header() {
       </div>
 
       {open ? (
-        <nav className="border-t border-white/15 bg-[#c45e14] xl:hidden">
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block border-b border-white/15 px-6 py-4 font-display text-2xl italic tracking-tight text-white"
-            >
-              {l.label}
-            </Link>
-          ))}
-          {hairCollections.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/shop/${c.slug}`}
-              onClick={() => setOpen(false)}
-              className="block border-b border-white/15 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-white/70"
-            >
-              {c.name}
-            </Link>
-          ))}
+        <nav className="border-t border-white/15 bg-[#c45e14] lg:hidden">
+          {navLinks.map((l) =>
+            l.href === '/shop' ? (
+              <div key={l.href}>
+                <Link
+                  href="/shop"
+                  onClick={closeMenu}
+                  className="block border-b border-white/15 px-6 py-4 font-display text-2xl italic tracking-tight text-white"
+                >
+                  Shop
+                </Link>
+                {shopCategories.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/shop/${c.slug}`}
+                    onClick={closeMenu}
+                    className="block border-b border-white/15 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-white/70"
+                  >
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={closeMenu}
+                className="block border-b border-white/15 px-6 py-4 font-display text-2xl italic tracking-tight text-white"
+              >
+                {l.label}
+              </Link>
+            )
+          )}
         </nav>
       ) : null}
 

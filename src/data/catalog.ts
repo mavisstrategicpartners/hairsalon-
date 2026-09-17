@@ -1,4 +1,5 @@
 import type { ProductCategory } from '@/lib/supabase/types'
+import { priceListHairProducts } from '@/data/price-list-hair'
 
 /**
  * `category` covers the Supabase product categories plus `Services`, which is
@@ -12,13 +13,42 @@ export type Product = {
   tag: string
   kind: 'product' | 'service'
   image: string
+  /** Extra catalogue photos (max 3 including `image`). */
+  images?: string[]
+  /** When true, Shop shows an “Image unavailable” state instead of a photograph. */
+  imageUnavailable?: boolean
   description: string
   length?: string
   lengths?: string[]
+  /** When set, checkout uses this map instead of the default `price`. */
+  lengthPrices?: { length: string; price: number }[]
+  /** Price-list currency. USD items keep the listed wholesale figures. */
+  currency?: 'ZAR' | 'USD'
   specs: { label: string; value: string }[]
 }
 
+export const IMAGE_UNAVAILABLE = '/images/products/image-unavailable.svg'
+
 export const formatZar = (value: number) => `R${value.toLocaleString('en-US')}`
+
+export function formatMoney(value: number, currency: Product['currency'] = 'ZAR') {
+  if (currency === 'USD') return `$${value.toFixed(1)}`
+  return formatZar(value)
+}
+
+export function formatProductPrice(product: Pick<Product, 'price' | 'currency'>, amount?: number) {
+  return formatMoney(amount ?? product.price, product.currency)
+}
+
+export function priceForSelection(product: Product, length?: string) {
+  if (product.lengthPrices && product.lengthPrices.length > 0) {
+    const match = length
+      ? product.lengthPrices.find((entry) => entry.length === length)
+      : undefined
+    return (match ?? product.lengthPrices[0]).price
+  }
+  return product.price
+}
 
 export const products: Product[] = [
   {
@@ -38,183 +68,7 @@ export const products: Product[] = [
       { label: 'Valid', value: '12 months' },
     ],
   },
-  {
-    slug: 'wine-red-bob-10',
-    name: '10" Wine Red Double Drawn Frontal Bob',
-    price: 2800,
-    category: 'Wigs',
-    tag: 'Bob',
-    kind: 'product',
-    image: '/images/products/wine-red-bob.webp',
-    description: 'Double drawn frontal bob in wine red, 10 inches. Bold colour, dense ends.',
-    length: '10"',
-    specs: [
-      { label: 'Length', value: '10"' },
-      { label: 'Cap', value: 'Frontal' },
-      { label: 'Hair', value: 'Double drawn' },
-    ],
-  },
-  {
-    slug: 'ombre-glueless-18',
-    name: '18" Ombre Glueless Unit',
-    price: 4200,
-    category: 'Wigs',
-    tag: 'Ombre',
-    kind: 'product',
-    image: '/images/products/ombre-glueless.webp',
-    description: '18 inch glueless ombre unit. Dark root into honey — no glue required.',
-    length: '18"',
-    specs: [
-      { label: 'Length', value: '18"' },
-      { label: 'Cap', value: 'Glueless' },
-      { label: 'Colour', value: 'Ombre' },
-    ],
-  },
-  {
-    slug: 'pondo-bundles-closure',
-    name: '12" - 30" Bundles + Closure for Pondo',
-    price: 3500,
-    category: 'Bundles',
-    tag: 'Pondo',
-    kind: 'product',
-    image: '/images/products/pondo-bundles.webp',
-    description: 'Complete pondo set: bundles plus matching closure. Lengths from 12 to 30 inches.',
-    length: '12"-30"',
-    lengths: ['12"', '14"', '16"', '18"', '20"', '22"', '24"', '26"', '28"', '30"'],
-    specs: [
-      { label: 'Set', value: 'Bundles + closure' },
-      { label: 'Length', value: '12" – 30"' },
-      { label: 'Style', value: 'Pondo' },
-    ],
-  },
-  {
-    slug: 'full-frontal-bob-8',
-    name: '8" Full-frontal Bob',
-    price: 2200,
-    category: 'Wigs',
-    tag: 'Bob',
-    kind: 'product',
-    image: '/images/products/full-frontal-bob-8.webp',
-    description: 'Short full-frontal bob, 8 inches. Clean line, easy wear.',
-    length: '8"',
-    specs: [
-      { label: 'Length', value: '8"' },
-      { label: 'Cap', value: 'Full frontal' },
-    ],
-  },
-  {
-    slug: 'goldie-unit-14',
-    name: '14" Goldie Unit',
-    price: 3600,
-    category: 'Wigs',
-    tag: 'Goldie',
-    kind: 'product',
-    image: '/images/products/goldie-unit.webp',
-    description: '14 inch Goldie unit. Warm tone, premium density.',
-    length: '14"',
-    specs: [
-      { label: 'Length', value: '14"' },
-      { label: 'Finish', value: 'Goldie' },
-    ],
-  },
-  {
-    slug: 'double-drawn-bob-12',
-    name: '12" Double Drawn Frontal Bob',
-    price: 2500,
-    category: 'Wigs',
-    tag: 'Bob',
-    kind: 'product',
-    image: '/images/products/double-drawn-bob-12.webp',
-    description: '12 inch double drawn frontal bob. 100% human hair, even ends.',
-    length: '12"',
-    specs: [
-      { label: 'Length', value: '12"' },
-      { label: 'Hair', value: 'Double drawn' },
-      { label: 'Cap', value: 'Frontal' },
-    ],
-  },
-  {
-    slug: 'vietnamese-bob-14',
-    name: '14" Vietnamese 5X5 Bob',
-    price: 3200,
-    category: 'Wigs',
-    tag: 'Bob',
-    kind: 'product',
-    image: '/images/products/vietnamese-bob.webp',
-    description: 'Vietnamese 5x5 closure bob, 14 inches. Natural swing, low weight.',
-    length: '14"',
-    specs: [
-      { label: 'Length', value: '14"' },
-      { label: 'Cap', value: '5x5' },
-      { label: 'Origin', value: 'Vietnamese' },
-    ],
-  },
-  {
-    slug: 'waterwave-unit-30',
-    name: '30" Waterwave Frontal Unit',
-    price: 4500,
-    category: 'Wigs',
-    tag: 'Waterwave',
-    kind: 'product',
-    image: '/images/products/waterwave-unit.webp',
-    description: '30 inch waterwave frontal unit. Long wave with a glass finish.',
-    length: '30"',
-    specs: [
-      { label: 'Length', value: '30"' },
-      { label: 'Texture', value: 'Waterwave' },
-      { label: 'Cap', value: 'Frontal' },
-    ],
-  },
-  {
-    slug: 'straight-full-frontal-20',
-    name: '20" Straight Full-frontal Unit',
-    price: 3800,
-    category: 'Wigs',
-    tag: 'Straight',
-    kind: 'product',
-    image: '/images/products/straight-full-frontal.webp',
-    description: '20 inch straight full-frontal unit. Sleek, pulled-back ready.',
-    length: '20"',
-    specs: [
-      { label: 'Length', value: '20"' },
-      { label: 'Cap', value: 'Full frontal' },
-      { label: 'Texture', value: 'Straight' },
-    ],
-  },
-  {
-    slug: 'straight-bundle',
-    name: 'Straight Hair Bundle',
-    price: 1200,
-    category: 'Bundles',
-    tag: 'Straight',
-    kind: 'product',
-    image: '/images/products/straight-bundle.webp',
-    description: 'Single-donor straight bundle, 100g. Three make a full install.',
-    length: '18"',
-    lengths: ['14"', '16"', '18"', '20"', '22"'],
-    specs: [
-      { label: 'Weight', value: '100g' },
-      { label: 'Texture', value: 'Straight' },
-      { label: 'Weft', value: 'Double weft' },
-    ],
-  },
-  {
-    slug: 'body-wave-bundle',
-    name: 'Body Wave Bundle',
-    price: 1300,
-    category: 'Bundles',
-    tag: 'Body Wave',
-    kind: 'product',
-    image: '/images/products/body-wave-bundle.webp',
-    description: 'Body wave bundle with natural bounce. Sold as a single weft.',
-    length: '20"',
-    lengths: ['16"', '18"', '20"', '22"'],
-    specs: [
-      { label: 'Weight', value: '100g' },
-      { label: 'Texture', value: 'Body wave' },
-      { label: 'Weft', value: 'Double weft' },
-    ],
-  },
+  ...priceListHairProducts,
   {
     slug: 'precision-cut-voucher',
     name: 'Precision Cut & Finish',
@@ -308,9 +162,17 @@ export type HairCollection = {
   name: string
   description: string
   image: string
+  /** When false, the category stays available by URL but is not listed in Shop nav. */
+  inNav?: boolean
 }
 
 export const hairCollections: HairCollection[] = [
+  {
+    slug: 'wigs',
+    name: 'Wigs',
+    description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
+    image: '/images/products/ombre-glueless.webp',
+  },
   {
     slug: 'bundles',
     name: 'Bundles',
@@ -330,22 +192,29 @@ export const hairCollections: HairCollection[] = [
     image: '/images/products/straight-full-frontal.webp',
   },
   {
+    slug: 'body-wave',
+    name: 'Body Wave',
+    description: 'Body wave wefts with a soft S-pattern and natural bounce.',
+    image: '/images/products/brazilian-body-wave-1.jpg',
+  },
+  {
     slug: 'curly-hair',
     name: 'Curly Hair',
-    description: 'Waterwave and body wave with a glass finish. Long length, natural bounce.',
+    description: 'Curls and water wave — Italian curls, loose curl, deep curl and kinky deep.',
     image: '/images/products/waterwave-unit.webp',
+  },
+  {
+    slug: 'other-hair',
+    name: 'Other Hair',
+    description: 'Hair that is not listed under wigs, straight, body wave or curly.',
+    image: '/images/products/raw-hair-20.jpg',
   },
   {
     slug: 'bobs',
     name: 'Bobs',
     description: 'Short, sculpted bobs with dense ends — from wine red to a clean Vietnamese 5x5.',
     image: '/images/products/wine-red-bob.webp',
-  },
-  {
-    slug: 'wigs',
-    name: 'Wigs',
-    description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
-    image: '/images/products/ombre-glueless.webp',
+    inNav: false,
   },
 ]
 
@@ -368,8 +237,10 @@ export function productMatchesCollection(product: Product, slug: string) {
       return product.category === 'Bobs' || hay.includes('bob')
     case 'straight-hair':
       return hay.includes('straight')
+    case 'body-wave':
+      return /body\s*wave/.test(hay)
     case 'curly-hair':
-      return /wave|curl|kinky/.test(hay)
+      return /curl|kinky deep|water\s*wave/.test(hay)
     case 'bundles':
       return product.category === 'Bundles'
     case 'closures-frontals':
@@ -377,6 +248,10 @@ export function productMatchesCollection(product: Product, slug: string) {
         product.category === 'Closures' ||
         product.category === 'Frontals' ||
         /closure|frontal|pondo/.test(hay)
+      )
+    case 'other-hair':
+      return !['wigs', 'closures-frontals', 'straight-hair', 'body-wave', 'curly-hair'].some((key) =>
+        productMatchesCollection(product, key)
       )
     default:
       return false
@@ -387,8 +262,24 @@ export function getCollectionProducts(slug: string, list: Product[] = hairProduc
   return list.filter((p) => productMatchesCollection(p, slug))
 }
 
+export function shopNavCollections(list: Product[] = hairProducts) {
+  return hairCollections.filter(
+    (collection) =>
+      collection.inNav !== false && list.some((product) => productMatchesCollection(product, collection.slug))
+  )
+}
+
 export function primaryCollectionSlug(product: Product) {
-  const order = ['bundles', 'closures-frontals', 'straight-hair', 'curly-hair', 'bobs', 'wigs']
+  const order = [
+    'wigs',
+    'closures-frontals',
+    'bundles',
+    'straight-hair',
+    'body-wave',
+    'curly-hair',
+    'other-hair',
+    'bobs',
+  ]
   return order.find((slug) => productMatchesCollection(product, slug))
 }
 
@@ -422,19 +313,200 @@ export const workGallery = [
   { src: '/images/about-work.png', alt: 'Units in studio' },
 ]
 
+/** Homepage “In the studio” — unique 11 Sep mannequin / studio photographs. */
+export type StudioMedia = {
+  src: string
+  alt: string
+  kind?: 'image' | 'video'
+}
+
+export const studioGallery: StudioMedia[] = [
+  { src: '/images/gallery/sep11/217.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/218.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/219.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/221.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/222.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/223.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/225.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/videos/sep11/065.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/067.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/185.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/186.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/187.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/188.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/189.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/190.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/191.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/192.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/193.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/194.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/195.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/196.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/197.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/198.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/199.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/200.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/201.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/202.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/203.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/204.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/205.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/206.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/207.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/208.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/209.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/210.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/211.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/212.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/213.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/214.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+  { src: '/videos/sep11/224.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
+]
+
+/** Gallery page — existing photos plus remaining unique 11 Sep photographs (exact file duplicates only removed). */
+export const salonGallery: { src: string; alt: string; href?: string }[] = [
+  { src: '/images/gallery/sep11/063.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/066.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/068.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/070.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/072.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/073.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/075.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/076.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/079.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/080.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/082.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/084.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
+  { src: '/images/gallery/sep11/086.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
+  { src: '/images/gallery/sep11/087.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
+  { src: '/images/gallery/sep11/088.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
+  { src: '/images/gallery/sep11/089.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
+  { src: '/images/gallery/sep11/090.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
+  { src: '/images/gallery/sep11/092.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/093.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/094.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/097.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/gallery/sep11/100.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/gallery/sep11/102.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
+  { src: '/images/gallery/sep11/104.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
+  { src: '/images/gallery/sep11/105.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/108.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/109.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/110.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/111.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/113.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/115.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/116.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/120.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/123.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/126.jpg', alt: 'Raw hair 50 inches' },
+  { src: '/images/gallery/sep11/128.jpg', alt: 'Raw hair 50 inches' },
+  { src: '/images/gallery/sep11/129.jpg', alt: 'Raw hair 50 inches' },
+  { src: '/images/gallery/sep11/130.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
+  { src: '/images/gallery/sep11/132.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
+  { src: '/images/gallery/sep11/135.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
+  { src: '/images/gallery/sep11/137.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
+  { src: '/images/gallery/sep11/138.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
+  { src: '/images/gallery/sep11/139.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/141.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/142.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/144.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/145.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
+  { src: '/images/gallery/sep11/147.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
+  { src: '/images/gallery/sep11/148.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
+  { src: '/images/gallery/sep11/150.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
+  { src: '/images/gallery/sep11/151.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/152.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/154.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/157.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/158.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/159.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/165.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/166.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/168.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/170.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/171.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/175.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/178.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/179.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/180.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/181.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/183.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/217.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/218.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/219.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/221.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/222.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/223.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/064.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/069.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/071.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/074.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/077.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/078.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/083.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/085.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
+  { src: '/images/gallery/sep11/091.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
+  { src: '/images/gallery/sep11/095.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/096.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/098.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/gallery/sep11/099.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/gallery/sep11/101.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/gallery/sep11/103.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
+  { src: '/images/gallery/sep11/106.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/107.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/112.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/114.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/117.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/118.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/119.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/121.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/122.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/124.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/125.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
+  { src: '/images/gallery/sep11/127.jpg', alt: 'Raw hair 50 inches' },
+  { src: '/images/gallery/sep11/131.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
+  { src: '/images/gallery/sep11/133.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
+  { src: '/images/gallery/sep11/134.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
+  { src: '/images/gallery/sep11/136.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
+  { src: '/images/gallery/sep11/140.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/143.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/gallery/sep11/146.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
+  { src: '/images/gallery/sep11/149.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
+  { src: '/images/gallery/sep11/153.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/155.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/156.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/gallery/sep11/160.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/161.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/162.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/163.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/164.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/gallery/sep11/167.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/172.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/173.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/174.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/176.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/177.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/182.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/184.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/225.jpg', alt: 'Hair photographed 11 September 2026' },
+]
+
 export function toCartProduct(
   product: Product,
   extras?: { length?: string; quantity?: number }
 ) {
+  const length = extras?.length ?? product.lengths?.[0] ?? product.length
   return {
-    id: extras?.length ? `${product.slug}::${extras.length}` : product.slug,
+    id: length ? `${product.slug}::${length}` : product.slug,
     slug: product.slug,
     name: product.name,
-    price: product.price,
+    price: priceForSelection(product, length),
     category: product.category,
     image: product.image,
     description: product.description,
-    length: extras?.length,
+    length,
     type: product.tag,
+    currency: product.currency,
   }
 }

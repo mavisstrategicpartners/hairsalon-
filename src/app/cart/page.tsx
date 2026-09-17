@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { formatZar } from '@/data/catalog'
+import { formatMoney } from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { ActionButton, buttonClass } from '@/components/site/Button'
 import { useCartStore } from '@/lib/store'
@@ -10,7 +10,9 @@ import { useCartStore } from '@/lib/store'
 export default function CartPage() {
   const { items, updateQuantity, removeItem, getTotalPrice } = useCartStore()
   const subtotal = getTotalPrice()
-  const shipping = subtotal === 0 || subtotal > 2500 ? 0 : 120
+  const currencies = [...new Set(items.map((item) => item.currency ?? 'ZAR'))]
+  const currency = currencies.length === 1 ? currencies[0] : 'ZAR'
+  const shipping = currency === 'ZAR' && (subtotal === 0 || subtotal > 2500) ? 0 : currency === 'ZAR' ? 120 : 0
 
   return (
     <div className="bg-white">
@@ -34,7 +36,7 @@ export default function CartPage() {
                     >
                       {l.name}
                     </Link>
-                    <span className="font-mono text-sm">{formatZar(l.price * l.quantity)}</span>
+                    <span className="font-mono text-sm">{formatMoney(l.price * l.quantity, l.currency)}</span>
                   </div>
                   <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
                     {l.length ?? l.type} · {l.category}
@@ -81,15 +83,15 @@ export default function CartPage() {
             <dl className="mt-6 space-y-4 font-mono text-sm">
               <div className="flex justify-between">
                 <dt className="text-black/55">Subtotal</dt>
-                <dd>{formatZar(subtotal)}</dd>
+                <dd>{formatMoney(subtotal, currency)}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-black/55">Courier</dt>
-                <dd>{shipping === 0 ? 'Free' : formatZar(shipping)}</dd>
+                <dd>{shipping === 0 ? 'Free' : formatMoney(shipping, currency)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-4 text-base">
                 <dt>Total</dt>
-                <dd>{formatZar(subtotal + shipping)}</dd>
+                <dd>{formatMoney(subtotal + shipping, currency)}</dd>
               </div>
             </dl>
 

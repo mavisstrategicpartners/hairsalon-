@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Heart } from 'lucide-react'
-import { formatZar, toCartProduct, type Product } from '@/data/catalog'
+import { formatProductPrice, toCartProduct, type Product } from '@/data/catalog'
 import { useCartStore } from '@/lib/store'
 
 export function ProductCard({ product }: { product: Product }) {
@@ -32,13 +32,19 @@ export function ProductCard({ product }: { product: Product }) {
 
       <Link href={`/product/${product.slug}`} className="group block">
         <span className="relative block aspect-[4/5] overflow-hidden bg-[#f4efe8]">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw"
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
-          />
+          {product.imageUnavailable ? (
+            <span className="flex h-full w-full flex-col items-center justify-center px-4 text-center">
+              <span className="font-display text-lg italic text-[#1a1208]/55">Image unavailable</span>
+            </span>
+          ) : (
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw"
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
+            />
+          )}
         </span>
       </Link>
 
@@ -48,15 +54,15 @@ export function ProductCard({ product }: { product: Product }) {
             {product.name}
           </h3>
         </Link>
-        {product.length ? (
+        {product.lengths && product.lengths.length > 1 ? (
+          <p className="mt-1 text-[13px] text-[#1a1208]/50">{product.lengths.join(' · ')}</p>
+        ) : product.length ? (
           <p className="mt-1 text-[13px] text-[#1a1208]/50">Length: {product.length}</p>
-        ) : (
-          <p className="mt-1 text-[13px] text-[#1a1208]/50">{product.tag}</p>
-        )}
+        ) : null}
         <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#1a1208]/40">{product.tag}</p>
 
         <div className="mt-auto flex items-end justify-between pt-4">
-          <p className="text-[15px] tracking-wide">{formatZar(product.price)}</p>
+          <p className="text-[15px] tracking-wide">{formatProductPrice(product)}</p>
           {product.kind === 'product' ? (
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#1a1208]/35">Premium Quality</p>
           ) : null}
@@ -64,7 +70,9 @@ export function ProductCard({ product }: { product: Product }) {
 
         <button
           type="button"
-          onClick={() => addItem(toCartProduct(product, { length: product.length }), 1)}
+          onClick={() =>
+            addItem(toCartProduct(product, { length: product.length ?? product.lengths?.[0] }), 1)
+          }
           className="mt-4 w-full border border-[#c4a15a] bg-[#c4a15a] py-2.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#1a1208] transition-colors hover:border-[#b8923a] hover:bg-[#b8923a]"
         >
           Add to bag

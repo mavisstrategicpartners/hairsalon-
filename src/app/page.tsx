@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  hairCollections,
+  hairProducts,
   instagramUrl,
   serviceProducts,
+  shopNavCollections,
   testimonials,
+  studioGallery,
   workGallery,
 } from '@/data/catalog'
 import { listFeaturedStoreProducts } from '@/lib/catalog/products'
@@ -13,27 +15,27 @@ import { ProductCard } from '@/components/site/ProductCard'
 import { ServiceCard } from '@/components/site/ServiceCard'
 
 const featuredSlugs = [
-  'pondo-bundles-closure',
-  'straight-bundle',
-  'body-wave-bundle',
-  'straight-full-frontal-20',
-  'waterwave-unit-30',
-  'wine-red-bob-10',
-  'ombre-glueless-18',
-  'goldie-unit-14',
+  'brazilian-body-wave',
+  'brazilian-straight-micro-26',
+  'malaysian-loose-curl-water-wig-30',
+  'malaysian-deep-curl',
+  'italian-curls',
+  'bouncy-body-wave-30',
+  'raw-kinky-straight-14',
+  'brazilian-body-wave-2tone',
 ]
 
 /** Featured products come from Supabase; refresh them within a minute. */
 export const revalidate = 60
 
-const shopCategories = hairCollections.map((c) => ({
+const shopCategories = shopNavCollections(hairProducts).map((c) => ({
   name: c.name,
   href: `/shop/${c.slug}`,
   image: c.image,
 }))
 
 const previewServices = serviceProducts.slice(0, 4)
-const galleryPreview = workGallery.slice(0, 8)
+const galleryPreview = studioGallery
 const instagramPreview = workGallery.slice(4, 8)
 
 const benefits = [
@@ -186,7 +188,7 @@ export default async function Home() {
             />
           </div>
           <div className="flex flex-col justify-center bg-[#faf7f2] px-6 py-16 sm:px-12 lg:px-16">
-            <p className="eyebrow">Collection</p>
+            <p className="eyebrow">Shop</p>
             <h2 className="mt-3 max-w-[12ch] font-display text-[clamp(2.4rem,5vw,4.2rem)] italic leading-[0.94] tracking-tight">
               Bundles & closures
             </h2>
@@ -195,7 +197,7 @@ export default async function Home() {
               Johannesburg.
             </p>
             <Link href="/shop/bundles" className={`${buttonClass('solid')} mt-8 w-fit`}>
-              Shop Collection
+              Shop Bundles
             </Link>
           </div>
         </div>
@@ -229,17 +231,30 @@ export default async function Home() {
             action={{ href: '/gallery', label: 'View All Work →' }}
           />
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
-            {galleryPreview.map((g) => (
-              <Link key={g.src} href="/gallery" className="group relative aspect-[3/4] overflow-hidden bg-[#f4efe8]">
-                <Image
-                  src={g.src}
-                  alt={g.alt}
-                  fill
-                  sizes="25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-              </Link>
-            ))}
+            {galleryPreview.map((g) =>
+              g.kind === 'video' ? (
+                <div key={g.src} className="relative aspect-[3/4] overflow-hidden bg-[#1a1208]">
+                  <video
+                    src={g.src}
+                    className="h-full w-full object-cover"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label={g.alt}
+                  />
+                </div>
+              ) : (
+                <Link key={g.src} href="/gallery" className="group relative aspect-[3/4] overflow-hidden bg-[#f4efe8]">
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    fill
+                    sizes="25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                </Link>
+              )
+            )}
           </div>
         </div>
       </section>

@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
     unoptimized: true,
   },
+  async redirects() {
+    return [{ source: "/collections", destination: "/shop", permanent: false }];
+  },
 };
 
 export default nextConfig;

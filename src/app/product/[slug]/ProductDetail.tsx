@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import {
-  formatZar,
+  formatProductPrice,
   getHairCollection,
   hairCareCopy,
   hairShippingCopy,
+  priceForSelection,
   primaryCollectionSlug,
   serviceRedeemCopy,
   toCartProduct,
@@ -27,14 +28,22 @@ export function ProductDetail({
 }) {
   const router = useRouter()
   const addItem = useCartStore((state) => state.addItem)
-  const [lengthIndex, setLengthIndex] = useState(0)
+  const [lengthIndex, setLengthIndex] = useState(() => {
+    if (!product.lengths?.length) return 0
+    const match = product.length ? product.lengths.indexOf(product.length) : -1
+    return match >= 0 ? match : 0
+  })
   const [qty, setQty] = useState(1)
+  const [photoIndex, setPhotoIndex] = useState(0)
 
   const collectionSlug = product.kind === 'product' ? primaryCollectionSlug(product) : undefined
   const collection = collectionSlug ? getHairCollection(collectionSlug) : undefined
 
   const selectedLength = product.lengths?.[lengthIndex]
   const isService = product.kind === 'service'
+  const gallery = product.images && product.images.length > 0 ? product.images : [product.image]
+  const displayPrice = priceForSelection(product, selectedLength)
+  const displayImage = gallery[Math.min(photoIndex, gallery.length - 1)]
 
   const addToBag = () => {
     addItem(toCartProduct(product, { length: selectedLength }), qty)
@@ -70,15 +79,37 @@ export function ProductDetail({
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <div className="relative min-h-[52vh] overflow-hidden bg-[#f7f4ee] outline-1 -outline-offset-1 outline-[#c9a84c]/40 lg:min-h-[78vh]">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              priority
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              className="object-cover object-center"
-            />
+            {product.imageUnavailable ? (
+              <div className="flex h-full min-h-[52vh] items-center justify-center lg:min-h-[78vh]">
+                <p className="font-display text-2xl italic text-[#1a1208]/55">Image unavailable</p>
+              </div>
+            ) : (
+              <Image
+                src={displayImage}
+                alt={product.name}
+                fill
+                priority
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-cover object-center"
+              />
+            )}
           </div>
+          {gallery.length > 1 && !product.imageUnavailable ? (
+            <div className="mt-3 grid grid-cols-3 gap-3">
+              {gallery.map((src, i) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setPhotoIndex(i)}
+                  className={`relative aspect-[4/5] overflow-hidden bg-[#f7f4ee] outline-1 -outline-offset-1 ${
+                    i === photoIndex ? 'outline-[#c9a84c]' : 'outline-[#c9a84c]/40'
+                  }`}
+                >
+                  <Image src={src} alt="" fill sizes="18vw" className="object-cover object-center" />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
@@ -86,7 +117,7 @@ export function ProductDetail({
           <h1 className="mt-4 text-balance font-display text-5xl italic leading-[0.95] tracking-tight sm:text-6xl">
             {product.name}
           </h1>
-          <p className="mt-5 font-mono text-lg text-[#c9a84c]">{formatZar(product.price)}</p>
+          <p className="mt-5 font-mono text-lg text-[#c9a84c]">{formatProductPrice(product, displayPrice)}</p>
 
           {product.lengths ? (
             <div className="mt-9">

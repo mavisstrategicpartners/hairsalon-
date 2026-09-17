@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useCartStore } from '@/lib/store'
 import { storeOrder, type BankDetails, type PlacedOrder } from '@/lib/commerce/eft'
-import { formatZar } from '@/data/catalog'
+import { formatMoney, formatZar } from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { ActionButton, buttonClass } from '@/components/site/Button'
 
@@ -200,7 +200,7 @@ export function CheckoutForm({ bank }: { bank: BankDetails }) {
                   <span className="text-black/55">
                     {item.name} × {item.quantity}
                   </span>
-                  <span>{formatZar(item.price * item.quantity)}</span>
+                  <span>{formatMoney(item.price * item.quantity, item.currency)}</span>
                 </div>
               ))}
             </div>

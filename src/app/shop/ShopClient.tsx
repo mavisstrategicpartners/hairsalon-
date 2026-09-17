@@ -8,7 +8,8 @@ import type { Product } from '@/data/catalog'
 const collectionQ: Record<string, string> = {
   bob: '/shop/bobs',
   straight: '/shop/straight-hair',
-  wave: '/shop/curly-hair',
+  wave: '/shop/body-wave',
+  curl: '/shop/curly-hair',
   frontal: '/shop/closures-frontals',
 }
 

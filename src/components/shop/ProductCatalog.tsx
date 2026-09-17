@@ -6,17 +6,12 @@ import { useMemo, useState } from 'react'
 import {
   getCollectionProducts,
   getHairCollection,
-  hairCollections,
   hairProducts,
+  productMatchesCollection,
+  shopNavCollections,
   type Product,
 } from '@/data/catalog'
 import { ProductCard } from '@/components/site/ProductCard'
-
-const types = [
-  { id: 'all', label: 'All hair' },
-  { id: 'bundles', label: 'Bundles' },
-  { id: 'units', label: 'Units' },
-] as const
 
 const sorts = [
   { id: 'featured', label: 'Featured' },
@@ -25,14 +20,7 @@ const sorts = [
   { id: 'name', label: 'Name' },
 ] as const
 
-type TypeId = (typeof types)[number]['id']
 type SortId = (typeof sorts)[number]['id']
-
-function applyType(list: Product[], type: TypeId) {
-  if (type === 'units') return list.filter((p) => p.category === 'Wigs' || p.category === 'Bobs')
-  if (type === 'bundles') return list.filter((p) => p.category === 'Bundles')
-  return list
-}
 
 function applySort(list: Product[], sort: SortId) {
   const next = [...list]
@@ -69,42 +57,45 @@ export function ProductCatalog({
   products?: Product[]
 }) {
   const collection = collectionSlug ? getHairCollection(collectionSlug) : undefined
-  const [type, setType] = useState<TypeId>('all')
   const [sort, setSort] = useState<SortId>('featured')
   const term = query.trim().toLowerCase()
 
+  const catalogue = products ?? hairProducts
+  const shopCollections = shopNavCollections(catalogue)
+  const collectionCover = collection
+    ? catalogue.find((p) => productMatchesCollection(p, collection.slug))?.image
+    : undefined
+
   const list = useMemo(() => {
-    const catalogue = products ?? hairProducts
     let base = collectionSlug ? getCollectionProducts(collectionSlug, catalogue) : catalogue
     if (term) {
       base = base.filter((p) => `${p.name} ${p.tag} ${p.description}`.toLowerCase().includes(term))
     }
-    return applySort(applyType(base, type), sort)
-  }, [products, collectionSlug, type, sort, term])
+    return applySort(base, sort)
+  }, [catalogue, collectionSlug, sort, term])
 
   return (
     <div className="bg-white">
       {collection ? (
         <section className="border-b border-[#c9a84c]/30 bg-white">
-          <div className="mx-auto grid max-w-[1400px] lg:grid-cols-2">
-            <div className="relative min-h-[240px]">
-              <Image
-                src={collection.image}
-                alt={collection.name}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
+          <div className={`mx-auto max-w-[1400px] ${collectionCover ? 'grid lg:grid-cols-2' : ''}`}>
+            {collectionCover ? (
+              <div className="relative min-h-[240px]">
+                <Image
+                  src={collectionCover}
+                  alt={collection.name}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover object-center"
+                  priority
+                />
+              </div>
+            ) : null}
             <div className="flex flex-col justify-center px-6 py-14 sm:px-12">
-              <p className="eyebrow">Collection</p>
+              <p className="eyebrow">Shop</p>
               <h1 className="mt-3 font-display text-[clamp(2.8rem,6vw,5rem)] italic leading-[0.92] tracking-tight">
                 {collection.name}
               </h1>
-              <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-muted-foreground">
-                {collection.description}
-              </p>
             </div>
           </div>
         </section>
@@ -117,8 +108,8 @@ export function ProductCatalog({
             </h1>
             <p className="mt-5 max-w-[42ch] text-pretty text-[15px] leading-relaxed text-muted-foreground">
               {term
-                ? `Results for “${query.trim()}”. Bundles, closures and units — studio services are listed separately.`
-                : 'Bundles, closures and units. Add to bag and pay by EFT. Studio services are listed separately.'}
+                ? `Results for “${query.trim()}”. Add to bag and pay by EFT.`
+                : 'Add to bag and pay by EFT. Studio services are listed separately.'}
             </p>
           </div>
         </section>
@@ -131,40 +122,28 @@ export function ProductCatalog({
               <p className="label-mono text-faint">Category</p>
               <nav className="mt-3 flex flex-wrap gap-2">
                 <Link href="/shop" className={chip(!collectionSlug)}>
-                  All
+                  All Hair
                 </Link>
-                {hairCollections.map((c) => (
+                {shopCollections.map((c) => (
                   <Link key={c.slug} href={`/shop/${c.slug}`} className={chip(collectionSlug === c.slug)}>
                     {c.name}
                   </Link>
                 ))}
               </nav>
             </div>
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-              <div>
-                <p className="label-mono text-faint">Filter</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {types.map((t) => (
-                    <button key={t.id} type="button" onClick={() => setType(t.id)} className={chip(type === t.id)}>
-                      {t.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="label-mono text-faint">Sort</p>
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value as SortId)}
-                  className="mt-3 border border-[#1a1208]/25 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1a1208]"
-                >
-                  {sorts.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div>
+              <p className="label-mono text-faint">Sort</p>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as SortId)}
+                className="mt-3 border border-[#1a1208]/25 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1a1208]"
+              >
+                {sorts.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

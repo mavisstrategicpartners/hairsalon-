@@ -1,12 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-
-const shopLinks = [
-  { href: '/shop', label: 'Shop' },
-  { href: '/shop/bundles', label: 'Bundles' },
-  { href: '/shop/closures-frontals', label: 'Closures & Frontals' },
-  { href: '/collections', label: 'Collections' },
-]
+import { shopNavCollections } from '@/data/catalog'
 
 const studioLinks = [
   { href: '/services', label: 'Services' },
@@ -22,6 +16,11 @@ const accountLinks = [
 ]
 
 export function Footer() {
+  const shopLinks = [
+    { href: '/shop', label: 'All Hair' },
+    ...shopNavCollections().map((c) => ({ href: `/shop/${c.slug}`, label: c.name })),
+  ]
+
   return (
     <footer className="bg-[#c45e14] text-white">
       <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 sm:px-10 lg:grid-cols-12 lg:px-16">
