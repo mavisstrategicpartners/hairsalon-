@@ -3,7 +3,6 @@ import Link from 'next/link'
 import {
   hairProducts,
   instagramUrl,
-  serviceProducts,
   shopNavCollections,
   testimonials,
   studioGallery,
@@ -12,7 +11,8 @@ import {
 import { listFeaturedStoreProducts } from '@/lib/catalog/products'
 import { buttonClass } from '@/components/site/Button'
 import { ProductCard } from '@/components/site/ProductCard'
-import { ServiceCard } from '@/components/site/ServiceCard'
+import { SilentVideo } from '@/components/site/SilentVideo'
+import { studioServiceEnquireHref, studioServices } from '@/data/studio-services'
 
 const featuredSlugs = [
   'brazilian-body-wave',
@@ -34,9 +34,15 @@ const shopCategories = shopNavCollections(hairProducts).map((c) => ({
   image: c.image,
 }))
 
-const previewServices = serviceProducts.slice(0, 4)
 const galleryPreview = studioGallery
 const instagramPreview = workGallery.slice(4, 8)
+
+const homeServiceImageClass = {
+  installations: 'object-cover object-[center_22%] transition-transform duration-700 group-hover:scale-[1.04]',
+  'sew-in': 'object-cover object-[center_42%] transition-transform duration-700 group-hover:scale-[1.04]',
+  'micro-bonding':
+    'object-cover object-[center_32%] transition-transform duration-700 group-hover:scale-[1.04]',
+} as const
 
 const benefits = [
   {
@@ -178,13 +184,13 @@ export default async function Home() {
 
       <section className="bg-white">
         <div className="grid lg:grid-cols-2">
-          <div className="relative min-h-[420px] lg:min-h-[560px]">
+          <div className="relative min-h-[420px] overflow-hidden lg:min-h-[560px]">
             <Image
-              src="/images/gallery/straight-bundles-closure.jpg"
-              alt="Straight bundles and closure"
+              src="/images/products/malaysian-deep-curl-32.jpg"
+              alt="Malaysian Deep Curl"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-center"
+              className="object-cover object-[center_62%]"
             />
           </div>
           <div className="flex flex-col justify-center bg-[#faf7f2] px-6 py-16 sm:px-12 lg:px-16">
@@ -210,10 +216,41 @@ export default async function Home() {
             title="Services"
             action={{ href: '/services', label: 'View all services →' }}
           />
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
-            {previewServices.map((p) => (
-              <ServiceCard key={p.slug} service={p} />
-            ))}
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+            {studioServices.map((service) => {
+              const photo = service.homeImage ?? service.image
+              return (
+              <article key={service.slug} className="group flex h-full flex-col">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#f4efe8]">
+                  {photo ? (
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1280px) 28vw, (min-width: 640px) 50vw, 100vw"
+                      className={homeServiceImageClass[service.slug]}
+                    />
+                  ) : null}
+                </div>
+                <div className="flex flex-1 flex-col pt-5">
+                  <h3 className="font-display text-[1.45rem] italic tracking-tight">{service.name}</h3>
+                  {service.description ? (
+                    <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#1a1208]/55">
+                      {service.description}
+                    </p>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+                  <Link
+                    href={studioServiceEnquireHref(service)}
+                    className={`${buttonClass('solid')} mt-6 w-full`}
+                  >
+                    Enquire Now
+                  </Link>
+                </div>
+              </article>
+              )
+            })}
           </div>
           <div className="mt-14">
             <Link href="/contact" className={buttonClass('outline')}>
@@ -233,13 +270,10 @@ export default async function Home() {
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
             {galleryPreview.map((g) =>
               g.kind === 'video' ? (
-                <div key={g.src} className="relative aspect-[3/4] overflow-hidden bg-[#1a1208]">
-                  <video
+                <div key={g.src} className="relative aspect-[3/4] min-w-0 overflow-hidden bg-[#1a1208]">
+                  <SilentVideo
                     src={g.src}
                     className="h-full w-full object-cover"
-                    controls
-                    playsInline
-                    preload="metadata"
                     aria-label={g.alt}
                   />
                 </div>

@@ -304,6 +304,16 @@ html.has-luxury-cursor [contenteditable='true'] {
   }
 }
 
+/* Native volume UI must never appear, even if a video has browser controls. */
+video::-webkit-media-controls-volume-slider,
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-volume-control-container,
+video::-webkit-media-controls-volume-control-hover-background,
+video::-webkit-media-controls-volume-control-overflow-button,
+video::-webkit-media-controls-enclosure .volume {
+  display: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

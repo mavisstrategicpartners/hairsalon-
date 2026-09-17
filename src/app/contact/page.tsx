@@ -5,22 +5,29 @@ import { useSearchParams } from 'next/navigation'
 import { PageHeader } from '@/components/site/PageHeader'
 import { ActionButton } from '@/components/site/Button'
 import { instagramUrl, serviceProducts } from '@/data/catalog'
+import { studioServiceByQuery } from '@/data/studio-services'
 
 function ContactForm() {
   const searchParams = useSearchParams()
-  const serviceSlug = searchParams.get('service')
-  const service = serviceProducts.find((p) => p.slug === serviceSlug)
+  const serviceParam = searchParams.get('service')
+  const studioService = studioServiceByQuery(serviceParam)
+  const catalogService = studioService
+    ? undefined
+    : serviceProducts.find((p) => p.slug === serviceParam)
+  const serviceName = studioService?.name ?? catalogService?.name
   const productName = searchParams.get('product')?.trim() || ''
   const galleryEnquire = searchParams.get('enquire') === '1'
   const [submitted, setSubmitted] = useState(false)
-  const defaultSubject = service ? 'A service' : productName || galleryEnquire ? 'Something else' : 'An order'
-  const defaultMessage = service
-    ? `I would like to book ${service.name}.`
-    : productName
-      ? `I would like to enquire about the ${productName}.`
-      : galleryEnquire
-        ? 'I would like to enquire about this product.'
-        : ''
+  const defaultSubject = serviceName ? 'A service' : productName || galleryEnquire ? 'Something else' : 'An order'
+  const defaultMessage = studioService
+    ? `I would like to enquire about ${studioService.name}.`
+    : catalogService
+      ? `I would like to book ${catalogService.name}.`
+      : productName
+        ? `I would like to enquire about the ${productName}.`
+        : galleryEnquire
+          ? 'I would like to enquire about this product.'
+          : ''
 
   return (
     <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
@@ -28,15 +35,19 @@ function ContactForm() {
         <p className="text-[15px] text-muted-foreground">Message sent. We will reply shortly.</p>
       ) : (
         <form
-          key={service?.slug ?? productName ?? (galleryEnquire ? 'gallery-enquire' : 'general')}
+          key={studioService?.slug ?? catalogService?.slug ?? productName ?? (galleryEnquire ? 'gallery-enquire' : 'general')}
           onSubmit={(event) => {
             event.preventDefault()
             setSubmitted(true)
           }}
         >
-          {service ? (
+          {studioService ? (
             <p className="mb-6 text-sm text-muted-foreground">
-              Booking enquiry for <span className="text-[#1a1208]">{service.name}</span>.
+              Service enquiry for <span className="text-[#1a1208]">{studioService.name}</span>.
+            </p>
+          ) : catalogService ? (
+            <p className="mb-6 text-sm text-muted-foreground">
+              Booking enquiry for <span className="text-[#1a1208]">{catalogService.name}</span>.
             </p>
           ) : productName ? (
             <p className="mb-6 text-sm text-muted-foreground">

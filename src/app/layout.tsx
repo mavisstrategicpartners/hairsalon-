@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Dancing_Script, Outfit } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/site/Header'
 import { Footer } from '@/components/site/Footer'
+import { KeepVideosSilent } from '@/components/site/KeepVideosSilent'
 import { ScrollExperience } from '@/components/site/ScrollExperience'
 import { LuxuryCursor } from '@/components/site/LuxuryCursor'
 
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Header />
+        <KeepVideosSilent />
         <ScrollExperience />
         <LuxuryCursor />
         <main className="flex-1">{children}</main>
