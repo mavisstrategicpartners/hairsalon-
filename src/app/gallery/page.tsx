@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { salonGallery } from '@/data/catalog'
+import {
+  galleryEnquireHref,
+  galleryItemHasPrice,
+  galleryItemName,
+  salonGallery,
+} from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { buttonClass } from '@/components/site/Button'
 
@@ -10,10 +15,10 @@ export default function GalleryPage() {
       <PageHeader
         eyebrow="Gallery"
         title="The hair."
-        intro="Photographs of the pieces currently in Shop. Tap a listed product photo to open it."
+        intro="Photographs of the pieces. Enquire about any of them, or tap a priced product to open it in Shop."
       />
       <section className="mx-auto max-w-[1400px] px-6 py-14">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+        <div className="grid grid-cols-2 items-start gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
           {salonGallery.map((g, index) => {
             const image = (
               <Image
@@ -25,14 +30,30 @@ export default function GalleryPage() {
                 priority={index < 4}
               />
             )
-            const className = 'group relative aspect-[3/4] overflow-hidden bg-[#f4efe8]'
-            return g.href ? (
-              <Link key={g.src} href={g.href} className={className}>
-                {image}
-              </Link>
-            ) : (
-              <div key={g.src} className={className}>
-                {image}
+            const frameClass = 'group relative aspect-[3/4] overflow-hidden bg-[#f4efe8]'
+            const name = galleryItemName(g)
+            const photo =
+              galleryItemHasPrice(g) && g.href ? (
+                <Link href={g.href} className={frameClass}>
+                  {image}
+                </Link>
+              ) : (
+                <div className={frameClass}>{image}</div>
+              )
+            return (
+              <div key={g.src} className="flex flex-col">
+                {photo}
+                {name ? (
+                  <p className="mt-3 font-display text-[1.15rem] italic leading-snug tracking-tight text-[#1a1208]">
+                    {name}
+                  </p>
+                ) : null}
+                <Link
+                  href={galleryEnquireHref(g)}
+                  className="mt-2 inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#e56e1a] underline-offset-4 hover:text-[#1a1208] hover:underline"
+                >
+                  Enquire about this product
+                </Link>
               </div>
             )
           })}

@@ -363,28 +363,49 @@ export const studioGallery: StudioMedia[] = [
   { src: '/videos/sep11/224.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
 ]
 
-/** Gallery page — existing photos plus remaining unique 11 Sep photographs (exact file duplicates only removed). */
-export const salonGallery: { src: string; alt: string; href?: string }[] = [
+/** Gallery page — named photographs only, at most two real photos per exact product name. */
+export type SalonGalleryItem = { src: string; alt: string; href?: string }
+
+/** Placeholder alt used when a WhatsApp photograph had no product caption. Not a product name. */
+const UNNAMED_GALLERY_ALT = 'Hair photographed 11 September 2026'
+
+export function galleryItemHasPrice(item: Pick<SalonGalleryItem, 'href'>) {
+  return Boolean(item.href)
+}
+
+export function galleryItemName(item: Pick<SalonGalleryItem, 'alt'>) {
+  const name = item.alt.trim()
+  if (!name || name === UNNAMED_GALLERY_ALT || /\.(jpe?g|png|webp|gif)$/i.test(name)) {
+    return undefined
+  }
+  return name
+}
+
+export function galleryEnquireHref(item: Pick<SalonGalleryItem, 'alt'>) {
+  const name = galleryItemName(item)
+  if (!name) return '/contact'
+  const params = new URLSearchParams()
+  params.set('product', name)
+  return `/contact?${params.toString()}`
+}
+
+export const salonGallery: SalonGalleryItem[] = [
   { src: '/images/gallery/sep11/063.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
   { src: '/images/gallery/sep11/066.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/068.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/070.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/072.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/073.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/075.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/076.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/079.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/080.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
   { src: '/images/gallery/sep11/082.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
+  { src: '/images/gallery/sep11/083.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
   { src: '/images/gallery/sep11/084.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
+  { src: '/images/gallery/sep11/085.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
   { src: '/images/gallery/sep11/086.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
   { src: '/images/gallery/sep11/087.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
   { src: '/images/gallery/sep11/088.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
   { src: '/images/gallery/sep11/089.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
   { src: '/images/gallery/sep11/090.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
+  { src: '/images/gallery/sep11/091.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
   { src: '/images/gallery/sep11/092.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
   { src: '/images/gallery/sep11/093.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
   { src: '/images/gallery/sep11/094.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
+  { src: '/images/gallery/sep11/095.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
   { src: '/images/gallery/sep11/097.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
   { src: '/images/gallery/sep11/100.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
   { src: '/images/gallery/sep11/102.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
@@ -393,103 +414,32 @@ export const salonGallery: { src: string; alt: string; href?: string }[] = [
   { src: '/images/gallery/sep11/108.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/109.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/110.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/111.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/113.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/115.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/116.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
+  { src: '/images/gallery/sep11/117.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
   { src: '/images/gallery/sep11/120.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
   { src: '/images/gallery/sep11/123.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
   { src: '/images/gallery/sep11/126.jpg', alt: 'Raw hair 50 inches' },
   { src: '/images/gallery/sep11/128.jpg', alt: 'Raw hair 50 inches' },
-  { src: '/images/gallery/sep11/129.jpg', alt: 'Raw hair 50 inches' },
   { src: '/images/gallery/sep11/130.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
   { src: '/images/gallery/sep11/132.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
   { src: '/images/gallery/sep11/135.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
   { src: '/images/gallery/sep11/137.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
-  { src: '/images/gallery/sep11/138.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
   { src: '/images/gallery/sep11/139.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
   { src: '/images/gallery/sep11/141.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/142.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/144.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
   { src: '/images/gallery/sep11/145.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
   { src: '/images/gallery/sep11/147.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
   { src: '/images/gallery/sep11/148.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
   { src: '/images/gallery/sep11/150.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
   { src: '/images/gallery/sep11/151.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
   { src: '/images/gallery/sep11/152.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
-  { src: '/images/gallery/sep11/154.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
   { src: '/images/gallery/sep11/157.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/158.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/159.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/165.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/166.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/168.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/170.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/171.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/175.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/178.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/179.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/180.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/181.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/183.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/217.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/218.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/219.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/221.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/222.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/223.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/064.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/069.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/071.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/074.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/077.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/078.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/083.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/085.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
-  { src: '/images/gallery/sep11/091.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
-  { src: '/images/gallery/sep11/095.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/096.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/098.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
-  { src: '/images/gallery/sep11/099.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
-  { src: '/images/gallery/sep11/101.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
-  { src: '/images/gallery/sep11/103.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
-  { src: '/images/gallery/sep11/106.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/107.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/112.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/114.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/117.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/118.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/119.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/121.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/122.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/124.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/125.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/127.jpg', alt: 'Raw hair 50 inches' },
-  { src: '/images/gallery/sep11/131.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
-  { src: '/images/gallery/sep11/133.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
-  { src: '/images/gallery/sep11/134.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
-  { src: '/images/gallery/sep11/136.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
-  { src: '/images/gallery/sep11/140.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/143.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/146.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
-  { src: '/images/gallery/sep11/149.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
-  { src: '/images/gallery/sep11/153.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
-  { src: '/images/gallery/sep11/155.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
-  { src: '/images/gallery/sep11/156.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
   { src: '/images/gallery/sep11/160.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/161.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/162.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/163.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/164.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/167.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/172.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/173.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/174.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/176.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/177.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/182.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/184.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/225.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/gallery/sep11/165.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/168.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/gallery/sep11/178.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
+  { src: '/images/gallery/sep11/183.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
 ]
 
 export function toCartProduct(

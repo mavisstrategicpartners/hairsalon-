@@ -10,8 +10,17 @@ function ContactForm() {
   const searchParams = useSearchParams()
   const serviceSlug = searchParams.get('service')
   const service = serviceProducts.find((p) => p.slug === serviceSlug)
+  const productName = searchParams.get('product')?.trim() || ''
+  const galleryEnquire = searchParams.get('enquire') === '1'
   const [submitted, setSubmitted] = useState(false)
-  const defaultSubject = service ? 'A service' : 'An order'
+  const defaultSubject = service ? 'A service' : productName || galleryEnquire ? 'Something else' : 'An order'
+  const defaultMessage = service
+    ? `I would like to book ${service.name}.`
+    : productName
+      ? `I would like to enquire about the ${productName}.`
+      : galleryEnquire
+        ? 'I would like to enquire about this product.'
+        : ''
 
   return (
     <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
@@ -19,7 +28,7 @@ function ContactForm() {
         <p className="text-[15px] text-muted-foreground">Message sent. We will reply shortly.</p>
       ) : (
         <form
-          key={service?.slug ?? 'general'}
+          key={service?.slug ?? productName ?? (galleryEnquire ? 'gallery-enquire' : 'general')}
           onSubmit={(event) => {
             event.preventDefault()
             setSubmitted(true)
@@ -28,6 +37,14 @@ function ContactForm() {
           {service ? (
             <p className="mb-6 text-sm text-muted-foreground">
               Booking enquiry for <span className="text-[#1a1208]">{service.name}</span>.
+            </p>
+          ) : productName ? (
+            <p className="mb-6 text-sm text-muted-foreground">
+              Product enquiry for <span className="text-[#1a1208]">{productName}</span>.
+            </p>
+          ) : galleryEnquire ? (
+            <p className="mb-6 text-sm text-muted-foreground">
+              Product enquiry from the Gallery.
             </p>
           ) : null}
           <div className="grid gap-6 sm:grid-cols-2">
@@ -65,7 +82,7 @@ function ContactForm() {
             <textarea
               required
               rows={6}
-              defaultValue={service ? `I would like to book ${service.name}.` : ''}
+              defaultValue={defaultMessage}
               placeholder="Tell us what you're after"
               className="mt-2 w-full border border-[#c9a84c]/40 bg-white px-4 py-3 text-sm text-[#070707] placeholder:text-black/40"
             />
