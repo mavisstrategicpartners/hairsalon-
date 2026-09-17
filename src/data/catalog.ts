@@ -226,7 +226,7 @@ export function getHairCollection(slug: string) {
  * Collections prefer the real Supabase category. Straight and curly describe a
  * texture rather than a category, so those keep the original keyword match.
  */
-export function productMatchesCollection(product: Product, slug: string) {
+export function productMatchesCollection(product: Product, slug: string): boolean {
   if (product.kind !== 'product') return false
   const hay = `${product.name} ${product.tag} ${product.description} ${product.category}`.toLowerCase()
   switch (slug) {
@@ -250,7 +250,7 @@ export function productMatchesCollection(product: Product, slug: string) {
         /closure|frontal|pondo/.test(hay)
       )
     case 'other-hair':
-      return !['wigs', 'closures-frontals', 'straight-hair', 'body-wave', 'curly-hair'].some((key) =>
+      return !['wigs', 'closures-frontals', 'straight-hair', 'body-wave', 'curly-hair'].some((key): boolean =>
         productMatchesCollection(product, key)
       )
     default:
