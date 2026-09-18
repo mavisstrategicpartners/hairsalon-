@@ -171,13 +171,13 @@ export const hairCollections: HairCollection[] = [
     slug: 'wigs',
     name: 'Wigs',
     description: 'Ready-to-wear units — glueless, frontal and full-frontal, finished for everyday wear.',
-    image: '/images/products/ombre-glueless.webp',
+    image: '/images/products/malaysian-loose-curl-wig-30.jpg',
   },
   {
     slug: 'bundles',
     name: 'Bundles',
     description: 'Wefts sold as singles. Three make a full install; mix lengths for a layered set.',
-    image: '/images/products/body-wave-bundle.webp',
+    image: '/images/products/brazilian-body-wave-1.jpg',
   },
   {
     slug: 'closures-frontals',
@@ -189,7 +189,7 @@ export const hairCollections: HairCollection[] = [
     slug: 'straight-hair',
     name: 'Straight Hair',
     description: 'Sleek single-donor straight — full-frontal units and wefts for a pulled-back finish.',
-    image: '/images/products/straight-full-frontal.webp',
+    image: '/images/products/brazilian-straight-micro-26.jpg',
   },
   {
     slug: 'body-wave',
@@ -201,7 +201,7 @@ export const hairCollections: HairCollection[] = [
     slug: 'curly-hair',
     name: 'Curly Hair',
     description: 'Curls and water wave — Italian curls, loose curl, deep curl and kinky deep.',
-    image: '/images/products/waterwave-unit.webp',
+    image: '/images/products/italian-curls-18.jpg',
   },
   {
     slug: 'other-hair',
@@ -213,7 +213,7 @@ export const hairCollections: HairCollection[] = [
     slug: 'bobs',
     name: 'Bobs',
     description: 'Short, sculpted bobs with dense ends — from wine red to a clean Vietnamese 5x5.',
-    image: '/images/products/wine-red-bob.webp',
+    image: '/images/products/malaysian-loose-curl-wig-30.jpg',
     inNav: false,
   },
 ]
