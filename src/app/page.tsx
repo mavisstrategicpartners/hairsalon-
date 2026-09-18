@@ -6,12 +6,12 @@ import {
   shopNavCollections,
   testimonials,
   studioGallery,
-  workGallery,
 } from '@/data/catalog'
 import { listFeaturedStoreProducts } from '@/lib/catalog/products'
 import { buttonClass } from '@/components/site/Button'
 import { ProductCard } from '@/components/site/ProductCard'
 import { SilentVideo } from '@/components/site/SilentVideo'
+import { TestimonialsCarousel } from '@/components/site/TestimonialsCarousel'
 import { studioServiceEnquireHref, studioServices } from '@/data/studio-services'
 
 const featuredSlugs = [
@@ -35,7 +35,40 @@ const shopCategories = shopNavCollections(hairProducts).map((c) => ({
 }))
 
 const galleryPreview = studioGallery
-const instagramPreview = workGallery.slice(4, 8)
+
+/** Real catalogue photos only — distinct looks, no filenames shown to visitors. */
+const instagramPreview = [
+  {
+    src: '/images/gallery/blonde-balayage-unit.jpg',
+    alt: 'Blonde balayage unit',
+    crop: 'object-cover object-[center_18%]',
+  },
+  {
+    src: '/images/gallery/sep11/218.jpg',
+    alt: 'Wavy unit',
+    crop: 'object-cover object-[center_22%]',
+  },
+  {
+    src: '/images/gallery/straight-lace-front-unit.jpg',
+    alt: 'Straight lace front unit',
+    crop: 'object-cover object-[center_20%]',
+  },
+  {
+    src: '/images/gallery/sep11/222.jpg',
+    alt: 'Curled unit, back view',
+    crop: 'object-cover object-[32%_30%]',
+  },
+  {
+    src: '/images/gallery/sep11/090.jpg',
+    alt: 'Loose curl wefts',
+    crop: 'object-cover object-[center_70%]',
+  },
+  {
+    src: '/images/gallery/straight-gold-weft-set.jpg',
+    alt: 'Straight bundles and closure',
+    crop: 'object-cover object-center',
+  },
+] as const
 
 const homeServiceImageClass = {
   installations: 'object-cover object-[center_22%] transition-transform duration-700 group-hover:scale-[1.04]',
@@ -306,49 +339,68 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-[#faf7f2]">
+      <section id="clients" className="scroll-mt-28 bg-[#faf7f2]">
         <div className="mx-auto max-w-[1400px] px-6 py-20 sm:px-8 lg:py-24">
-          <SectionHead eyebrow="Clients" title="What they say" />
-          <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-            {testimonials.map((t) => (
-              <blockquote key={t.author}>
-                <p className="font-display text-[1.65rem] italic leading-snug tracking-tight">
-                  “ {t.quote} ”
-                </p>
-                <footer className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#1a1208]/45">
-                  {t.author} · {t.city}
-                </footer>
-              </blockquote>
-            ))}
+          <div className="mb-10 max-w-[40rem] sm:mb-12">
+            <p className="eyebrow">Clients</p>
+            <h2 className="mt-3 font-display text-[clamp(2rem,4.2vw,3.4rem)] italic leading-[0.95] tracking-tight">
+              What Our Clients Say
+            </h2>
+            <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-[#1a1208]/55">
+              From the Johannesburg studio, in their words.
+            </p>
           </div>
+          <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
-      <section className="bg-white">
+      <section id="instagram" className="scroll-mt-28 border-t border-[#1a1208]/8 bg-white">
         <div className="mx-auto max-w-[1400px] px-6 py-20 sm:px-8 lg:py-24">
-          <SectionHead
-            eyebrow="Instagram"
-            title="@m.biana"
-            action={{ href: instagramUrl, label: 'Follow →' }}
-          />
-          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+          <div className="mx-auto max-w-[42rem] text-center">
+            <p className="eyebrow">Instagram</p>
+            <h2 className="mt-3 font-display text-[clamp(2.2rem,5vw,3.8rem)] italic leading-[0.94] tracking-tight">
+              Follow Biana Hair Salon
+            </h2>
+            <p className="mx-auto mt-5 max-w-[40ch] text-[15px] leading-relaxed text-[#1a1208]/55">
+              Follow us on Instagram for the latest looks, hair inspiration and salon updates.
+            </p>
+          </div>
+          <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
             {instagramPreview.map((g) => (
               <a
                 key={g.src}
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative aspect-square overflow-hidden bg-[#f4efe8]"
+                aria-label={`${g.alt} on Instagram`}
+                className="group relative aspect-[4/5] min-w-0 overflow-hidden bg-[#f4efe8]"
               >
                 <Image
                   src={g.src}
                   alt={g.alt}
                   fill
-                  sizes="25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  sizes="(min-width: 1024px) 28vw, 50vw"
+                  className={`${g.crop} transition-transform duration-700 group-hover:scale-[1.04]`}
                 />
+                <span className="pointer-events-none absolute inset-0 bg-[#1a1208]/0 transition-colors duration-500 group-hover:bg-[#1a1208]/20" aria-hidden="true" />
+                <span
+                  className="pointer-events-none absolute inset-x-0 bottom-0 px-4 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-white opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  aria-hidden="true"
+                >
+                  @m.biana
+                </span>
               </a>
             ))}
+          </div>
+          <div className="mt-10 flex justify-center sm:mt-12">
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${buttonClass('solid')} min-h-11 px-8`}
+            >
+              Follow on Instagram
+            </a>
           </div>
         </div>
       </section>
