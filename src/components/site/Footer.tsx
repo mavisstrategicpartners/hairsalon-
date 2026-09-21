@@ -26,11 +26,11 @@ export function Footer() {
       <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 sm:px-10 lg:grid-cols-12 lg:px-16">
         <div className="lg:col-span-5">
           <Image
-            src="/images/logo-biana-hair.png"
+            src="/images/logo-biana-hair.jpg"
             alt="Biana Hair"
-            width={555}
-            height={545}
-            className="h-28 w-auto bg-transparent object-contain object-left sm:h-32"
+            width={1024}
+            height={682}
+            className="h-[5.5rem] w-auto max-w-[16rem] object-contain object-left sm:h-28 sm:max-w-[20rem]"
           />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-white/75">
             Johannesburg · By appointment

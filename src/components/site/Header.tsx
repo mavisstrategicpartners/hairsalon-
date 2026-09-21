@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Search, ShoppingBag, User } from 'lucide-react'
 import { useCartStore } from '@/lib/store'
 import { shopNavCollections } from '@/data/catalog'
@@ -35,6 +35,10 @@ export function Header() {
   const bagCount = hasHydrated ? totalItems : 0
   const shopCategories = shopNavCollections()
 
+  useEffect(() => {
+    void useCartStore.persist.rehydrate()
+  }, [])
+
   const linkClass = (href: string) => {
     const active = isActive(pathname, href)
     return `text-[#fff6ee]/80 hover:text-white ${active ? 'text-white' : ''}`
@@ -50,12 +54,12 @@ export function Header() {
       <div className="mx-auto flex h-[5.5rem] max-w-[1400px] items-center justify-between gap-4 px-5 sm:h-[6.5rem] sm:px-10 lg:px-16">
         <Link href="/" className="flex shrink-0 items-center" aria-label="Biana Hair home">
           <Image
-            src="/images/logo-biana-hair.png"
+            src="/images/logo-biana-hair.jpg"
             alt="Biana Hair"
-            width={555}
-            height={545}
+            width={1024}
+            height={682}
             priority
-            className="h-[4.5rem] w-auto bg-transparent object-contain object-left sm:h-[5.5rem]"
+            className="h-[3.5rem] w-auto object-contain sm:h-16"
           />
         </Link>
 
