@@ -33,7 +33,7 @@ export function Header() {
   const hasHydrated = useCartStore((state) => state.hasHydrated)
   const totalItems = useCartStore((state) => state.getTotalItems())
   const bagCount = hasHydrated ? totalItems : 0
-  const shopCategories = shopNavCollections()
+  const shopCategories = shopNavCollections().filter((c) => c.slug !== 'other-hair')
 
   useEffect(() => {
     void useCartStore.persist.rehydrate()

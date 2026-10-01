@@ -18,7 +18,9 @@ const accountLinks = [
 export function Footer() {
   const shopLinks = [
     { href: '/shop', label: 'All Hair' },
-    ...shopNavCollections().map((c) => ({ href: `/shop/${c.slug}`, label: c.name })),
+    ...shopNavCollections()
+      .filter((c) => c.slug !== 'other-hair')
+      .map((c) => ({ href: `/shop/${c.slug}`, label: c.name })),
   ]
 
   return (

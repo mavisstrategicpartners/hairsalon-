@@ -28,11 +28,13 @@ const featuredSlugs = [
 /** Featured products come from Supabase; refresh them within a minute. */
 export const revalidate = 60
 
-const shopCategories = shopNavCollections(hairProducts).map((c) => ({
-  name: c.name,
-  href: `/shop/${c.slug}`,
-  image: c.image,
-}))
+const shopCategories = shopNavCollections(hairProducts)
+  .filter((c) => c.slug !== 'other-hair')
+  .map((c) => ({
+    name: c.name,
+    href: `/shop/${c.slug}`,
+    image: c.image,
+  }))
 
 const galleryPreview = studioGallery
 
