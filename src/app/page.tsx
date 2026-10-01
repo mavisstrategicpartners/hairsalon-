@@ -18,7 +18,7 @@ const featuredSlugs = [
   'brazilian-body-wave',
   'brazilian-straight-micro-26',
   'malaysian-loose-curl-water-wig-30',
-  'malaysian-deep-curl',
+  'malaysian-deep-curl-wig-16',
   'italian-curls',
   'bouncy-body-wave-30',
   'raw-kinky-straight-14',
@@ -82,7 +82,7 @@ const homeServiceImageClass = {
 const benefits = [
   {
     title: 'Premium quality hair',
-    body: 'Single-donor units and bundles, finished in Johannesburg.',
+    body: 'Single-donor units and bundles, finished in Pretoria.',
   },
   {
     title: 'Professional service',
@@ -219,13 +219,13 @@ export default async function Home() {
 
       <section className="bg-white">
         <div className="grid lg:grid-cols-2">
-          <div className="relative min-h-[420px] overflow-hidden lg:min-h-[560px]">
+          <div className="relative min-h-[420px] overflow-hidden bg-white lg:min-h-[560px]">
             <Image
-              src="/images/products/malaysian-deep-curl-32.jpg"
-              alt="Malaysian Deep Curl"
+              src="/images/products/brazilian-body-wave-1.jpg"
+              alt="Brazillian straight and body wave"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-[center_62%]"
+              className="object-contain object-center p-6"
             />
           </div>
           <div className="flex flex-col justify-center bg-[#faf7f2] px-6 py-16 sm:px-12 lg:px-16">
@@ -235,7 +235,7 @@ export default async function Home() {
             </h2>
             <p className="mt-6 max-w-[42ch] text-[15px] leading-relaxed text-[#1a1208]/55">
               The core of the shop — wefts, pondo sets and melt-ready hairlines, chosen first, finished in
-              Johannesburg.
+              Pretoria.
             </p>
             <Link href="/shop/bundles" className={`${buttonClass('solid')} mt-8 w-fit`}>
               Shop Bundles
@@ -313,7 +313,7 @@ export default async function Home() {
                   />
                 </div>
               ) : (
-                <Link key={g.src} href="/gallery" className="group relative aspect-[3/4] overflow-hidden bg-[#f4efe8]">
+                <Link key={g.src} href={g.href ?? '/gallery'} className="group relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={g.src}
                     alt={g.alt}
@@ -349,7 +349,7 @@ export default async function Home() {
               What Our Clients Say
             </h2>
             <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-[#1a1208]/55">
-              From the Johannesburg studio, in their words.
+              From the Pretoria studio, in their words.
             </p>
           </div>
           <TestimonialsCarousel items={testimonials} />

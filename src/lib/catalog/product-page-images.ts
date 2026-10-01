@@ -4,7 +4,6 @@
  */
 const CLEANED_PRODUCT_FILES = new Set([
   'brazilian-body-wave-1.jpg',
-  'malaysian-deep-curl-32.jpg',
   'italian-curls-18.jpg',
   'bounce-curls-16.jpg',
   'malaysian-loose-curl-wig-30.jpg',

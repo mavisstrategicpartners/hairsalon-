@@ -49,7 +49,9 @@ export function ScrollExperience() {
           io.unobserve(entry.target)
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -8% 0px' }
+      // A ratio threshold never fires for sections taller than ~10 viewports
+      // (the studio grid on phones), leaving them invisible.
+      { threshold: 0, rootMargin: '0px 0px -8% 0px' },
     )
 
     const bindReveals = () => {
@@ -69,6 +71,9 @@ export function ScrollExperience() {
       main.querySelectorAll('img').forEach((img) => {
         if (!(img instanceof HTMLElement) || marked.has(img)) return
         if (img.hasAttribute('data-no-parallax')) return
+        // Product cards hydrate after layout; stamping their img/wrap
+        // classNames races React and throws a hydration mismatch.
+        if (img.closest('article')) return
         const wrap = img.parentElement
         if (!wrap) return
         if (wrap.getBoundingClientRect().height < 220) return
@@ -80,12 +85,22 @@ export function ScrollExperience() {
     }
 
     const bind = () => {
+      // Shop product grids hydrate inside Suspense. Stamping classes here
+      // races ProductCard and Header and shows a hydration overlay.
+      if (pathname === '/shop' || pathname.startsWith('/shop/') || pathname.startsWith('/product/')) {
+        return
+      }
       bindReveals()
       bindParallax()
     }
 
-    const start = window.requestAnimationFrame(bind)
-    const late = window.setTimeout(bind, 350)
+    // Layout hydrates before Suspense shop grids. Do not mutate classNames
+    // until the page tree has committed, or ProductCard mismatches SSR HTML.
+    let pageReady = false
+    const start = window.setTimeout(() => {
+      pageReady = true
+      bind()
+    }, 400)
 
     let ticking = false
     const updateParallax = () => {
@@ -109,18 +124,17 @@ export function ScrollExperience() {
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    updateParallax()
 
     let debounce: number | undefined
     const mo = new MutationObserver(() => {
+      if (!pageReady) return
       window.clearTimeout(debounce)
       debounce = window.setTimeout(bind, 80)
     })
     mo.observe(main, { childList: true, subtree: true })
 
     return () => {
-      window.cancelAnimationFrame(start)
-      window.clearTimeout(late)
+      window.clearTimeout(start)
       window.clearTimeout(debounce)
       window.removeEventListener('scroll', onScroll)
       motion.removeEventListener('change', applyReduced)

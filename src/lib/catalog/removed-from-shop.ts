@@ -1,6 +1,6 @@
 /**
- * Shop hides these slugs. Supabase rows are not deleted.
- * Includes SKUs with no matching real ZIP/catalogue photograph.
+ * Retired catalogue slugs. They are not in the bundled Shop catalogue and their
+ * Supabase rows are inactive; this keeps them out of the public product API too.
  */
 export const REMOVED_FROM_SHOP = new Set([
   'pondo-bundles-closure',
@@ -15,7 +15,6 @@ export const REMOVED_FROM_SHOP = new Set([
   'straight-full-frontal-20',
   'body-wave-bundle',
   'malesian-curly-water-wave',
-  'bouncy-body-wave-colour',
-  'crochet-hair-colour',
-  'raw-water-wave-micro-bonding',
+  'malaysian-deep-curl',
+  'malaysian-loose-curl-micro-24',
 ])

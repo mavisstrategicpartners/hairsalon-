@@ -16,11 +16,16 @@ export function SiteSearch({
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const [q, setQ] = useState('')
+  const [wasOpen, setWasOpen] = useState(open)
   const { products } = useStoreProducts(open)
+
+  if (open !== wasOpen) {
+    setWasOpen(open)
+    if (open) setQ('')
+  }
 
   useEffect(() => {
     if (open) {
-      setQ('')
       const t = window.setTimeout(() => inputRef.current?.focus(), 20)
       return () => window.clearTimeout(t)
     }

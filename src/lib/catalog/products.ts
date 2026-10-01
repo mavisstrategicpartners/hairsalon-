@@ -8,7 +8,7 @@ import {
 import { getVisibleShopProduct, listVisibleShopProducts } from '@/lib/catalog/shop-catalogue'
 
 /**
- * Storefront catalogue: the bundled 19-product Shop list with genuine
+ * Storefront catalogue: the bundled Shop list with genuine
  * catalogue photographs. Checkout still prices orders from Supabase.
  */
 export async function listStoreProducts(): Promise<Product[]> {

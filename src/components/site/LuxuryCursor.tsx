@@ -1,11 +1,19 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 
 type CursorMode = 'default' | 'hover' | 'view' | 'add' | 'text'
 
+const MOUSE_QUERY = '(hover: hover) and (pointer: fine)'
+
 function canUseMouseCursor() {
-  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  return window.matchMedia(MOUSE_QUERY).matches
+}
+
+function subscribeMouseCursor(onChange: () => void) {
+  const query = window.matchMedia(MOUSE_QUERY)
+  query.addEventListener('change', onChange)
+  return () => query.removeEventListener('change', onChange)
 }
 
 function readMode(el: Element | null): CursorMode {
@@ -41,13 +49,8 @@ export function LuxuryCursor() {
   const pos = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
   const visible = useRef(false)
   const raf = useRef(0)
-  const [ready, setReady] = useState(false)
+  const ready = useSyncExternalStore(subscribeMouseCursor, canUseMouseCursor, () => false)
   const [mode, setMode] = useState<CursorMode>('default')
-
-  useEffect(() => {
-    if (!canUseMouseCursor()) return
-    setReady(true)
-  }, [])
 
   useEffect(() => {
     if (!ready) return

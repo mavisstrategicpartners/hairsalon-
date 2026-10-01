@@ -87,11 +87,7 @@ export function TestimonialsCarousel({ items }: { items: Testimonial[] }) {
   )
 
   useEffect(() => {
-    if (reduce) {
-      settle(index)
-      return
-    }
-    const timeout = window.setTimeout(() => settle(index), SLIDE_MS + 40)
+    const timeout = window.setTimeout(() => settle(index), reduce ? 0 : SLIDE_MS + 40)
     return () => window.clearTimeout(timeout)
   }, [index, reduce, settle])
 

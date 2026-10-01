@@ -20,6 +20,14 @@ import { ActionButton } from '@/components/site/Button'
 import { useCartStore } from '@/lib/store'
 import { isCleanedProductImage, toProductDetailImage } from '@/lib/catalog/product-page-images'
 
+function isGalleryVideo(src: string) {
+  return src.split('?')[0].split('#')[0].toLowerCase().endsWith('.mp4')
+}
+
+function videoPreviewSrc(src: string) {
+  return src.includes('#') ? src : `${src}#t=0.5`
+}
+
 export function ProductDetail({
   product,
   related,
@@ -96,19 +104,34 @@ export function ProductDetail({
                     : 'absolute inset-0'
                 }
               >
-                <Image
-                  src={displayImage}
-                  alt={product.name}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  className={
-                    isCleanedProductImage(displayImage)
-                      ? 'object-contain object-center'
-                      : 'object-cover object-center'
-                  }
-                  onError={() => setFailedImages((current) => ({ ...current, [displayImage]: true }))}
-                />
+                {isGalleryVideo(displayImage) ? (
+                  <video
+                    src={videoPreviewSrc(displayImage)}
+                    className="h-full w-full object-cover object-center"
+                    controls
+                    muted
+                    playsInline
+                    preload="auto"
+                    onLoadedData={(event) => {
+                      const video = event.currentTarget
+                      if (video.currentTime < 0.1) video.currentTime = 0.5
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src={displayImage}
+                    alt={product.name}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 58vw, 100vw"
+                    className={
+                      isCleanedProductImage(displayImage)
+                        ? 'object-contain object-center'
+                        : 'object-cover object-center'
+                    }
+                    onError={() => setFailedImages((current) => ({ ...current, [displayImage]: true }))}
+                  />
+                )}
               </div>
             ) : (
               <div className="flex h-full min-h-[52vh] items-center justify-center lg:min-h-[78vh]">
@@ -119,27 +142,45 @@ export function ProductDetail({
           {gallery.length > 1 && !product.imageUnavailable ? (
             <div className="mt-3 grid grid-cols-3 gap-3">
               {gallery.map((src, i) => (
-                <button
+                <div
                   key={src}
-                  type="button"
-                  onClick={() => setPhotoIndex(i)}
                   className={`relative aspect-[4/5] overflow-hidden outline-1 -outline-offset-1 ${
                     isCleanedProductImage(src) ? 'bg-white' : 'bg-[#f7f4ee]'
                   } ${i === photoIndex ? 'outline-[#c9a84c]' : 'outline-[#c9a84c]/40'}`}
                 >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="18vw"
-                    className={
-                      isCleanedProductImage(src)
-                        ? 'object-contain object-center p-1.5'
-                        : 'object-cover object-center'
-                    }
-                    onError={() => setFailedImages((current) => ({ ...current, [src]: true }))}
+                  {isGalleryVideo(src) ? (
+                    <video
+                      src={videoPreviewSrc(src)}
+                      className="pointer-events-none h-full w-full object-cover object-center"
+                      muted
+                      playsInline
+                      preload="metadata"
+                      onLoadedData={(event) => {
+                        const video = event.currentTarget
+                        if (video.currentTime < 0.1) video.currentTime = 0.5
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="18vw"
+                      className={
+                        isCleanedProductImage(src)
+                          ? 'object-contain object-center p-1.5'
+                          : 'object-cover object-center'
+                      }
+                      onError={() => setFailedImages((current) => ({ ...current, [src]: true }))}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    aria-label={isGalleryVideo(src) ? 'Play video' : 'Show photo'}
+                    onClick={() => setPhotoIndex(i)}
+                    className="absolute inset-0"
                   />
-                </button>
+                </div>
               ))}
             </div>
           ) : null}
@@ -236,7 +277,7 @@ export function ProductDetail({
           </h2>
           <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
             {isService
-              ? 'Choose a voucher, pay by EFT, then write to us or call 083 670 2112 to hold a chair at 46 Plein Street.'
+              ? 'Choose a voucher, pay by EFT, then write to us or call 079 222 8318 to hold a chair at 223 Central Street, Pretoria Central.'
               : hairShippingCopy}
           </p>
         </article>

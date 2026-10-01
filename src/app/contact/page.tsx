@@ -119,17 +119,20 @@ export default function ContactPage() {
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="border-b border-border py-8 first:pt-0">
-            <h2 className="font-display text-3xl italic tracking-tight">Johannesburg</h2>
-            <p className="mt-1 text-[15px] text-muted-foreground">46 Plein Street</p>
-            <p className="mt-1 text-[15px] text-muted-foreground">Opposite Universal Church</p>
-            <p className="label-mono mt-4 text-faint">Mon – Fri · 09:00 – 18:00</p>
-            <p className="label-mono mt-1 text-faint">Sat · 09:00 – 14:00</p>
-            <p className="label-mono mt-1 text-faint">Sunday · Closed</p>
+            <h2 className="font-display text-3xl italic tracking-tight">Pretoria</h2>
+            <p className="mt-1 text-[15px] text-muted-foreground">223 Central Street, Central House</p>
+            <p className="mt-1 text-[15px] text-muted-foreground">3rd Floor, Salon 318</p>
+            <p className="mt-1 text-[15px] text-muted-foreground">Pretoria Central</p>
+            <p className="label-mono mt-4 text-faint">Mon – Sat · 08:30 – 19:00</p>
+            <p className="label-mono mt-1 text-faint">Sunday · 09:00 – 16:00</p>
           </div>
           <div className="border-b border-border py-8">
             <p className="label-mono text-faint">Direct</p>
-            <a href="tel:0836702112" className="mt-3 block text-[15px] text-muted-foreground hover:text-foreground">
-              083 670 2112
+            <a href="tel:0792228318" className="mt-3 block text-[15px] text-muted-foreground hover:text-foreground">
+              079 222 8318
+            </a>
+            <a href="tel:0765329843" className="block text-[15px] text-muted-foreground hover:text-foreground">
+              076 532 9843
             </a>
             <a
               href="mailto:info@bianahairsalon.com"

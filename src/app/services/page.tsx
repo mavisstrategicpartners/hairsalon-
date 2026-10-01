@@ -10,7 +10,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Our Services — Biana HAIR',
-  description: 'Installations, sew-in and micro-bonding at Biana Hair Salon in Johannesburg.',
+  description: 'Installations, sew-in and micro-bonding at Biana Hair Salon in Pretoria Central.',
 }
 
 const serviceImageClass = {
@@ -56,7 +56,7 @@ export default function ServicesPage() {
             Our Services
           </h1>
           <p className="mt-6 max-w-[46ch] animate-fade-up text-pretty text-[15px] leading-relaxed text-muted-foreground">
-            Installations, sew-in and micro-bonding at the Johannesburg studio. Enquire about the service
+            Installations, sew-in and micro-bonding at the Pretoria studio. Enquire about the service
             you need — hair to wear is in Shop.
           </p>
           <ul className="mt-8 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">

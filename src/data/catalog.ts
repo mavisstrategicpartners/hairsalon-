@@ -60,10 +60,10 @@ export const products: Product[] = [
     kind: 'service',
     image: '/images/products/service-voucher.webp',
     description:
-      'Professional wig installation in studio. Includes consultation and install. Redeem at 46 Plein Street.',
+      'Professional wig installation in studio. Includes consultation and install. Redeem at 223 Central Street, Pretoria Central.',
     specs: [
       { label: 'Duration', value: '90 min' },
-      { label: 'Redeem', value: 'Johannesburg studio' },
+      { label: 'Redeem', value: 'Pretoria studio' },
       { label: 'Includes', value: 'Consultation + install' },
       { label: 'Valid', value: '12 months' },
     ],
@@ -80,7 +80,7 @@ export const products: Product[] = [
     description: 'Dry cut, shaped to your face and density. 75 minutes in studio.',
     specs: [
       { label: 'Duration', value: '75 min' },
-      { label: 'Redeem', value: 'Johannesburg studio' },
+      { label: 'Redeem', value: 'Pretoria studio' },
     ],
   },
   {
@@ -94,7 +94,7 @@ export const products: Product[] = [
     description: 'Sew-in with closure or frontal melt. About 3 hours in studio.',
     specs: [
       { label: 'Duration', value: '3 hrs' },
-      { label: 'Redeem', value: 'Johannesburg studio' },
+      { label: 'Redeem', value: 'Pretoria studio' },
     ],
   },
   {
@@ -108,7 +108,7 @@ export const products: Product[] = [
     description: 'Custom colour on your hair or your unit. 2.5 hours.',
     specs: [
       { label: 'Duration', value: '2.5 hrs' },
-      { label: 'Redeem', value: 'Johannesburg studio' },
+      { label: 'Redeem', value: 'Pretoria studio' },
     ],
   },
   {
@@ -122,7 +122,7 @@ export const products: Product[] = [
     description: 'Wash, detangle, re-pluck and restyle an existing unit. 2 hours.',
     specs: [
       { label: 'Duration', value: '2 hrs' },
-      { label: 'Redeem', value: 'Johannesburg studio' },
+      { label: 'Redeem', value: 'Pretoria studio' },
     ],
   },
 ]
@@ -287,10 +287,10 @@ export const hairCareCopy =
   'Wash in cool water with a sulphate-free shampoo. Detangle from the ends up. Air-dry on a stand. Heat-style on a medium setting only, and store in a silk bag when not in use.'
 
 export const hairShippingCopy =
-  'Pay by EFT at checkout. We dispatch from Johannesburg in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
+  'Pay by EFT at checkout. We dispatch from Pretoria in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
 
 export const serviceRedeemCopy =
-  'Vouchers are valid for 12 months. Redeem at 46 Plein Street, Johannesburg. Bring your order confirmation. Book ahead so we can hold your chair.'
+  'Vouchers are valid for 12 months. Redeem at 223 Central Street, Central House, 3rd Floor, Salon 318, Pretoria Central. Bring your order confirmation. Book ahead so we can hold your chair.'
 
 export const instagramUrl = 'https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu'
 
@@ -298,36 +298,38 @@ export function serviceDuration(product: Product) {
   return product.specs.find((s) => s.label === 'Duration')?.value ?? 'By appointment'
 }
 
-export const workGallery = [
-  { src: '/images/gallery/curly-install-client.jpg', alt: 'Curly install' },
-  { src: '/images/gallery/blonde-balayage-unit.jpg', alt: 'Blonde balayage unit' },
-  { src: '/images/gallery/straight-lace-front-unit.jpg', alt: 'Straight lace front' },
-  { src: '/images/gallery/kinky-curly-branded.jpg', alt: 'Kinky curly hair' },
-  { src: '/images/gallery/body-wave-display.jpg', alt: 'Body wave display' },
-  { src: '/images/gallery/deep-wave-frontal-set.jpg', alt: 'Deep wave frontal set' },
-  { src: '/images/gallery/straight-bundles-closure.jpg', alt: 'Straight bundles and closure' },
-  { src: '/biana/gallery-2.jpg', alt: 'Studio work' },
-  { src: '/biana/gallery-3.jpg', alt: 'Finished unit' },
-  { src: '/biana/gallery-4.jpg', alt: 'Client hair' },
-  { src: '/images/gallery/ombre-bundles-closures.jpg', alt: 'Ombre bundles' },
-  { src: '/images/about-work.png', alt: 'Units in studio' },
-]
-
-/** Homepage “In the studio” — unique 11 Sep mannequin / studio photographs. */
+/** Homepage “In the studio” — wig videos, white studio product photographs and 11 Sep studio videos. */
 export type StudioMedia = {
   src: string
   alt: string
   kind?: 'image' | 'video'
+  href?: string
 }
 
 export const studioGallery: StudioMedia[] = [
-  { src: '/images/gallery/sep11/217.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/218.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/219.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/221.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/222.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/223.jpg', alt: 'Hair photographed 11 September 2026' },
-  { src: '/images/gallery/sep11/225.jpg', alt: 'Hair photographed 11 September 2026' },
+  { src: '/images/products/B11.mp4', alt: 'Luxury Donor Body Wave 24 inch', kind: 'video' },
+  { src: '/images/products/B12.mp4', alt: 'Luxury Donor 613 Body Wave 20 inch', kind: 'video' },
+  { src: '/images/products/B13.mp4', alt: 'Luxury Donor 613 Body Wave 20 inch', kind: 'video' },
+  { src: '/images/products/B14.mp4', alt: 'Luxury Donor Brown Body Wave 24 inch', kind: 'video' },
+  { src: '/images/products/brazilian-body-wave-1.jpg', alt: 'Brazillian straight and body wave', href: '/product/brazilian-body-wave' },
+  { src: '/images/products/brazilian-body-wave-2tone.jpg', alt: '2 toned brazillian straight and body wave', href: '/product/brazilian-body-wave-2tone' },
+  { src: '/images/products/brazilian-body-wave-micro-22.jpg', alt: 'Brazillian micro bonding & micro link hair', href: '/product/brazilian-body-wave-micro-22' },
+  { src: '/images/products/brazilian-straight-micro-26.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
+  { src: '/images/products/malaysian-loose-curl-wig-30.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
+  { src: '/images/products/malaysian-loose-curl-26.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
+  { src: '/images/products/malaysian-curly-water-wave.jpg', alt: '2 toned Malesian curly water wave', href: '/product/malesian-curly-water-wave-2tone' },
+  { src: '/images/products/italian-curls-18.jpg', alt: 'Itallian curl', href: '/product/italian-curls' },
+  { src: '/images/products/italian-curls-micro-28.jpg', alt: 'Itallian curls- micro bonding and micro link hair', href: '/product/italian-curls-micro-28' },
+  { src: '/images/products/raw-kinky-straight-14.jpg', alt: 'Raw kinky straight hair', href: '/product/raw-kinky-straight-14' },
+  { src: '/images/products/kinky-straight-micro-22.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
+  { src: '/images/products/bouncy-body-wave.jpg', alt: 'Bouncy body wave', href: '/product/bouncy-body-wave-30' },
+  { src: '/images/products/bounce-curls-16.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
+  { src: '/images/products/raw-hair-20.jpg', alt: 'Raw hair', href: '/product/raw-hair-20' },
+  { src: '/images/products/raw-colour-maroon-20.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
+  { src: '/images/products/raw-water-wave-platinum-28.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
+  { src: '/images/products/brazilian-water-wave-crochet-24.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
+  { src: '/images/products/crochet-hair-colour.jpg', alt: 'Crochet hair colour', href: '/product/crochet-hair-colour' },
+  { src: '/images/products/brazilian-kinky-deep-22.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
   { src: '/videos/sep11/065.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
   { src: '/videos/sep11/067.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
   { src: '/videos/sep11/185.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
@@ -361,85 +363,6 @@ export const studioGallery: StudioMedia[] = [
   { src: '/videos/sep11/213.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
   { src: '/videos/sep11/214.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
   { src: '/videos/sep11/224.mp4', alt: 'Studio video, 11 September 2026', kind: 'video' },
-]
-
-/** Gallery page — named photographs only, at most two real photos per exact product name. */
-export type SalonGalleryItem = { src: string; alt: string; href?: string }
-
-/** Placeholder alt used when a WhatsApp photograph had no product caption. Not a product name. */
-const UNNAMED_GALLERY_ALT = 'Hair photographed 11 September 2026'
-
-export function galleryItemHasPrice(item: Pick<SalonGalleryItem, 'href'>) {
-  return Boolean(item.href)
-}
-
-export function galleryItemName(item: Pick<SalonGalleryItem, 'alt'>) {
-  const name = item.alt.trim()
-  if (!name || name === UNNAMED_GALLERY_ALT || /\.(jpe?g|png|webp|gif)$/i.test(name)) {
-    return undefined
-  }
-  return name
-}
-
-export function galleryEnquireHref(item: Pick<SalonGalleryItem, 'alt'>) {
-  const name = galleryItemName(item)
-  if (!name) return '/contact'
-  const params = new URLSearchParams()
-  params.set('product', name)
-  return `/contact?${params.toString()}`
-}
-
-export const salonGallery: SalonGalleryItem[] = [
-  { src: '/images/gallery/sep11/063.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/066.jpg', alt: 'Body WeaveBrazilian  32 inch( 3 bundles) R6.7k', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/082.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/083.jpg', alt: '28 inch Brazilian Body Wave', href: '/product/brazilian-body-wave' },
-  { src: '/images/gallery/sep11/084.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
-  { src: '/images/gallery/sep11/085.jpg', alt: '2 tone Brazilian Body Wave', href: '/product/brazilian-body-wave-2tone' },
-  { src: '/images/gallery/sep11/086.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
-  { src: '/images/gallery/sep11/087.jpg', alt: 'Brazilian Body Wave Microbonding Microlink 22inch', href: '/product/brazilian-body-wave-micro-22' },
-  { src: '/images/gallery/sep11/088.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
-  { src: '/images/gallery/sep11/089.jpg', alt: 'Brazilian straight microbonding microlink 26 inch', href: '/product/brazilian-straight-micro-26' },
-  { src: '/images/gallery/sep11/090.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
-  { src: '/images/gallery/sep11/091.jpg', alt: 'Malaysian loose curl water wig 30 inches', href: '/product/malaysian-loose-curl-water-wig-30' },
-  { src: '/images/gallery/sep11/092.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/093.jpg', alt: 'Malaysian Deep Curl 32 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/094.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/095.jpg', alt: 'Malaysian Deep Curl 30 inch', href: '/product/malaysian-deep-curl' },
-  { src: '/images/gallery/sep11/097.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
-  { src: '/images/gallery/sep11/100.jpg', alt: 'Malaysian Loose Curl 26 inches', href: '/product/malaysian-loose-curl-26' },
-  { src: '/images/gallery/sep11/102.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
-  { src: '/images/gallery/sep11/104.jpg', alt: 'Malaysian Loose Curl Microlink 24 inch', href: '/product/malaysian-loose-curl-micro-24' },
-  { src: '/images/gallery/sep11/105.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/108.jpg', alt: 'Italian Curls 18 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/109.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/110.jpg', alt: 'Italian Curls 10 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/113.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/115.jpg', alt: 'Italian Curls 30 inch', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/116.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/117.jpg', alt: 'Italian Curls 24 inches', href: '/product/italian-curls' },
-  { src: '/images/gallery/sep11/120.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/123.jpg', alt: 'Italian Curls Microlink Microbonding 28 inches', href: '/product/italian-curls-micro-28' },
-  { src: '/images/gallery/sep11/126.jpg', alt: 'Raw hair 50 inches' },
-  { src: '/images/gallery/sep11/128.jpg', alt: 'Raw hair 50 inches' },
-  { src: '/images/gallery/sep11/130.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
-  { src: '/images/gallery/sep11/132.jpg', alt: 'Raw hair 20 inches', href: '/product/raw-hair-20' },
-  { src: '/images/gallery/sep11/135.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
-  { src: '/images/gallery/sep11/137.jpg', alt: 'Raw Colour Meroon 20inch', href: '/product/raw-colour-maroon-20' },
-  { src: '/images/gallery/sep11/139.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/141.jpg', alt: 'Raw Water Wave Microbonding Colour Platinum 28 inches', href: '/product/raw-water-wave-platinum-28' },
-  { src: '/images/gallery/sep11/145.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
-  { src: '/images/gallery/sep11/147.jpg', alt: 'Bouncy Body Wave 30 inches', href: '/product/bouncy-body-wave-30' },
-  { src: '/images/gallery/sep11/148.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
-  { src: '/images/gallery/sep11/150.jpg', alt: 'Bounce Curls 16 inch', href: '/product/bounce-curls-16' },
-  { src: '/images/gallery/sep11/151.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
-  { src: '/images/gallery/sep11/152.jpg', alt: 'Raw Kinky Straight 14 inches', href: '/product/raw-kinky-straight-14' },
-  { src: '/images/gallery/sep11/157.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/160.jpg', alt: 'Kinky Straight Microbonding and Microlink 22inch', href: '/product/kinky-straight-micro-22' },
-  { src: '/images/gallery/sep11/165.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/168.jpg', alt: 'Brazilian Water Wave Crochet 24 inches', href: '/product/brazilian-water-wave-crochet-24' },
-  { src: '/images/gallery/sep11/178.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
-  { src: '/images/gallery/sep11/183.jpg', alt: 'Brazilian Kinky Deep 22 inches', href: '/product/brazilian-kinky-deep-22' },
 ]
 
 export function toCartProduct(
