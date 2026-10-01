@@ -18,6 +18,7 @@ import {
 import { ProductCard } from '@/components/site/ProductCard'
 import { ActionButton } from '@/components/site/Button'
 import { useCartStore } from '@/lib/store'
+import { isCleanedProductImage, toProductDetailImage } from '@/lib/catalog/product-page-images'
 
 export function ProductDetail({
   product,
@@ -35,15 +36,19 @@ export function ProductDetail({
   })
   const [qty, setQty] = useState(1)
   const [photoIndex, setPhotoIndex] = useState(0)
+  const [failedImages, setFailedImages] = useState<Record<string, true>>({})
 
   const collectionSlug = product.kind === 'product' ? primaryCollectionSlug(product) : undefined
   const collection = collectionSlug ? getHairCollection(collectionSlug) : undefined
 
   const selectedLength = product.lengths?.[lengthIndex]
   const isService = product.kind === 'service'
-  const gallery = product.images && product.images.length > 0 ? product.images : [product.image]
+  const gallery = (product.images && product.images.length > 0 ? product.images : [product.image])
+    .map(toProductDetailImage)
+    .filter((src) => src && !failedImages[src])
   const displayPrice = priceForSelection(product, selectedLength)
-  const displayImage = gallery[Math.min(photoIndex, gallery.length - 1)]
+  const displayImage = gallery[Math.min(photoIndex, Math.max(gallery.length - 1, 0))]
+  const showHeroImage = Boolean(displayImage) && !product.imageUnavailable
 
   const addToBag = () => {
     addItem(toCartProduct(product, { length: selectedLength }), qty)
@@ -78,20 +83,37 @@ export function ProductDetail({
 
       <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <div className="relative min-h-[52vh] overflow-hidden bg-[#f7f4ee] outline-1 -outline-offset-1 outline-[#c9a84c]/40 lg:min-h-[78vh]">
-            {product.imageUnavailable ? (
+          <div
+            className={`relative min-h-[52vh] overflow-hidden outline-1 -outline-offset-1 outline-[#c9a84c]/40 lg:min-h-[78vh] ${
+              isCleanedProductImage(displayImage) ? 'bg-white' : 'bg-[#f7f4ee]'
+            }`}
+          >
+            {showHeroImage ? (
+              <div
+                className={
+                  isCleanedProductImage(displayImage)
+                    ? 'absolute inset-6 sm:inset-8'
+                    : 'absolute inset-0'
+                }
+              >
+                <Image
+                  src={displayImage}
+                  alt={product.name}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className={
+                    isCleanedProductImage(displayImage)
+                      ? 'object-contain object-center'
+                      : 'object-cover object-center'
+                  }
+                  onError={() => setFailedImages((current) => ({ ...current, [displayImage]: true }))}
+                />
+              </div>
+            ) : (
               <div className="flex h-full min-h-[52vh] items-center justify-center lg:min-h-[78vh]">
                 <p className="font-display text-2xl italic text-[#1a1208]/55">Image unavailable</p>
               </div>
-            ) : (
-              <Image
-                src={displayImage}
-                alt={product.name}
-                fill
-                priority
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                className="object-cover object-center"
-              />
             )}
           </div>
           {gallery.length > 1 && !product.imageUnavailable ? (
@@ -101,11 +123,22 @@ export function ProductDetail({
                   key={src}
                   type="button"
                   onClick={() => setPhotoIndex(i)}
-                  className={`relative aspect-[4/5] overflow-hidden bg-[#f7f4ee] outline-1 -outline-offset-1 ${
-                    i === photoIndex ? 'outline-[#c9a84c]' : 'outline-[#c9a84c]/40'
-                  }`}
+                  className={`relative aspect-[4/5] overflow-hidden outline-1 -outline-offset-1 ${
+                    isCleanedProductImage(src) ? 'bg-white' : 'bg-[#f7f4ee]'
+                  } ${i === photoIndex ? 'outline-[#c9a84c]' : 'outline-[#c9a84c]/40'}`}
                 >
-                  <Image src={src} alt="" fill sizes="18vw" className="object-cover object-center" />
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="18vw"
+                    className={
+                      isCleanedProductImage(src)
+                        ? 'object-contain object-center p-1.5'
+                        : 'object-cover object-center'
+                    }
+                    onError={() => setFailedImages((current) => ({ ...current, [src]: true }))}
+                  />
                 </button>
               ))}
             </div>

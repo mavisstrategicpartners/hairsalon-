@@ -247,9 +247,9 @@ export const priceListHairProducts: Product[] = [
     name: 'Malesian curly water wave',
     category: 'Bundles',
     tag: 'Water wave',
-    image: '/images/products/malaysian-loose-curl-wig-30.jpg',
+    image: '/images/products/malaysian-curly-water-wave.jpg',
     images: [
-      '/images/products/malaysian-loose-curl-wig-30.jpg',
+      '/images/products/malaysian-curly-water-wave.jpg',
       '/images/products/malaysian-loose-curl-26.jpg',
       '/images/products/malaysian-deep-curl-32.jpg',
       '/images/gallery/sep11/091.jpg',
@@ -499,7 +499,7 @@ export const priceListHairProducts: Product[] = [
   }),
   // DSC00529 and DSC00530 are pending unpriced photos at /images/products/pending/.
   // They are not shop products until the client supplies a name and price.
-hair({
+  hair({
     slug: 'malaysian-deep-curl',
     name: 'Malaysian Deep Curl',
     category: 'Bundles',
@@ -664,9 +664,9 @@ hair({
     name: 'Bouncy body wave',
     category: 'Bundles',
     tag: 'Bouncy',
-    image: '/images/products/bouncy-body-wave-30.jpg',
+    image: '/images/products/bouncy-body-wave.jpg',
     images: [
-      '/images/products/bouncy-body-wave-30.jpg',
+      '/images/products/bouncy-body-wave.jpg',
       '/images/gallery/sep11/146.jpg',
       '/images/gallery/sep11/147.jpg',
     ],
@@ -833,9 +833,9 @@ hair({
     name: 'Crochet hair colour',
     category: 'Bundles',
     tag: 'Crochet',
-    image: '/images/products/brazilian-water-wave-crochet-24.jpg',
+    image: '/images/products/crochet-hair-colour.jpg',
     images: [
-      '/images/products/brazilian-water-wave-crochet-24.jpg',
+      '/images/products/crochet-hair-colour.jpg',
       '/images/gallery/sep11/166.jpg',
       '/images/gallery/sep11/167.jpg',
       '/images/gallery/sep11/168.jpg',
