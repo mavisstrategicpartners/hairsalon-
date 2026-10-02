@@ -193,9 +193,8 @@ export default function ContactPage() {
             <h2 className="font-display text-3xl italic tracking-tight">Johannesburg</h2>
             <p className="mt-1 text-[15px] text-muted-foreground">46 Plein Street</p>
             <p className="mt-1 text-[15px] text-muted-foreground">Opposite Universal Church</p>
-            <p className="label-mono mt-4 text-faint">Mon – Fri · 09:00 – 18:00</p>
-            <p className="label-mono mt-1 text-faint">Sat · 09:00 – 14:00</p>
-            <p className="label-mono mt-1 text-faint">Sunday · Closed</p>
+            <p className="label-mono mt-4 text-faint">Mon – Sat · 08:30 – 19:00</p>
+            <p className="label-mono mt-1 text-faint">Sunday · 09:00 – 16:00</p>
           </div>
           <div className="border-b border-border py-8">
             <h2 className="font-display text-3xl italic tracking-tight">Pretoria</h2>
