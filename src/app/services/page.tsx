@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { buttonClass } from '@/components/site/Button'
+import { ServicePrices } from '@/components/site/ServicePrices'
 import {
   studioServiceEnquireHref,
   studioServices,
@@ -10,7 +11,8 @@ import {
 
 export const metadata: Metadata = {
   title: 'Our Services — Biana HAIR',
-  description: 'Installations, sew-in and micro-bonding at Biana Hair Salon in Pretoria Central.',
+  description:
+    'Installations, sew-in, micro-bonding and micro-linking at Biana Hair Salon in Johannesburg and Pretoria.',
 }
 
 const serviceImageClass = {
@@ -19,6 +21,8 @@ const serviceImageClass = {
   'sew-in': 'object-cover object-[center_42%] transition-transform duration-700 group-hover:scale-[1.04]',
   'micro-bonding':
     'object-cover object-[center_32%] transition-transform duration-700 group-hover:scale-[1.04]',
+  'micro-linking':
+    'object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]',
 } as const
 
 function ServiceVisual({ service, priority }: { service: StudioService; priority?: boolean }) {
@@ -30,7 +34,7 @@ function ServiceVisual({ service, priority }: { service: StudioService; priority
           alt={service.image.alt}
           fill
           priority={priority}
-          sizes="(min-width: 1024px) 30vw, (min-width: 768px) 80vw, 100vw"
+          sizes="(min-width: 1280px) 24vw, (min-width: 768px) 48vw, 100vw"
           className={serviceImageClass[service.slug]}
         />
       </div>
@@ -56,7 +60,7 @@ export default function ServicesPage() {
             Our Services
           </h1>
           <p className="mt-6 max-w-[46ch] animate-fade-up text-pretty text-[15px] leading-relaxed text-muted-foreground">
-            Installations, sew-in and micro-bonding at the Pretoria studio. Enquire about the service
+            Installations, sew-in, micro-bonding and micro-linking at our Johannesburg and Pretoria studios. Enquire about the service
             you need — hair to wear is in Shop.
           </p>
           <ul className="mt-8 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
@@ -76,7 +80,7 @@ export default function ServicesPage() {
 
       <section className="bg-[#faf7f2]">
         <div className="mx-auto max-w-[1400px] px-6 py-16 sm:px-8 lg:py-24">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-7 xl:gap-10">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-4 xl:gap-7">
             {studioServices.map((service, index) => (
               <article
                 key={service.slug}
@@ -98,9 +102,10 @@ export default function ServicesPage() {
                   ) : (
                     <div className="flex-1" />
                   )}
+                  <ServicePrices prices={service.prices} className="mt-6" />
                   <Link
                     href={studioServiceEnquireHref(service)}
-                    className={`${buttonClass('solid')} mt-8 w-full`}
+                    className={`${buttonClass('solid')} mt-6 w-full`}
                   >
                     Enquire Now
                   </Link>
@@ -118,7 +123,7 @@ export default function ServicesPage() {
             Write to us about a service
           </h2>
           <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-muted-foreground">
-            Tell us whether you need installations, sew-in or micro-bonding. We reply as soon as we can.
+            Tell us whether you need installations, sew-in, micro-bonding or micro-linking. We reply as soon as we can.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link href="/contact" className={buttonClass('solid')}>

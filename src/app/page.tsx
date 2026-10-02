@@ -10,6 +10,7 @@ import {
 import { listFeaturedStoreProducts } from '@/lib/catalog/products'
 import { buttonClass } from '@/components/site/Button'
 import { ProductCard } from '@/components/site/ProductCard'
+import { ServicePrices } from '@/components/site/ServicePrices'
 import { SilentVideo } from '@/components/site/SilentVideo'
 import { TestimonialsCarousel } from '@/components/site/TestimonialsCarousel'
 import { studioServiceEnquireHref, studioServices } from '@/data/studio-services'
@@ -77,12 +78,13 @@ const homeServiceImageClass = {
   'sew-in': 'object-cover object-[center_42%] transition-transform duration-700 group-hover:scale-[1.04]',
   'micro-bonding':
     'object-cover object-[center_32%] transition-transform duration-700 group-hover:scale-[1.04]',
+  'micro-linking': 'object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]',
 } as const
 
 const benefits = [
   {
     title: 'Premium quality hair',
-    body: 'Single-donor units and bundles, finished in Pretoria.',
+    body: 'Single-donor units and bundles, finished in Johannesburg and Pretoria.',
   },
   {
     title: 'Professional service',
@@ -235,7 +237,7 @@ export default async function Home() {
             </h2>
             <p className="mt-6 max-w-[42ch] text-[15px] leading-relaxed text-[#1a1208]/55">
               The core of the shop — wefts, pondo sets and melt-ready hairlines, chosen first, finished in
-              Pretoria.
+              Johannesburg and Pretoria.
             </p>
             <Link href="/shop/bundles" className={`${buttonClass('solid')} mt-8 w-fit`}>
               Shop Bundles
@@ -251,7 +253,7 @@ export default async function Home() {
             title="Services"
             action={{ href: '/services', label: 'View all services →' }}
           />
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
             {studioServices.map((service) => {
               const photo = service.homeImage ?? service.image
               return (
@@ -262,7 +264,7 @@ export default async function Home() {
                       src={photo.src}
                       alt={photo.alt}
                       fill
-                      sizes="(min-width: 1280px) 28vw, (min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 1280px) 22vw, (min-width: 640px) 50vw, 100vw"
                       className={homeServiceImageClass[service.slug]}
                     />
                   ) : null}
@@ -276,6 +278,7 @@ export default async function Home() {
                   ) : (
                     <div className="flex-1" />
                   )}
+                  <ServicePrices prices={service.prices} className="mt-5" />
                   <Link
                     href={studioServiceEnquireHref(service)}
                     className={`${buttonClass('solid')} mt-6 w-full`}
@@ -349,7 +352,7 @@ export default async function Home() {
               What Our Clients Say
             </h2>
             <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-[#1a1208]/55">
-              From the Pretoria studio, in their words.
+              From the Johannesburg and Pretoria studios, in their words.
             </p>
           </div>
           <TestimonialsCarousel items={testimonials} />

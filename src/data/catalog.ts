@@ -60,10 +60,10 @@ export const products: Product[] = [
     kind: 'service',
     image: '/images/products/service-voucher.webp',
     description:
-      'Professional wig installation in studio. Includes consultation and install. Redeem at 223 Central Street, Pretoria Central.',
+      'Professional wig installation in studio. Includes consultation and install. Redeem at 46 Plein Street, Johannesburg or 223 Central Street, Pretoria Central.',
     specs: [
       { label: 'Duration', value: '90 min' },
-      { label: 'Redeem', value: 'Pretoria studio' },
+      { label: 'Redeem', value: 'Johannesburg or Pretoria studio' },
       { label: 'Includes', value: 'Consultation + install' },
       { label: 'Valid', value: '12 months' },
     ],
@@ -80,7 +80,7 @@ export const products: Product[] = [
     description: 'Dry cut, shaped to your face and density. 75 minutes in studio.',
     specs: [
       { label: 'Duration', value: '75 min' },
-      { label: 'Redeem', value: 'Pretoria studio' },
+      { label: 'Redeem', value: 'Johannesburg or Pretoria studio' },
     ],
   },
   {
@@ -94,7 +94,7 @@ export const products: Product[] = [
     description: 'Sew-in with closure or frontal melt. About 3 hours in studio.',
     specs: [
       { label: 'Duration', value: '3 hrs' },
-      { label: 'Redeem', value: 'Pretoria studio' },
+      { label: 'Redeem', value: 'Johannesburg or Pretoria studio' },
     ],
   },
   {
@@ -108,7 +108,7 @@ export const products: Product[] = [
     description: 'Custom colour on your hair or your unit. 2.5 hours.',
     specs: [
       { label: 'Duration', value: '2.5 hrs' },
-      { label: 'Redeem', value: 'Pretoria studio' },
+      { label: 'Redeem', value: 'Johannesburg or Pretoria studio' },
     ],
   },
   {
@@ -122,7 +122,7 @@ export const products: Product[] = [
     description: 'Wash, detangle, re-pluck and restyle an existing unit. 2 hours.',
     specs: [
       { label: 'Duration', value: '2 hrs' },
-      { label: 'Redeem', value: 'Pretoria studio' },
+      { label: 'Redeem', value: 'Johannesburg or Pretoria studio' },
     ],
   },
 ]
@@ -287,10 +287,10 @@ export const hairCareCopy =
   'Wash in cool water with a sulphate-free shampoo. Detangle from the ends up. Air-dry on a stand. Heat-style on a medium setting only, and store in a silk bag when not in use.'
 
 export const hairShippingCopy =
-  'Pay by EFT at checkout. We dispatch from Pretoria in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
+  'Pay by EFT at checkout. We dispatch from Johannesburg in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
 
 export const serviceRedeemCopy =
-  'Vouchers are valid for 12 months. Redeem at 223 Central Street, Central House, 3rd Floor, Salon 318, Pretoria Central. Bring your order confirmation. Book ahead so we can hold your chair.'
+  'Vouchers are valid for 12 months. Redeem at 46 Plein Street, Johannesburg, or 223 Central Street, Central House, 3rd Floor, Salon 318, Pretoria Central. Bring your order confirmation. Book ahead so we can hold your chair.'
 
 export const instagramUrl = 'https://www.instagram.com/m.biana?igsi=dGI3NHNvZWJxNHhu'
 

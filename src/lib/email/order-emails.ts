@@ -193,7 +193,7 @@ export function buildCustomerEmail(order: OrderEmailOrder) {
       ${eftSectionHtml(order)}
 
       <p style="margin:32px 0 0;color:#6b6257;font-size:12px;">
-        Biana HAIR &middot; 223 Central Street, Central House, Salon 318, Pretoria Central
+        Biana HAIR &middot; 46 Plein Street, Johannesburg &middot; 223 Central Street, Central House, Salon 318, Pretoria Central
       </p>
     </div>
   </body>
@@ -214,7 +214,7 @@ Total: ${formatMoney(order.total)}
 Payment method: ${paymentLabel}
 Payment status: ${paymentState}
 ${eftSectionText(order)}
-Biana HAIR - 223 Central Street, Central House, Salon 318, Pretoria Central`
+Biana HAIR - 46 Plein Street, Johannesburg | 223 Central Street, Central House, Salon 318, Pretoria Central`
 
   return { subject: `Biana HAIR — order ${order.order_number}`, html, text }
 }

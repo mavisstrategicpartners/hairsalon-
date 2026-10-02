@@ -277,7 +277,7 @@ export function ProductDetail({
           </h2>
           <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
             {isService
-              ? 'Choose a voucher, pay by EFT, then write to us or call 079 222 8318 to hold a chair at 223 Central Street, Pretoria Central.'
+              ? 'Choose a voucher, pay by EFT, then write to us or call 083 670 2112 or 079 222 8318 to hold a chair at 46 Plein Street, Johannesburg or 223 Central Street, Pretoria Central.'
               : hairShippingCopy}
           </p>
         </article>

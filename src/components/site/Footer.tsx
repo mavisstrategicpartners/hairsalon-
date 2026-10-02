@@ -35,7 +35,7 @@ export function Footer() {
             className="h-[5.5rem] w-auto max-w-[16rem] object-contain object-left sm:h-28 sm:max-w-[20rem]"
           />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-white/75">
-            Pretoria Central · By appointment
+            Johannesburg · Pretoria · By appointment
           </p>
           <p className="mt-6 max-w-[38ch] text-sm leading-relaxed text-white/80">
             Raw, single-donor hair and in-studio styling. Prices in Rand. Pay by EFT.

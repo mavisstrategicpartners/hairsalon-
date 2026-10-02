@@ -33,7 +33,7 @@ export default function AboutPage() {
             way from the weft to the tip.
           </p>
           <p className="mt-4 text-pretty text-[15px] leading-relaxed text-muted-foreground">
-            Units are plucked, tinted and cut in our Pretoria studio, not drop-shipped. That is why the
+            Units are plucked, tinted and cut in our Johannesburg and Pretoria studios, not drop-shipped. That is why the
             collection stays small and why a piece sells out rather than being restocked overnight.
           </p>
 
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
             <Image
               src="/images/about-work.png"
-              alt="Stylist with finished units in the Pretoria studio"
+              alt="Stylist with finished units in the Johannesburg studio"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover object-[center_20%]"
