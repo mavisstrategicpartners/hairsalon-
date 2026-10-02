@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import {
   hairProducts,
   instagramUrl,
@@ -141,38 +142,59 @@ export default async function Home() {
 
   return (
     <div className="bg-white text-[#1a1208]">
-      <section className="relative w-full overflow-hidden bg-[#b8a48c]">
-        <div className="relative h-[calc(100svh-5.5rem)] w-full min-h-[22rem] max-h-[38rem] sm:h-auto sm:min-h-0 sm:aspect-[16/9] sm:max-h-[calc(100svh-6.5rem)]">
-          <Image
-            src="/images/hero-home.jpg"
-            alt="Woman wearing long highlighted wavy hair"
-            fill
-            priority
-            sizes="100vw"
-            data-no-parallax
-            className="object-cover object-[80%_10%] sm:object-[78%_center]"
-          />
-          <div className="pointer-events-none absolute inset-0 z-[5] bg-[linear-gradient(to_top,rgba(196,176,156,0.97)_0%,rgba(196,176,156,0.92)_26%,rgba(196,176,156,0.45)_44%,rgba(196,176,156,0)_62%)] sm:hidden" />
-          <div className="absolute inset-0 z-10 flex items-end sm:items-center">
-            <div className="w-full max-w-[1400px] px-5 pb-8 pt-6 sm:px-10 sm:py-0 lg:px-16">
-              <h1 className="max-w-[10ch] font-display text-[clamp(2.1rem,10vw,4.75rem)] font-normal italic leading-[0.96] tracking-tight text-[#2a1f16]">
-                Luxury hair,
-                <br />
-                made to be
-                <br />
-                yours.
-              </h1>
-              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-                <Link href="/shop" className={buttonClass('solid', 'min-w-[8.5rem]')}>
-                  Shop Hair
-                </Link>
-                <Link href="/contact" className={buttonClass('outline', 'min-w-[10.5rem]')}>
-                  Book a Service
-                </Link>
-              </div>
+      <section className="relative isolate flex w-full flex-col overflow-hidden bg-[#835c21] text-[#f8f2e8] lg:block lg:min-h-[calc(100svh-6.5rem)]">
+        {/* The photo is cut off at the women's waists, so it sits on the bottom edge and its top fades into
+            the backdrop, whose flat brown it shares. From lg the hero fills the screen with the women at the
+            right, the photo capped to the hero's height and to the room right of the headline (about 6.6em of
+            the h1 size, kept in step with it); below lg it runs full width under the copy. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-[5] bg-[radial-gradient(120%_100%_at_0%_0%,rgba(38,22,6,0.6)_0%,rgba(38,22,6,0.42)_30%,rgba(38,22,6,0.18)_60%,rgba(38,22,6,0)_90%)]"
+        />
+
+        <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-center px-6 py-10 sm:px-10 sm:py-12 lg:absolute lg:inset-0 lg:px-16 lg:py-0">
+          <div className="w-full sm:w-auto">
+            <h1 className="font-display text-[clamp(2.5rem,9vw,3.75rem)] font-normal leading-[1.02] tracking-[-0.01em] lg:text-[clamp(2.75rem,min(4.6vw,6.5svh),6rem)] lg:[text-shadow:0_2px_24px_rgba(20,10,2,0.45)]">
+              Luxury hair,
+              <br />
+              made to be <em className="italic">yours.</em>
+            </h1>
+            <div className="mt-7 flex gap-3 sm:flex-wrap lg:mt-6">
+              <Link
+                href="/shop"
+                className={buttonClass(
+                  'solid',
+                  'min-h-12 flex-1 gap-3 whitespace-nowrap border-[#7a2334] bg-[#7a2334] px-4 text-[0.62rem] text-[#f8f2e8] hover:border-[#93324a] hover:bg-[#93324a] sm:min-w-[9.5rem] sm:flex-none sm:px-6 sm:text-[0.66rem]'
+                )}
+              >
+                Shop Hair
+                <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
+              </Link>
+              <Link
+                href="/contact"
+                className={buttonClass(
+                  'outline',
+                  'min-h-12 flex-1 gap-3 whitespace-nowrap border-[#f8f2e8]/75 px-4 text-[0.62rem] text-[#f8f2e8] hover:border-[#f8f2e8] hover:bg-[#f8f2e8] hover:text-[#3a2609] sm:min-w-[11rem] sm:flex-none sm:px-6 sm:text-[0.66rem]'
+                )}
+              >
+                Book a Service
+                <ArrowRight className="size-3.5" strokeWidth={1.5} aria-hidden />
+              </Link>
             </div>
           </div>
         </div>
+
+        {/* Served as-is: the file is already a sharpened 2x upscale, and re-encoding would soften it. */}
+        <Image
+          src="/images/hero-three-women.jpg"
+          alt="Three women wearing Biana Hair units"
+          width={1374}
+          height={592}
+          unoptimized
+          preload
+          data-no-parallax
+          className="relative block h-auto w-full [mask-image:linear-gradient(to_bottom,transparent_0%,black_18%)] lg:absolute lg:bottom-0 lg:right-0 lg:w-[min(var(--hero-photo-max),calc((100svh_-_6.5rem)*2.32),calc((100%_-_max(0px,(100%_-_1400px)/2)_-_4rem_-_6.6*clamp(2.75rem,min(4.6vw,6.5svh),6rem))/0.97))] lg:[--hero-photo-max:64%] xl:[--hero-photo-max:72%]"
+        />
       </section>
 
       <section className="bg-white">
