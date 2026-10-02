@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { serviceProducts } from '@/data/catalog'
+import { POSTNET_FEE } from '@/lib/commerce/shipping'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 import type { OrderItemSnapshot } from '@/lib/supabase/types'
 
@@ -13,9 +14,6 @@ const SERVICE_PRICES = new Map(
   serviceProducts.map((service) => [service.slug, { name: service.name, price: service.price }])
 )
 
-/** Free courier above this subtotal, mirroring the published shipping policy. */
-export const FREE_SHIPPING_THRESHOLD = 2500
-export const STANDARD_SHIPPING_FEE = 120
 export const MAX_QUANTITY_PER_LINE = 99
 
 export type RequestedLine = {
@@ -187,10 +185,7 @@ export async function priceOrder(lines: RequestedLine[]): Promise<PricedOrder> {
   })
 
   const subtotalCents = items.reduce((sum, item) => sum + toCents(item.line_total), 0)
-  const shippingCents =
-    subtotalCents > toCents(FREE_SHIPPING_THRESHOLD) || subtotalCents === 0
-      ? 0
-      : toCents(STANDARD_SHIPPING_FEE)
+  const shippingCents = subtotalCents > 0 ? toCents(POSTNET_FEE) : 0
 
   return {
     items,

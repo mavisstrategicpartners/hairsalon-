@@ -4,6 +4,7 @@ import { useMemo, useSyncExternalStore } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { parseStoredOrder, readStoredOrderJson, type BankDetails } from '@/lib/commerce/eft'
+import { DELIVERY_LABEL } from '@/lib/commerce/shipping'
 import { formatZar } from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { buttonClass } from '@/components/site/Button'
@@ -84,8 +85,8 @@ export function OrderConfirmation({ bank }: { bank: BankDetails }) {
               <dd>{formatZar(order.subtotal)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-black/55">Courier</dt>
-              <dd>{order.shipping === 0 ? 'Free' : formatZar(order.shipping)}</dd>
+              <dt className="text-black/55">{DELIVERY_LABEL}</dt>
+              <dd>{formatZar(order.shipping)}</dd>
             </div>
             <div className="flex justify-between border-t border-border pt-3 text-base">
               <dt>Total</dt>

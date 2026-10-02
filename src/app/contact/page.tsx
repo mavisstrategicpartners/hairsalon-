@@ -238,7 +238,7 @@ export default function ContactPage() {
             <p className="label-mono text-faint">Business</p>
             <p className="mt-3 text-[15px] text-muted-foreground">Biana HAIR (Pty) Ltd</p>
             <p className="text-[15px] text-muted-foreground">Prices in ZAR, VAT included</p>
-            <p className="mt-2 text-[15px] text-muted-foreground">Pay by EFT. Free courier over R2 500.</p>
+            <p className="mt-2 text-[15px] text-muted-foreground">Pay by EFT. All orders are delivered via PostNet.</p>
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { formatMoney } from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { ActionButton, buttonClass } from '@/components/site/Button'
+import { DELIVERY_LABEL, shippingFor } from '@/lib/commerce/shipping'
 import { useCartStore } from '@/lib/store'
 
 export default function CartPage() {
@@ -12,7 +13,7 @@ export default function CartPage() {
   const subtotal = getTotalPrice()
   const currencies = [...new Set(items.map((item) => item.currency ?? 'ZAR'))]
   const currency = currencies.length === 1 ? currencies[0] : 'ZAR'
-  const shipping = currency === 'ZAR' && (subtotal === 0 || subtotal > 2500) ? 0 : currency === 'ZAR' ? 120 : 0
+  const shipping = currency === 'ZAR' ? shippingFor(subtotal) : 0
 
   return (
     <div className="bg-white">
@@ -86,8 +87,8 @@ export default function CartPage() {
                 <dd>{formatMoney(subtotal, currency)}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-black/55">Courier</dt>
-                <dd>{shipping === 0 ? 'Free' : formatMoney(shipping, currency)}</dd>
+                <dt className="text-black/55">{DELIVERY_LABEL}</dt>
+                <dd>{formatMoney(shipping, currency)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-4 text-base">
                 <dt>Total</dt>
@@ -105,7 +106,7 @@ export default function CartPage() {
               </ActionButton>
             )}
             <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
-              Free courier over R2 500 · 2–4 working days
+              Delivered via PostNet · 2–4 working days
             </p>
           </div>
         </aside>

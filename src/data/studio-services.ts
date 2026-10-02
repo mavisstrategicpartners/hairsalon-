@@ -22,7 +22,7 @@ export const studioServices: StudioService[] = [
     description: 'Professional wig installation in studio. Includes consultation and install.',
     prices: [
       { label: 'Basic', amount: 'R350' },
-      { label: 'Styling', amount: 'R350 – R750' },
+      { label: 'Styling', amount: 'From R450' },
     ],
     image: {
       src: '/images/gallery/sep11/223.jpg',

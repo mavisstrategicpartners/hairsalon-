@@ -92,7 +92,7 @@ const benefits = [
   },
   {
     title: 'Delivery you can trust',
-    body: 'EFT checkout. Free courier over R2 500, in 2–4 working days.',
+    body: 'EFT checkout. Delivered via PostNet in 2–4 working days.',
   },
 ]
 

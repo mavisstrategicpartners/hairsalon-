@@ -548,8 +548,11 @@ export const priceListHairProducts: Product[] = [
     name: 'Malaysian Curls Two Toned',
     category: 'Wigs',
     tag: 'Two toned',
-    image: '/images/products/pending/dsc00529.jpg',
-    images: ['/images/products/pending/dsc00529.jpg', '/images/products/pending/dsc00530.jpg'],
+    image: '/images/products/malaysian-curls-two-toned-32.jpg',
+    images: [
+      '/images/products/malaysian-curls-two-toned-32.jpg',
+      '/images/products/malaysian-curls-two-toned-32-smile.jpg',
+    ],
     description:
       'Malaysian Curls Two Toned. 32 inch. 13x4 frontal with 26 inch HD closure. Glueless.',
     length: '32"',

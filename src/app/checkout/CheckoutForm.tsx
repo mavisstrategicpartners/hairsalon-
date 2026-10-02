@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useCartStore } from '@/lib/store'
 import { storeOrder, type BankDetails, type PlacedOrder } from '@/lib/commerce/eft'
+import { DELIVERY_LABEL, shippingFor } from '@/lib/commerce/shipping'
 import { formatMoney, formatZar } from '@/data/catalog'
 import { PageHeader } from '@/components/site/PageHeader'
 import { ActionButton, buttonClass } from '@/components/site/Button'
@@ -25,7 +26,7 @@ export function CheckoutForm({ bank }: { bank: BankDetails }) {
     country: 'South Africa',
   })
 
-  const shippingCost = getTotalPrice() > 2500 || getTotalPrice() === 0 ? 0 : 120
+  const shippingCost = shippingFor(getTotalPrice())
   const total = getTotalPrice() + shippingCost
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,7 +102,7 @@ export function CheckoutForm({ bank }: { bank: BankDetails }) {
       >
         <div className="lg:col-span-7">
           <div className="border border-[#c9a84c]/40 bg-white p-8 text-[#070707]">
-            <p className="eyebrow">Shipping</p>
+            <p className="eyebrow">Delivery via PostNet</p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {(
                 [
@@ -210,8 +211,8 @@ export function CheckoutForm({ bank }: { bank: BankDetails }) {
                 <dd>{formatZar(getTotalPrice())}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-black/55">Courier</dt>
-                <dd>{shippingCost === 0 ? 'Free' : formatZar(shippingCost)}</dd>
+                <dt className="text-black/55">{DELIVERY_LABEL}</dt>
+                <dd>{formatZar(shippingCost)}</dd>
               </div>
               <div className="flex justify-between border-t border-border pt-3 text-base">
                 <dt>Total</dt>

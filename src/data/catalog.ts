@@ -287,7 +287,7 @@ export const hairCareCopy =
   'Wash in cool water with a sulphate-free shampoo. Detangle from the ends up. Air-dry on a stand. Heat-style on a medium setting only, and store in a silk bag when not in use.'
 
 export const hairShippingCopy =
-  'Pay by EFT at checkout. We dispatch from Johannesburg in 1–2 working days. Free courier on orders over R2 500. Standard delivery is 2–4 working days nationwide.'
+  'Pay by EFT at checkout. We dispatch from Johannesburg in 1–2 working days. All orders are delivered via PostNet for a flat R120 fee, in 2–4 working days nationwide.'
 
 export const serviceRedeemCopy =
   'Vouchers are valid for 12 months. Redeem at 46 Plein Street, Johannesburg, or 223 Central Street, Central House, 3rd Floor, Salon 318, Pretoria Central. Bring your order confirmation. Book ahead so we can hold your chair.'

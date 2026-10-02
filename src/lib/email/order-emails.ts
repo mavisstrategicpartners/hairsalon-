@@ -82,10 +82,8 @@ function totalsHtml(order: OrderEmailOrder) {
       <td style="padding:8px 0;text-align:right;">${formatMoney(order.subtotal)}</td>
     </tr>
     <tr>
-      <td style="padding:8px 0;">Shipping</td>
-      <td style="padding:8px 0;text-align:right;">${
-        Number(order.shipping) === 0 ? 'Free' : formatMoney(order.shipping)
-      }</td>
+      <td style="padding:8px 0;">PostNet delivery</td>
+      <td style="padding:8px 0;text-align:right;">${formatMoney(order.shipping)}</td>
     </tr>
     <tr>
       <td style="padding:12px 0 0;border-top:1px solid #1a1208;font-weight:700;">Total</td>
@@ -208,7 +206,7 @@ Your order
 ${itemRowsText(order.items)}
 
 Subtotal: ${formatMoney(order.subtotal)}
-Shipping: ${Number(order.shipping) === 0 ? 'Free' : formatMoney(order.shipping)}
+PostNet delivery: ${formatMoney(order.shipping)}
 Total: ${formatMoney(order.total)}
 
 Payment method: ${paymentLabel}
@@ -274,7 +272,7 @@ Items
 ${itemRowsText(order.items)}
 
 Subtotal: ${formatMoney(order.subtotal)}
-Shipping: ${Number(order.shipping) === 0 ? 'Free' : formatMoney(order.shipping)}
+PostNet delivery: ${formatMoney(order.shipping)}
 Total: ${formatMoney(order.total)}`
 
   return {
