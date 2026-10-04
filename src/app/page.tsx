@@ -142,19 +142,15 @@ export default async function Home() {
 
   return (
     <div className="bg-white text-[#1a1208]">
-      <section className="relative isolate flex w-full flex-col overflow-hidden bg-[#835c21] text-[#f8f2e8] lg:block lg:min-h-[calc(100svh-6.5rem)]">
-        {/* The photo is cut off at the women's waists, so it sits on the bottom edge and its top fades into
-            the backdrop, whose flat brown it shares. From lg the hero fills the screen with the women at the
-            right, the photo capped to the hero's height and to the room right of the headline (about 6.6em of
-            the h1 size, kept in step with it); below lg it runs full width under the copy. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-[5] bg-[radial-gradient(120%_100%_at_0%_0%,rgba(38,22,6,0.6)_0%,rgba(38,22,6,0.42)_30%,rgba(38,22,6,0.18)_60%,rgba(38,22,6,0)_90%)]"
-        />
-
+      <section className="relative isolate flex w-full flex-col overflow-hidden bg-white text-[#1a1208] lg:block lg:min-h-[calc(100svh-6.5rem)]">
+        {/* The photo is used exactly as supplied: white backdrop, women cut off at the waist on a grey strip.
+            From lg the hero fills the screen with the photo at the bottom right, capped to the hero's height and
+            to the room right of the headline (about 6.6em of the h1 size, kept in step with it, plus the first
+            woman's hair), and the grey strip carries on to the left edge; below lg it runs full width under
+            the copy. */}
         <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-center px-6 py-10 sm:px-10 sm:py-12 lg:absolute lg:inset-0 lg:px-16 lg:py-0">
           <div className="w-full sm:w-auto">
-            <h1 className="font-display text-[clamp(2.5rem,9vw,3.75rem)] font-normal leading-[1.02] tracking-[-0.01em] lg:text-[clamp(2.75rem,min(4.6vw,6.5svh),6rem)] lg:[text-shadow:0_2px_24px_rgba(20,10,2,0.45)]">
+            <h1 className="font-display text-[clamp(2.5rem,9vw,3.75rem)] font-normal leading-[1.02] tracking-[-0.01em] lg:text-[clamp(2.75rem,min(4.6vw,6.5svh),6rem)]">
               Luxury hair,
               <br />
               made to be <em className="italic">yours.</em>
@@ -174,7 +170,7 @@ export default async function Home() {
                 href="/contact"
                 className={buttonClass(
                   'outline',
-                  'min-h-12 flex-1 gap-3 whitespace-nowrap border-[#f8f2e8]/75 px-4 text-[0.62rem] text-[#f8f2e8] hover:border-[#f8f2e8] hover:bg-[#f8f2e8] hover:text-[#3a2609] sm:min-w-[11rem] sm:flex-none sm:px-6 sm:text-[0.66rem]'
+                  'min-h-12 flex-1 gap-3 whitespace-nowrap border-[#1a1208]/70 px-4 text-[0.62rem] text-[#1a1208] hover:border-[#1a1208] hover:bg-[#1a1208] hover:text-white sm:min-w-[11rem] sm:flex-none sm:px-6 sm:text-[0.66rem]'
                 )}
               >
                 Book a Service
@@ -184,17 +180,23 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Served as-is: the file is already a sharpened 2x upscale, and re-encoding would soften it. */}
-        <Image
-          src="/images/hero-three-women.jpg"
-          alt="Three women wearing Biana Hair units"
-          width={1374}
-          height={592}
-          unoptimized
-          preload
-          data-no-parallax
-          className="relative block h-auto w-full [mask-image:linear-gradient(to_bottom,transparent_0%,black_18%)] lg:absolute lg:bottom-0 lg:right-0 lg:w-[min(var(--hero-photo-max),calc((100svh_-_6.5rem)*2.32),calc((100%_-_max(0px,(100%_-_1400px)/2)_-_4rem_-_6.6*clamp(2.75rem,min(4.6vw,6.5svh),6rem))/0.97))] lg:[--hero-photo-max:64%] xl:[--hero-photo-max:72%]"
-        />
+        <div className="relative lg:absolute lg:bottom-0 lg:right-0 lg:w-[min(var(--hero-photo-max),calc((100svh_-_6.5rem)*1020/566),calc(100%_-_max(0px,(100%_-_1400px)/2)_-_7.5rem_-_6.6*clamp(2.75rem,min(4.6vw,6.5svh),6rem)))] lg:[--hero-photo-max:64%] xl:[--hero-photo-max:72%]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 right-0 hidden h-[calc(100%*69/566)] w-screen bg-[#e3e3e3] lg:block"
+          />
+          {/* Served as-is so the supplied photo isn't re-encoded. */}
+          <Image
+            src="/images/hero-four-women.png"
+            alt="Four women wearing Biana Hair units"
+            width={1020}
+            height={566}
+            unoptimized
+            preload
+            data-no-parallax
+            className="relative block h-auto w-full"
+          />
+        </div>
       </section>
 
       <section className="bg-white">
